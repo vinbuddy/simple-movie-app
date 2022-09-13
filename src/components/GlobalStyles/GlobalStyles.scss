@@ -1,0 +1,105 @@
+// reset css
+@import 'normalize.css';
+
+// font
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #f37515;
+    --black: #000;
+    --white: #fff;
+    --dark: #1d2024;
+
+    --text-color: #333;
+
+    // default layout
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed; // Tăng tốc độ hiển thị
+    // background-color: #000;
+}
+
+// Custom Scrollbar
+html ::-webkit-scrollbar {
+    border-radius: 0px;
+    width: 8px;
+}
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+html ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+html ::-webkit-scrollbar-track {
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+// reset
+input,
+button,
+[tabindex] {
+    outline: none;
+    border: none;
+}
+
+button {
+    background-color: transparent;
+}
+
+a[href] {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+// // custom Tippy tooltips
+// body {
+//     .tippy-box {
+//         border-radius: 8px;
+//         font-weight: 600;
+//         font-size: 1.6rem;
+//         line-height: 2.2rem;
+//         letter-spacing: 0.3px;
+//         background-color: rgba(84, 84, 84, 0.92);
+//     }
+
+//     .tippy-arrow {
+//         color: rgba(84, 84, 84, 0.92);
+//     }
+
+//     .tippy-content {
+//         padding: 8px 9px;
+//     }
+
+//     .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+//         top: -8px;
+//     }
+// }
