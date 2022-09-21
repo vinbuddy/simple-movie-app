@@ -1,0 +1,29 @@
+.menu-list {
+    transition: all linear 0.3s;
+}
+
+.menu-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 7px 0;
+
+    .menu-item {
+        width: 100%;
+        text-align: left;
+        justify-content: flex-start;
+        padding: 5px 30px 5px 14px;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        + .menu-item {
+            margin-left: 0;
+        }
+    }
+}
+
+.separate {
+    color: #ed4245;
+    border-top: 1px solid #ddd;
+}

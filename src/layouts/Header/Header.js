@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import { handleSignIn } from 'src/firebase/useFirebase';
+import { useContext } from 'react';
+
 // Bootstrap
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -8,13 +11,21 @@ import styles from './Header.module.scss';
 
 import images from 'src/assets/images';
 
-// icons
-import { FiSearch } from 'react-icons/fi';
-import { HiX } from 'react-icons/hi';
+// comps
+import ToggleTheme from 'src/components/ToggleTheme';
+import Button from 'src/components/Button';
+import Search from 'src/layouts/Search';
+
+import { FiChevronDown } from 'react-icons/fi';
+import { Menu } from 'src/components/Popper';
+
+import { UserContext } from 'src/context/UserContext';
 
 const cx = classNames.bind(styles);
 
 function Header() {
+    const userDataContext = useContext(UserContext);
+
     return (
         <div className={cx('header')}>
             <Container style={{ height: '100%' }}>
@@ -23,18 +34,41 @@ function Header() {
                         <img className={cx('logo')} src={images.logo} alt="" />
                     </Link>
 
-                    <div className={cx('search')}>
-                        <FiSearch className={cx('search-icon')} />
-                        <input className={cx('search-input')} placeholder="Search movie..." />
-                        <div className={cx('clear')}>
-                            <HiX className={cx('clear-icon')} />
-                        </div>
-                    </div>
+                    <Search />
 
-                    <label className={cx('theme-btn')} title="dark/light theme" for="toggle">
-                        <input type="checkbox" id="toggle" />
-                        <span></span>
-                    </label>
+                    {/* type: primary, normal, outline, rounded */}
+                    {/* size: smmall, medium (default), large */}
+
+                    <div className={cx('actions')}>
+                        {/* if user login -> display avatar */}
+                        {!!userDataContext ? (
+                            <>
+                                <ToggleTheme />
+                                <Menu>
+                                    <div className={cx('user-wrapper')}>
+                                        <img
+                                            className={cx('user-avatar')}
+                                            src={userDataContext.photoURL}
+                                            alt=""
+                                        />
+                                        <span className={cx('user-name')}>
+                                            {userDataContext.displayName}
+                                        </span>
+                                        <FiChevronDown className={cx('user-icon')} />
+                                    </div>
+                                </Menu>
+                            </>
+                        ) : (
+                            <>
+                                <ToggleTheme />
+                                <div style={{ marginLeft: 24 }}>
+                                    <Button onClick={handleSignIn} type="primary">
+                                        Sign in
+                                    </Button>
+                                </div>
+                            </>
+                        )}
+                    </div>
                 </div>
             </Container>
         </div>

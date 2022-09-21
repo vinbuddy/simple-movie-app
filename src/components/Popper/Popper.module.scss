@@ -1,0 +1,19 @@
+.popper-frame {
+    width: 100%;
+    background-color: var(--white);
+    box-shadow: 0 0 6px rgb(0 0 0 / 20%);
+    max-height: 80vh;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    border-radius: 7px;
+    animation: fadeIn ease-in 0.2s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
