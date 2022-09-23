@@ -26,7 +26,6 @@ function Search() {
     const [tvResult, setTvResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [noResult, setNoResult] = useState(false);
-
     const [showResult, setShowResult] = useState(true);
 
     const debouncedSearch = useDebounce(searchValue, 700);
@@ -59,7 +58,7 @@ function Search() {
             setLoading(false);
 
             // no result
-            if (movie.total_results === 0 || tv.total_results === 0) {
+            if (movie.total_results === 0 && tv.total_results === 0) {
                 setNoResult(true);
             } else {
                 setNoResult(false);

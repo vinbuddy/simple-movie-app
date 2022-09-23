@@ -1,0 +1,21 @@
+.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+.error-heading {
+    font-size: 5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--404-page-text);
+}
+
+.error-desc {
+    color: var(--404-page-text);
+    font-size: 1.7rem;
+    margin-bottom: 40px;
+}

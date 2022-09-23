@@ -4,11 +4,10 @@
     display: flex;
     width: 420px;
     height: 45px;
-    background-color: #e9ecef;
+    background-color: var(--input-background);
     border-radius: 7px;
     padding: 0 14px 0 22px;
     border: 2px solid transparent;
-    transition: all ease 0.3s;
 
     &:focus-within {
         border-color: #ced4da;
@@ -28,8 +27,8 @@
     height: 100%;
     font-size: 1.6rem;
     letter-spacing: 0.5px;
-    color: var(--black);
-    background-color: #e9ecef;
+    color: var(--input-color);
+    background-color: var(--input-background);
 }
 
 .clear {
@@ -132,5 +131,6 @@
         // color: var(--desc-color);
         // color: var(--primary);
         margin-top: 10px;
+        margin-bottom: 12px;
     }
 }

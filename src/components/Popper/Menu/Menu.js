@@ -21,7 +21,7 @@ const menuItems = [
         icon: <AiOutlineUser />,
     },
     {
-        title: 'Bookmark',
+        title: 'Saved',
         icon: <BsBookmark />,
     },
     {

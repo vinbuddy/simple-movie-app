@@ -1,5 +1,10 @@
 .header {
-    height: 70px;
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
     border-bottom: 1px solid var(--header-border);
     background-color: var(--header-background);
 }

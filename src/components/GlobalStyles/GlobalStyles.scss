@@ -10,10 +10,10 @@
     --white: #fff;
     --dark: #1d2024;
 
-    --input-color: #7c7c7c;
     --desc-color: #0000008a;
 
     // default layout
+    --header-height: 70px;
 }
 
 * {
@@ -36,6 +36,9 @@ body[data-theme='dark'] {
     --app-background: #1d2024;
     --header-border: transparent;
     --header-background: #22252830;
+    --input-background: #282c31;
+    --input-color: #fff;
+    --404-page-text: #fff;
 }
 
 body[data-theme='light'] {
@@ -43,6 +46,9 @@ body[data-theme='light'] {
     --app-background: #fff;
     --header-border: #ddd;
     --header-background: #fff;
+    --input-background: #e9ecef;
+    --input-color: #7c7c7c;
+    --404-page-text: #57626d;
 }
 
 body {
@@ -53,32 +59,34 @@ body {
     background-color: var(--app-background); // Tăng tốc độ hiển thị
 }
 
-// Custom Scrollbar
-html ::-webkit-scrollbar {
-    border-radius: 0px;
-    width: 8px;
-}
-html *::-webkit-scrollbar {
+// Custom All Scrollbar into Body
+body *::-webkit-scrollbar {
     border-radius: 0;
     width: 8px;
 }
 
-html ::-webkit-scrollbar-thumb {
+body *::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
-html *::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.15);
-}
-
-html ::-webkit-scrollbar-track {
-    border-radius: 0px;
+body *::-webkit-scrollbar-track {
+    border-radius: 0;
     background-color: rgba(0, 0, 0, 0);
 }
 
-html *::-webkit-scrollbar-track {
+// Custom scrollbara html
+html::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+html::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #f88a36;
+}
+
+html::-webkit-scrollbar-track {
     border-radius: 0;
     background-color: rgba(0, 0, 0, 0);
 }
@@ -95,7 +103,11 @@ button {
     background-color: transparent;
 }
 
-a[href] {
+a {
     text-decoration: none;
     color: var(--desc-color);
+
+    &:hover {
+        color: var(--desc-color);
+    }
 }

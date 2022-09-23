@@ -4,6 +4,7 @@ const routes = {
     rating: '/rating',
     uncoming: '/uncoming',
     playing: '/playing',
+    notFound: '*',
 };
 
 export default routes;
