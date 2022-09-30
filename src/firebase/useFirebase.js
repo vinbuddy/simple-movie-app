@@ -31,6 +31,7 @@ const handleSignOut = () => {
     signOut(auth)
         .then(() => {
             // Sign-out successful.
+            console.log('user sign out');
         })
         .catch((error) => {
             // An error happened.

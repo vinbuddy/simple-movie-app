@@ -46,8 +46,12 @@ function Search() {
         const fetchSearchAPI = async () => {
             setLoading(true);
 
-            const searchMovieURL = `${baseURL}search/movie?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${debouncedSearch}`;
-            const searchTvURL = `${baseURL}search/tv?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${debouncedSearch}`;
+            const searchMovieURL = `${baseURL}search/movie?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${encodeURIComponent(
+                debouncedSearch,
+            )}`;
+            const searchTvURL = `${baseURL}search/tv?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${encodeURIComponent(
+                debouncedSearch,
+            )}`;
 
             // call api
             let [movie, tv] = await Promise.all([

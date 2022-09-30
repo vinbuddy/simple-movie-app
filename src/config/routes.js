@@ -1,9 +1,10 @@
 const routes = {
     home: '/',
-    trending: '/trending',
-    rating: '/rating',
-    uncoming: '/uncoming',
-    playing: '/playing',
+    tv: '/tv',
+    search: '/search',
+    movie: '/movie',
+    saved: '/saved',
+    profile: '/profile',
     notFound: '*',
 };
 

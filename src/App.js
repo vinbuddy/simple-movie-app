@@ -16,7 +16,7 @@ function App() {
 
         let timer = setTimeout(() => {
             setPreloading(false);
-        }, loadingTime + 500);
+        }, loadingTime);
 
         return () => {
             clearTimeout(timer);

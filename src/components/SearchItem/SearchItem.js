@@ -3,9 +3,9 @@ import styles from './SearchItem.module.scss';
 
 import { Link } from 'react-router-dom';
 
-import Image from 'src/Image';
+import Image from '../Image';
 
-import formartDate from 'src/utils';
+import formartDate from 'src/utils/formatDate';
 
 const cx = classNames.bind(styles);
 

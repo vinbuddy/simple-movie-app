@@ -1,0 +1,19 @@
+.sidebar-wrapper {
+    --border-radius: 11px;
+
+    top: 70px; /* this is required for "sticky" to work */
+    position: sticky;
+    position: -webkit-sticky;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 12px 12px 12px 0;
+}
+
+.personal {
+    padding: 20px 0 20px 0;
+    margin-top: 20px;
+    border-top: 1px dotted var(--border-color-top-sidebar);
+}

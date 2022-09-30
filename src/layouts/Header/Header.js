@@ -16,10 +16,10 @@ import ToggleTheme from 'src/components/ToggleTheme';
 import Button from 'src/components/Button';
 import Search from 'src/layouts/Search';
 
-import { FiChevronDown } from 'react-icons/fi';
 import { Menu } from 'src/components/Popper';
 
 import { UserContext } from 'src/context/UserContext';
+import UserInfo from 'src/components/UserInfo';
 
 const cx = classNames.bind(styles);
 
@@ -44,23 +44,17 @@ function Header() {
                         {!!userDataContext ? (
                             <>
                                 <ToggleTheme />
+
+                                <div className={cx('separate')}></div>
+
                                 <Menu>
-                                    <div className={cx('user-wrapper')}>
-                                        <img
-                                            className={cx('user-avatar')}
-                                            src={userDataContext.photoURL}
-                                            alt=""
-                                        />
-                                        <span className={cx('user-name')}>
-                                            {userDataContext.displayName}
-                                        </span>
-                                        <FiChevronDown className={cx('user-icon')} />
-                                    </div>
+                                    <UserInfo />
                                 </Menu>
                             </>
                         ) : (
                             <>
                                 <ToggleTheme />
+
                                 <div style={{ marginLeft: 24 }}>
                                     <Button onClick={handleSignIn} type="primary">
                                         Sign in

@@ -1,0 +1,22 @@
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    color: var(--text-nav);
+    border-radius: 7px;
+
+    &:hover {
+        color: currentColor;
+    }
+}
+
+.nav-icon {
+    font-size: 2.4rem;
+    line-height: 0;
+}
+
+.nav-title {
+    line-height: 0;
+    font-size: var(--font-size-sidebar);
+    margin-left: 16px;
+}

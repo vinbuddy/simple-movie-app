@@ -13,11 +13,18 @@ function DefaultLayout({ children }) {
         <div>
             <Header />
             <div className={cx('wrapper')}>
-                <Container>
-                    <Sidebar />
-                    <div className={cx('content')}>{children}</div>
-                </Container>
+                <div className="container h-100">
+                    <div className="row h-100">
+                        <div className="col-2">
+                            <Sidebar />
+                        </div>
+                        <div className="col-10">
+                            <div className={cx('content')}>{children}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <footer style={{ height: 300, background: '#000' }}></footer>
         </div>
     );
 }

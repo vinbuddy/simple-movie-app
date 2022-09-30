@@ -9,7 +9,7 @@ import MenuItem from './MenuItem';
 // Icons
 import { AiOutlineUser } from 'react-icons/ai';
 import { BsBookmark } from 'react-icons/bs';
-import { IoIosLogOut } from 'react-icons/io';
+import { FiLogOut } from 'react-icons/fi';
 
 import { handleSignOut } from 'src/firebase/useFirebase';
 
@@ -26,7 +26,7 @@ const menuItems = [
     },
     {
         title: 'Log out',
-        icon: <IoIosLogOut />,
+        icon: <FiLogOut />,
         separate: true,
         onClick: handleSignOut,
     },
