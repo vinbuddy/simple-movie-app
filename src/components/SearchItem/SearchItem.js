@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Image from '../Image';
 
-import formartDate from 'src/utils/formatDate';
+import { formartDate } from 'src/utils/handleDate';
 
 const cx = classNames.bind(styles);
 

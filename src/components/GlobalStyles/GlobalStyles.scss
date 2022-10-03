@@ -14,6 +14,7 @@
     // default layout
     --header-height: 70px;
     --font-size-sidebar: 1.7rem;
+    --border-radius-banner: 16px;
 }
 
 * {
@@ -24,6 +25,7 @@
 
 html {
     font-size: 62.5%;
+    overflow: hidden;
 }
 
 body {

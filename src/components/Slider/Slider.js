@@ -8,15 +8,14 @@ import 'swiper/components/pagination/pagination.scss';
 
 SwiperCore.use([Autoplay, Navigation]);
 
-function Slider({ children }) {
+function Slider({ children, autoplay = false, ...props }) {
     return (
         <Swiper
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            {...props}
+            autoplay={autoplay}
             direction="horizontal"
             spaceBetween={0}
             slidesPerView={1}
-            navigation={true}
-            loop={true}
         >
             {children}
         </Swiper>

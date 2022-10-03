@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import styles from './BannerTrendingItem.module.scss';
+import styles from './BannerItem.module.scss';
 
-import getYear from 'src/utils/getYear';
+import { getYear } from 'src/utils/handleDate';
 import Button from '../Button';
 
 import { BsPlayCircle } from 'react-icons/bs';
 const cx = classNames.bind(styles);
 
-function BannerTrendingItem({ data }) {
+function BannerItem({ data }) {
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
     const year = getYear(data.release_date || data.first_air_date);
 
@@ -30,4 +30,4 @@ function BannerTrendingItem({ data }) {
     );
 }
 
-export default BannerTrendingItem;
+export default BannerItem;
