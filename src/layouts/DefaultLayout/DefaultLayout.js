@@ -13,8 +13,8 @@ function DefaultLayout({ children }) {
         <div>
             <Header />
             <div className={cx('wrapper')}>
-                <div className="container h-100">
-                    <div className="row h-100">
+                <div className="container">
+                    <div className="row">
                         <div className="col-2">
                             <Sidebar />
                         </div>

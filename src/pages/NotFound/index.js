@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 function NotFound() {
     return (
-        <div className={cx('error-page')}>
+        <div className={cx('error-page')} style={{ overflowX: 'hidden' }}>
             <img className={cx('error-img')} src={images.notFound} alt="" />
             <h1 className={cx('error-heading')}>404 ERROR</h1>
             <p className={cx('error-desc')}>

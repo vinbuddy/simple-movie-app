@@ -57,9 +57,15 @@
 }
 
 // sizes
+.mini {
+    font-size: 1.3rem;
+    min-width: 28px;
+    padding: 4px 10px;
+}
+
 .small {
-    min-width: 80px;
-    padding: 4px 14px;
+    min-width: 70px;
+    padding: 4px 12px;
 }
 
 .large {

@@ -1,0 +1,144 @@
+.gallery-wrapper {
+    margin-bottom: 50px;
+}
+
+.gallery-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.gallery-heading {
+    display: inline-block;
+
+    h1,
+    span {
+        font-size: 26px;
+        letter-spacing: 0.3px;
+        margin-bottom: 0;
+        font-weight: 700;
+        color: var(--text-color);
+    }
+}
+
+.gallery-list {
+    padding-bottom: 20px;
+
+    // &::-webkit-scrollbar {
+    //     background-color: transparent;
+    //     height: 8px;
+    // }
+
+    // &::-webkit-scrollbar-thumb:horizontal {
+    //     border-radius: 4px;
+    //     background-color: transparent;
+    // }
+
+    // &:hover {
+    //     // Custom All Scrollbar Horizontal when hover
+    //     &::-webkit-scrollbar:horizontal {
+    //         height: 8px;
+    //     }
+
+    //     &::-webkit-scrollbar-thumb:horizontal {
+    //         border-radius: 4px;
+    //         background-color: rgba(0, 0, 0, 0.35);
+    //     }
+
+    //     &::-webkit-scrollbar-track:horizontal {
+    //         border-radius: 0;
+    //         background-color: #f2f1f1;
+    //         border-radius: 4px;
+    //     }
+    // }
+}
+
+.gallery-item {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color-gallery-item);
+}
+
+.gallery-thumb {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    overflow: hidden;
+
+    &:hover img {
+        filter: brightness(0.55);
+        transform: scale(1.1);
+    }
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        filter: brightness(0.8);
+        transition: all ease 0.2s;
+        object-fit: cover;
+    }
+}
+
+.gallery-vote-wrapper {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+    top: 10px;
+    right: 10px;
+    background-color: #fafafa;
+    padding: 2px 5px;
+    border-radius: 10px;
+
+    .gallery-vote {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-left: 2px;
+        color: var(--black);
+    }
+
+    .gallery-vote-icon {
+        color: var(--primary);
+    }
+}
+
+.gallery-info {
+    padding: 7px 10px;
+}
+
+.gallery-name {
+    width: 100%;
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-color);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gallery-year {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: var(--text-nav);
+}
+
+.gallery-vote-count {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-nav);
+}
+
+.gallery-like-icon {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-nav);
+    margin-right: 3px;
+}

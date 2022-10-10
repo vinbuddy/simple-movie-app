@@ -6,6 +6,7 @@ import { getYear } from 'src/utils/handleDate';
 import Button from '../Button';
 
 import { BsPlayCircle } from 'react-icons/bs';
+import Image from '../Image';
 const cx = classNames.bind(styles);
 
 function BannerItem({ data }) {
@@ -14,7 +15,7 @@ function BannerItem({ data }) {
 
     return (
         <Link to="/watch" className={cx('banner-wrapper')}>
-            <img className={cx('banner-img')} src={`${baseImgURL}${data.backdrop_path}`} alt="" />
+            <Image className={cx('banner-img')} src={`${baseImgURL}${data.backdrop_path}`} alt="" />
             <div className={cx('banner-info')}>
                 <h2 className={cx('banner-name')}>{data.title || data.name}</h2>
                 <p className={cx('banner-overview')}>{data.overview}</p>

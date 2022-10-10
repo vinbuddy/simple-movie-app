@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './SwipeCard.module.scss';
+
 const cx = classNames.bind(styles);
 
 function SwipeCard({ children }) {

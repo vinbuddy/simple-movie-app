@@ -7,7 +7,7 @@ import config from 'src/config';
 
 import { CgScreenMirror } from 'react-icons/cg';
 import { BiSearch } from 'react-icons/bi';
-import { MdOutlineWidgets } from 'react-icons/md';
+import { MdOutlineWidgets, MdAirplay } from 'react-icons/md';
 import { AiOutlineUser } from 'react-icons/ai';
 import { RiMovie2Line } from 'react-icons/ri';
 import { BsBookmark } from 'react-icons/bs';
@@ -26,7 +26,7 @@ function Sidebar() {
                     Movie
                 </NavigateItem>
 
-                <NavigateItem to={config.routes.tv} leftIcon={<CgScreenMirror />}>
+                <NavigateItem to={config.routes.tv} leftIcon={<MdAirplay />}>
                     TV Show
                 </NavigateItem>
 

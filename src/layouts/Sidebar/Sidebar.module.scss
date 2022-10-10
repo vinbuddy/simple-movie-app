@@ -1,9 +1,7 @@
 .sidebar-wrapper {
-    --border-radius: 11px;
-
-    top: 70px; /* this is required for "sticky" to work */
     position: sticky;
     position: -webkit-sticky;
+    top: 70px;
 
     display: flex;
     flex-direction: column;

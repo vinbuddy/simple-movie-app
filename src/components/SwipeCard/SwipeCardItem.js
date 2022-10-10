@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import styles from './SwiperCardItem.module.scss';
+import styles from './SwipeCard.module.scss';
 
 import { getMonthYear } from 'src/utils/handleDate';
 
@@ -33,7 +33,7 @@ function SwipeCardItem({ data, pageNumber }) {
                 </a>
                 <div className="d-flex justify-content-between align-items-center">
                     <p className={cx('card-item-published')}>{publishedDate}</p>
-                    <spam>{pageNumber}/10</spam>
+                    <span>{pageNumber}/10</span>
                 </div>
             </div>
         </div>
