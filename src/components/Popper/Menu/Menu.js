@@ -10,29 +10,31 @@ import MenuItem from './MenuItem';
 import { AiOutlineUser } from 'react-icons/ai';
 import { BsBookmark } from 'react-icons/bs';
 import { FiLogOut } from 'react-icons/fi';
-
-import { handleSignOut } from 'src/firebase/useFirebase';
+import { useContext } from 'react';
+import { AuthContext } from 'src/context/AuthContext';
 
 const cx = classNames.bind(styles);
 
-const menuItems = [
-    {
-        title: 'Profile',
-        icon: <AiOutlineUser />,
-    },
-    {
-        title: 'Saved',
-        icon: <BsBookmark />,
-    },
-    {
-        title: 'Log out',
-        icon: <FiLogOut />,
-        separate: true,
-        onClick: handleSignOut,
-    },
-];
-
 function Menu({ children }) {
+    const { handleSignOut } = useContext(AuthContext);
+
+    const menuItems = [
+        {
+            title: 'Profile',
+            icon: <AiOutlineUser />,
+        },
+        {
+            title: 'Saved',
+            icon: <BsBookmark />,
+        },
+        {
+            title: 'Log out',
+            icon: <FiLogOut />,
+            separate: true,
+            onClick: handleSignOut,
+        },
+    ];
+
     const renderItem = () => {
         return menuItems.map((item, index) => <MenuItem key={index} itemData={item} />);
     };

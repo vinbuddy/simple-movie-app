@@ -18,7 +18,11 @@ export const getNews = async (q) => {
             },
         });
 
-        return res.data.articles;
+        const newArticles = res.data.articles;
+        // Get 10 articles
+        newArticles.splice(-90);
+
+        return newArticles;
     } catch (error) {
         console.log(error);
     }

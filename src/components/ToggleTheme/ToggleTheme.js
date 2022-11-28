@@ -10,7 +10,7 @@ function ToggleTheme() {
     const themeContextData = useContext(ThemeContext);
 
     return (
-        <label className={cx('theme-btn')} title="dark/light theme" htmlFor="toggle">
+        <label className={cx('theme-btn')} htmlFor="toggle">
             <input
                 checked={themeContextData.isDark}
                 type="checkbox"

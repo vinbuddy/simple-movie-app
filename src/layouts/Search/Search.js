@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react/headless';
 
@@ -17,6 +18,9 @@ import SearchItem from 'src/components/SearchItem';
 import { useDebounce } from 'src/hooks';
 
 import images from 'src/assets/images';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
+
+import LoadingBar from 'src/components/LoadingBar';
 
 const cx = classNames.bind(styles);
 
@@ -25,12 +29,14 @@ function Search() {
     const [movieResult, setMovieResult] = useState([]);
     const [tvResult, setTvResult] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [noResult, setNoResult] = useState(false);
+    const [isResult, setIsResult] = useState(true);
     const [showResult, setShowResult] = useState(true);
 
-    const debouncedSearch = useDebounce(searchValue, 700);
-
     const inputRef = useRef();
+
+    const navigateSearch = useNavigate();
+
+    const debouncedSearch = useDebounce(searchValue, 700);
 
     useEffect(() => {
         if (debouncedSearch.trim().length <= 0) {
@@ -63,9 +69,9 @@ function Search() {
 
             // no result
             if (movie.total_results === 0 && tv.total_results === 0) {
-                setNoResult(true);
+                setIsResult(false);
             } else {
-                setNoResult(false);
+                setIsResult(true);
             }
 
             setMovieResult(movie.results);
@@ -80,7 +86,7 @@ function Search() {
         setMovieResult([]);
         setTvResult([]);
 
-        setNoResult(false);
+        setIsResult(false);
         inputRef.current.focus();
     };
 
@@ -88,9 +94,39 @@ function Search() {
         setShowResult(false);
     };
 
+    const handleHideResultNavigate = () => {
+        setShowResult(false);
+        setSearchValue('');
+        inputRef.current.blur();
+    };
+
+    const handleNavigateSearch = (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            navigateSearch(
+                {
+                    pathname: '/search',
+                    search: `?search=${searchValue}`,
+                },
+                {
+                    replace: true,
+                    state: {
+                        searchParam: 'search',
+                    },
+                },
+            );
+
+            // clear, hide, remove focus when navigate
+            setShowResult(false);
+            setSearchValue('');
+            inputRef.current.blur();
+        }
+    };
+
     return (
         <div>
             <Tippy
+                placement="bottom-end"
+                popperOptions={{ modifiers: [{ name: 'flip', enabled: false }] }}
                 onClickOutside={handleHideResult}
                 visible={
                     (showResult && movieResult.length > 0) || (showResult && tvResult.length > 0)
@@ -105,15 +141,31 @@ function Search() {
                                         <h4 className={cx('search-heading')}>
                                             Movie for {searchValue}
                                         </h4>
-                                        <Link className={cx('search-detail')} to="/search">
+                                        <Link
+                                            className={cx('search-detail')}
+                                            to={{
+                                                pathname: '/search',
+                                                search: `?searchmovie=${searchValue}`,
+                                            }}
+                                            state={{ searchParam: 'searchmovie' }}
+                                            onClick={() => handleHideResultNavigate()}
+                                        >
                                             See more
                                             <MdOpenInNew style={{ marginLeft: 3 }} />
                                         </Link>
                                     </header>
                                     {/* Movie */}
-                                    {movieResult.map((result) => (
-                                        <SearchItem key={result.id} data={result} />
-                                    ))}
+                                    {movieResult
+                                        .filter(
+                                            (item) =>
+                                                item?.original_language !== 'ja' &&
+                                                item?.original_language !== 'ko',
+                                        )
+                                        .map((result) => (
+                                            <LazyLoadComponent key={result.id} threshold={70}>
+                                                <SearchItem data={result} />
+                                            </LazyLoadComponent>
+                                        ))}
                                 </div>
 
                                 <div className={cx('search-type')}>
@@ -121,15 +173,31 @@ function Search() {
                                         <h4 className={cx('search-heading')}>
                                             Tv for {searchValue}
                                         </h4>
-                                        <Link className={cx('search-detail')} to="/search">
+                                        <Link
+                                            className={cx('search-detail')}
+                                            to={{
+                                                pathname: '/search',
+                                                search: `?searchtv=${searchValue}`,
+                                            }}
+                                            state={{ searchParam: 'searchtv' }}
+                                            onClick={() => handleHideResultNavigate()}
+                                        >
                                             See more
                                             <MdOpenInNew style={{ marginLeft: 3 }} />
                                         </Link>
                                     </header>
                                     {/* Tv api */}
-                                    {tvResult.map((result) => (
-                                        <SearchItem key={result.id} data={result} />
-                                    ))}
+                                    {tvResult
+                                        .filter(
+                                            (item) =>
+                                                item?.original_language !== 'ja' &&
+                                                item?.original_language !== 'ko',
+                                        )
+                                        .map((result) => (
+                                            <LazyLoadComponent key={result.id} threshold={70}>
+                                                <SearchItem data={result} />
+                                            </LazyLoadComponent>
+                                        ))}
                                 </div>
                             </div>
                         </PopperFrame>
@@ -141,13 +209,19 @@ function Search() {
                     <input
                         className={cx('search-input')}
                         ref={inputRef}
-                        value={searchValue}
+                        value={searchValue.trimStart()}
                         spellCheck={false}
-                        placeholder="Search movie..."
+                        placeholder="Search movie, tv..."
                         onChange={(e) => {
                             setSearchValue(e.target.value);
                         }}
-                        onFocus={() => setShowResult(true)}
+                        onFocus={() => {
+                            setShowResult(true);
+
+                            // isResult && setIsResult(false);
+                        }}
+                        onKeyUp={handleNavigateSearch}
+                        onBlur={() => setIsResult(true)}
                     />
                     {!!searchValue && (
                         <button className={cx('clear')} onClick={handleClear}>
@@ -155,10 +229,10 @@ function Search() {
                         </button>
                     )}
 
-                    {loading && <div className={cx('loading')}></div>}
+                    {loading && <LoadingBar top="100%" width="100%" />}
 
                     {/* No result */}
-                    {noResult && searchValue !== '' && (
+                    {!isResult && searchValue !== '' && (
                         <div className={cx('no-result')}>
                             <PopperFrame>
                                 <img src={images.noResult} alt="" />

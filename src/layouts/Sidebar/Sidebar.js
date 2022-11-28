@@ -22,12 +22,12 @@ function Sidebar() {
                     Home
                 </NavigateItem>
 
-                <NavigateItem to={config.routes.movie} leftIcon={<RiMovie2Line />}>
+                <NavigateItem to={config.routes.movies} leftIcon={<RiMovie2Line />}>
                     Movie
                 </NavigateItem>
 
-                <NavigateItem to={config.routes.tv} leftIcon={<MdAirplay />}>
-                    TV Show
+                <NavigateItem to={config.routes.tvs} leftIcon={<MdAirplay />}>
+                    TV
                 </NavigateItem>
 
                 <NavigateItem to={config.routes.search} leftIcon={<BiSearch />}>

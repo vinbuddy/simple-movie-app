@@ -20,6 +20,10 @@
             margin-right: -4px;
         }
     }
+
+    &:hover {
+        color: var(--text-nav);
+    }
 }
 
 .action-icon {

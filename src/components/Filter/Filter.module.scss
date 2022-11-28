@@ -1,0 +1,47 @@
+.genre-wrapper {
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    padding-bottom: 16px;
+    margin-bottom: 25px;
+    background-color: var(--app-background);
+
+    &::-webkit-scrollbar:horizontal {
+        height: 11px;
+    }
+
+    &::-webkit-scrollbar-thumb:horizontal {
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    &::-webkit-scrollbar-track:horizontal {
+        border-radius: 0;
+        // background-color: #f2f1f1;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+}
+
+.genre-item {
+    min-width: 126px;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 8px 12px;
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--border-color-genre-item);
+    margin-right: 10px;
+    border-radius: 24px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.genre-active {
+        background-color: var(--primary);
+        color: var(--white);
+        border-color: transparent;
+    }
+}

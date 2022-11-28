@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
-import { handleSignIn } from 'src/firebase/useFirebase';
+import { Link, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 
+import TippyToolTips from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
+
 // Bootstrap
-import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import classNames from 'classnames/bind';
@@ -19,19 +21,21 @@ import Search from 'src/layouts/Search';
 import { Menu } from 'src/components/Popper';
 
 import { UserContext } from 'src/context/UserContext';
-import UserInfo from 'src/components/UserInfo';
+import { UserInfo } from 'src/components/UserInfo';
 
 const cx = classNames.bind(styles);
 
 function Header() {
     const userDataContext = useContext(UserContext);
+    const location = useLocation();
 
     return (
         <div className={cx('header')}>
-            <Container style={{ height: '100%' }}>
+            <div className="container" style={{ height: '100%' }}>
                 <div className={cx('inner')}>
-                    <Link to="/">
+                    <Link className={cx('logo-wrapper')} to="/">
                         <img className={cx('logo')} src={images.logo} alt="" />
+                        <h2>Simple Not Trivial</h2>
                     </Link>
 
                     <Search />
@@ -43,7 +47,15 @@ function Header() {
                         {/* if user login -> display avatar */}
                         {!!userDataContext ? (
                             <>
-                                <ToggleTheme />
+                                <TippyToolTips
+                                    animation="scale"
+                                    delay={[500, 0]}
+                                    content="Dark / Light"
+                                >
+                                    <label style={{ lineHeight: 0 }}>
+                                        <ToggleTheme />
+                                    </label>
+                                </TippyToolTips>
 
                                 <div className={cx('separate')}></div>
 
@@ -53,10 +65,22 @@ function Header() {
                             </>
                         ) : (
                             <>
-                                <ToggleTheme />
+                                <TippyToolTips
+                                    animation="scale"
+                                    delay={[500, 0]}
+                                    content="Dark / Light"
+                                >
+                                    <label style={{ lineHeight: 0 }}>
+                                        <ToggleTheme />
+                                    </label>
+                                </TippyToolTips>
 
                                 <div style={{ marginLeft: 24 }}>
-                                    <Button onClick={handleSignIn} type="primary">
+                                    <Button
+                                        to="/login"
+                                        state={{ prevPath: location.pathname }}
+                                        type="primary"
+                                    >
                                         Sign in
                                     </Button>
                                 </div>
@@ -64,7 +88,7 @@ function Header() {
                         )}
                     </div>
                 </div>
-            </Container>
+            </div>
         </div>
     );
 }

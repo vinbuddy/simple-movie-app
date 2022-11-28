@@ -13,7 +13,7 @@
 
     // default layout
     --header-height: 70px;
-    --font-size-sidebar: 1.7rem;
+    --font-size-sidebar: 1.8rem;
     --border-radius-banner: 16px;
 }
 
@@ -21,17 +21,12 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    image-rendering: optimizeSpeed;
-    text-rendering: optimizeSpeed;
-    scroll-behavior: smooth;
 }
 
 html {
     font-size: 62.5%;
-}
-
-body {
-    transition: all ease 0.3s;
+    scroll-behavior: smooth;
+    // contain: paint;
 }
 
 // theme
@@ -49,36 +44,52 @@ body[data-theme='dark'] {
     --personal-list-background: #22262b;
     --border-color-top-sidebar: #444;
     --border-color-gallery-item: #282c31;
+    --border-color-genre-item: #282c31;
+    --border-color-sortby-option: #282c31;
+
+    --go-top-background: #fff;
+    --go-top-color: var(--primary);
+    --thumb-gallery-background: #282c31;
+    --tab-background: #282c31;
 }
 
 body[data-theme='light'] {
     --text-color: #000;
     --app-background: #fff;
+    // --app-background: rgb(245, 245, 245);
     --header-border: #ddd;
     --header-background: #fff;
     --footer-background: #fff;
     --input-background: #e9ecef;
+    --nav-background: #e9ecef;
+    --personal-list-background: #e4e4e438;
     --input-color: #7c7c7c;
     --404-page-text: #57626d;
     --text-nav: #54585c;
-    --nav-background: #e9ecef;
-    --personal-list-background: #e4e4e438;
     --border-color-top-sidebar: #ddd;
     --border-color-gallery-item: #ddd;
+    --border-color-genre-item: #ddd;
+    --border-color-sortby-option: #ddd;
+    --go-top-background: var(--primary);
+    --go-top-color: #fff;
+
+    --thumb-gallery-background: #e9ecef;
+    --tab-background: #e9ecef;
 }
 
 body {
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
-    text-rendering: optimizeSpeed;
-    background-color: var(--app-background); // Tăng tốc độ hiển thị
+    background-color: var(--app-background);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 // Custom All Scrollbar Vertical into Body
 body *::-webkit-scrollbar {
     border-radius: 0;
-    width: 8px;
+    width: 10px;
 }
 
 body *::-webkit-scrollbar-thumb {
@@ -92,38 +103,38 @@ body *::-webkit-scrollbar-track {
 }
 
 // Custom scrollbar html
-html::-webkit-scrollbar {
-    border-radius: 0;
-    width: 8px;
-}
+// html::-webkit-scrollbar {
+//     border-radius: 0;
+//     width: 8px;
+// }
 
-html::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: #f88a36;
-}
+// html::-webkit-scrollbar-thumb {
+//     border-radius: 4px;
+//     background-color: #f88a36;
+// }
 
-html::-webkit-scrollbar-track {
-    // border-radius: 0;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    background-color: #f5f5f5;
-}
+// html::-webkit-scrollbar-track {
+//     // border-radius: 0;
+//     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+//     border-radius: 10px;
+//     background-color: #f5f5f5;
+// }
 
-html::-webkit-scrollbar:horizontal {
-    border-radius: 0;
-    height: 0;
-    background-color: transparent;
-}
+// html::-webkit-scrollbar:horizontal {
+//     border-radius: 0;
+//     height: 0;
+//     background-color: transparent;
+// }
 
-html::-webkit-scrollbar-thumb:horizontal {
-    border-radius: 4px;
-    background-color: transparent;
-}
+// html::-webkit-scrollbar-thumb:horizontal {
+//     border-radius: 4px;
+//     background-color: transparent;
+// }
 
-html::-webkit-scrollbar-track:horizontal {
-    border-radius: 10px;
-    background-color: transparent;
-}
+// html::-webkit-scrollbar-track:horizontal {
+//     border-radius: 10px;
+//     background-color: transparent;
+// }
 
 // reset
 input,
@@ -149,4 +160,138 @@ a {
 ul {
     list-style: none;
     padding-left: 0;
+}
+
+// custom Tippy
+body {
+    .tippy-box {
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 1.4rem;
+        line-height: 2.2rem;
+        letter-spacing: 0.3px;
+        background-color: #fff;
+        box-shadow: rgb(0 0 0 / 20%) 0 2px 14px;
+        // transition: ease-in 0.3s;
+    }
+
+    .tippy-arrow {
+        color: #fff;
+    }
+
+    .tippy-content {
+        width: max-content;
+        color: #000;
+        padding: 8px 12px;
+        box-shadow: (0 0 0 / 20%) 0 4px 22px;
+    }
+
+    .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+        top: -8px;
+    }
+}
+
+.spin {
+    animation: spin 0.27s linear infinite;
+}
+
+.blink {
+    animation: blink 1s linear infinite alternate;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes showDropdown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Lazyload
+.lazy-load-image-background {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%; // flag
+    overflow: hidden;
+}
+
+.lazy-load-image-background.blur.lazy-load-image-loaded {
+    filter: blur(0);
+    transition: filter 0.3s;
+}
+
+.lazy-load-image-background.blur {
+    -webkit-filter: blur(15px);
+    filter: blur(15px);
+}
+
+.lazy-load-image-background.blur > img {
+    opacity: 0;
+}
+
+.lazy-load-image-background.blur.lazy-load-image-loaded > img {
+    opacity: 1;
+    transition: all ease-in-out 0.2s;
+}
+
+// Break point
+@media (min-width: 992px) {
+    .col-md-1-5 {
+        width: 20%;
+    }
+    .col-md-2-5 {
+        width: 40%;
+    }
+    .col-md-3-5 {
+        width: 60%;
+    }
+    .col-md-4-5 {
+        width: 80%;
+    }
+    .col-md-5-5 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-1-5 {
+        width: 20%;
+    }
+    .col-lg-2-5 {
+        width: 40%;
+    }
+    .col-lg-3-5 {
+        width: 60%;
+    }
+    .col-lg-4-5 {
+        width: 80%;
+    }
+    .col-lg-5-5 {
+        width: 100%;
+    }
 }

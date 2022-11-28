@@ -27,16 +27,17 @@
 .primary {
     color: var(--white);
     background-color: var(--primary);
-    border-radius: 5px;
+    border-radius: 6px;
 
     &:hover {
         color: var(--white);
+        opacity: 0.8;
     }
 }
 
 .outline {
     color: var(--primary);
-    border-radius: 5px;
+    border-radius: 6px;
     border-color: 1px solid var(--primary);
 
     &:hover {

@@ -5,6 +5,9 @@ import routes from './routes';
 import DefaultLayout from './layouts/DefaultLayout';
 
 import Preloader from './components/Preloader';
+import { ScrollToTop } from './components/ScrollToTop';
+
+import { FilterProvider } from './context/FilterContext';
 
 function App() {
     const [preloading, setPreloading] = useState(true);
@@ -26,6 +29,9 @@ function App() {
     return (
         <Router>
             <div className="app">
+                {/* Scroll to top */}
+                <ScrollToTop />
+
                 {preloading ? (
                     <Preloader />
                 ) : (
@@ -43,7 +49,13 @@ function App() {
                                     path={route.path}
                                     element={
                                         <Layout>
-                                            <Page />
+                                            {route.isFilterProvider ? (
+                                                <FilterProvider>
+                                                    <Page />
+                                                </FilterProvider>
+                                            ) : (
+                                                <Page />
+                                            )}
                                         </Layout>
                                     }
                                 />

@@ -1,9 +1,11 @@
+import { memo } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SwipeCard.module.scss';
 
 import { getMonthYear } from 'src/utils/handleDate';
 
 import { AiFillFire } from 'react-icons/ai';
+import Image from '../Image';
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +21,11 @@ function SwipeCardItem({ data, pageNumber }) {
                     className={cx('card-item-info')}
                 >
                     <div style={{ width: '100%', height: '175px' }}>
-                        <img className={cx('card-item-thumb')} src={data.urlToImage} alt="" />
+                        <Image
+                            className={cx('card-item-thumb')}
+                            src={data.urlToImage}
+                            alt="News image"
+                        />
                     </div>
 
                     <p className={cx('card-item-heading')}>
@@ -40,4 +46,4 @@ function SwipeCardItem({ data, pageNumber }) {
     );
 }
 
-export default SwipeCardItem;
+export default memo(SwipeCardItem);

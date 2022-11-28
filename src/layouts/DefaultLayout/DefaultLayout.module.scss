@@ -2,6 +2,13 @@
     margin-top: var(--header-height);
 }
 
+.go-top-btn {
+    z-index: 10;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
+
 .content {
     padding-top: 24px;
 }

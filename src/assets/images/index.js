@@ -1,8 +1,14 @@
 const images = {
     logo: require('./logo.png'),
-    fallback: require('./fallback.jpg'),
+    glasses: require('./glasses.png'),
+    fallback: require('./fallback.png'),
     noResult: require('./noResult.png'),
-    notFound: require('./404.png'),
+    avatarPlaceholder: require('./avatar.jpg'),
+    notFoundBackground: require('./404-background.jpg'),
+    notFoundBackgroundRobot: require('./404-background-robot.gif'),
+    starWarHead: require('./starwarHead.png'),
+    google: require('./google.png'),
+    facebook: require('./facebook.png'),
 };
 
 export default images;

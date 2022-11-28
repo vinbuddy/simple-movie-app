@@ -5,11 +5,17 @@
 }
 
 .user-avatar {
-    display: inline-block;
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    object-fit: cover;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        object-fit: cover;
+    }
 }
 
 .user-name {

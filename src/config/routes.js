@@ -1,10 +1,12 @@
 const routes = {
     home: '/',
-    tv: '/tv',
+    movies: '/movies',
+    tvs: '/tvs',
     search: '/search',
-    movie: '/movie',
     saved: '/saved',
     profile: '/profile',
+    login: '/login',
+    register: '/register',
     notFound: '*',
 };
 

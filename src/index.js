@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import GlobalStyles from './components/GlobalStyles';
 import { ThemeProvider } from './context/ThemeContext';
 import { UserProvider } from './context/UserContext';
+import { AuthProvider } from './context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
     <GlobalStyles>
         <ThemeProvider>
             <UserProvider>
-                <App />
+                <AuthProvider>
+                    <App />
+                </AuthProvider>
             </UserProvider>
         </ThemeProvider>
     </GlobalStyles>,
