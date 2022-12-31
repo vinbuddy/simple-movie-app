@@ -20,6 +20,8 @@
     background-color: #fafafa;
     transform: rotate(-4deg);
     transition: transform ease 0.3s;
+    overflow: hidden;
+    // padding: 16px;
 }
 
 .card-item-wrapper {

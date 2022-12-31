@@ -84,7 +84,7 @@ function LoginPage() {
     };
 
     return (
-        <div className="login-wrapper">
+        <div className="form-wrapper">
             {authLoading && <LoadingBar top={0} width="100%" height={5} />}
 
             <form onSubmit={handleSubmit(onSubmit)}>

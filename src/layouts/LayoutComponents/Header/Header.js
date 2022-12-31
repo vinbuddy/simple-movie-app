@@ -16,7 +16,7 @@ import images from 'src/assets/images';
 // comps
 import ToggleTheme from 'src/components/ToggleTheme';
 import Button from 'src/components/Button';
-import Search from 'src/layouts/Search';
+import Search from 'src/layouts/LayoutComponents/Search';
 
 import { Menu } from 'src/components/Popper';
 
@@ -25,13 +25,13 @@ import { UserInfo } from 'src/components/UserInfo';
 
 const cx = classNames.bind(styles);
 
-function Header() {
+function Header({ containerType = 'container' }) {
     const userDataContext = useContext(UserContext);
     const location = useLocation();
 
     return (
         <div className={cx('header')}>
-            <div className="container" style={{ height: '100%' }}>
+            <div className={containerType} style={{ height: '100%' }}>
                 <div className={cx('inner')}>
                     <Link className={cx('logo-wrapper')} to="/">
                         <img className={cx('logo')} src={images.logo} alt="" />

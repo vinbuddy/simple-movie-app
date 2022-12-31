@@ -1,12 +1,12 @@
 import { Swiper } from 'swiper/react';
-import SwiperCore, { Autoplay, Navigation } from 'swiper';
+import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import './Slider.scss';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 
-SwiperCore.use([Autoplay, Navigation]);
+SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 function Slider({ children, autoplay = false, slidesPerView = 1, ...props }) {
     return (
@@ -15,7 +15,6 @@ function Slider({ children, autoplay = false, slidesPerView = 1, ...props }) {
             autoplay={autoplay}
             speed={600}
             direction="horizontal"
-            spaceBetween={0}
             slidesPerView={slidesPerView}
         >
             {children}

@@ -93,7 +93,7 @@ function MoviePage() {
                                         onClick={() => {
                                             loadMoreData('movie');
                                         }}
-                                        type="outline"
+                                        type="outline-basic"
                                         size="large"
                                         rightIcon={loading && <CgSpinnerTwoAlt className="spin" />}
                                     >
@@ -104,7 +104,7 @@ function MoviePage() {
                         ) : (
                             <Gallery
                                 stateHeading="popular"
-                                typeName="movie"
+                                mediaType="movie"
                                 heading="Suggest For You🔥"
                                 seemore={false}
                             />

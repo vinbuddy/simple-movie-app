@@ -14,6 +14,7 @@
         "normalize.css": "^8.0.1",
         "react": "^18.2.0",
         "react-bootstrap": "^2.5.0",
+        "react-circular-progressbar": "^2.1.0",
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.39.6",
         "react-icons": "^4.4.0",
@@ -23,6 +24,7 @@
         "react-scripts": "5.0.1",
         "react-select": "^5.5.7",
         "react-viewport-list": "^6.1.0",
+        "react-youtube": "^10.1.0",
         "swiper": "^6.8.4",
         "web-vitals": "^2.1.4"
     },

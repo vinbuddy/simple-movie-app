@@ -12,8 +12,8 @@ function NavigateItem({ to, leftIcon, children }) {
 
     return (
         <NavLink className={cx('nav-item')} to={to} style={activeNav}>
-            <span className={cx('nav-icon')}>{leftIcon}</span>
-            <span className={cx('nav-title')}>{children}</span>
+            {leftIcon && <span className={cx('nav-icon')}>{leftIcon}</span>}
+            {children && <span className={cx('nav-title')}>{children}</span>}
         </NavLink>
     );
 }

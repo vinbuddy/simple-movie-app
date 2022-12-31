@@ -5,13 +5,17 @@
     color: var(--text-nav);
     border-radius: 7px;
 
-    &:hover {
-        color: currentColor;
+    &:hover .nav-icon {
+        color: var(--text-color);
+    }
+
+    &:hover .nav-title {
+        color: var(--text-color);
     }
 }
 
 .nav-icon {
-    font-size: 2.4rem;
+    font-size: 2.8rem;
     line-height: 0;
 }
 

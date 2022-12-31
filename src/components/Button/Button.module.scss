@@ -43,7 +43,18 @@
     &:hover {
         color: var(--white);
         background-color: var(--primary);
-        border-color: var(--primary);
+    }
+}
+
+.outline-basic {
+    color: var(--text-color);
+    border-radius: 6px;
+    border-color: 1px solid var(--text-color);
+
+    &:hover {
+        color: var(--text-color);
+        border-color: 1px solid var(--text-color);
+        opacity: 0.8;
     }
 }
 
@@ -57,6 +68,14 @@
     }
 }
 
+.rounded {
+    min-width: 100px;
+    color: var(--white);
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 40px;
+    border: 1px solid var(--app-background);
+}
+
 // sizes
 .mini {
     font-size: 1.3rem;
@@ -65,8 +84,8 @@
 }
 
 .small {
-    min-width: 70px;
-    padding: 4px 12px;
+    min-width: 80px;
+    padding: 6px 14px;
 }
 
 .large {

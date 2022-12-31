@@ -12,7 +12,7 @@ import changeGalleryToRow from 'src/utils/changeGalleryToRow';
 
 const cx = classNames.bind(styles);
 
-function Gallery({ data, typeName, stateHeading, heading, seemore = true, rightIcon }) {
+function Gallery({ data, mediaType, stateHeading, heading, seemore = true, rightIcon }) {
     const [gallery, setGallery] = useState([]);
 
     const rows = changeGalleryToRow(gallery);
@@ -24,8 +24,8 @@ function Gallery({ data, typeName, stateHeading, heading, seemore = true, rightI
 
     useEffect(() => {
         const getGalleryData = async () => {
-            if ((stateHeading, typeName)) {
-                const result = await getListMovieAndTv(typeName, stateHeading);
+            if ((stateHeading, mediaType)) {
+                const result = await getListMovieAndTv(mediaType, stateHeading);
                 setGallery(result);
             }
             if (data) {
@@ -40,7 +40,7 @@ function Gallery({ data, typeName, stateHeading, heading, seemore = true, rightI
             {stateHeading && (
                 <GalleryHeader seemore={seemore} heading={heading} rightIcon={rightIcon} />
             )}
-            <ViewportList items={rowGallery} scrollThreshold={40}>
+            <ViewportList items={rowGallery}>
                 {(item, index) => {
                     return (
                         <div key={index} className="row">
@@ -49,8 +49,7 @@ function Gallery({ data, typeName, stateHeading, heading, seemore = true, rightI
                                     key={colIndex}
                                     className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
                                 >
-                                    {/* "col-md-1-5 col-md-4 col-sm-3 col-4 pb-4 d-block" */}
-                                    <GalleryItem data={colItem} />
+                                    <GalleryItem mediaType={mediaType} data={colItem} />
                                 </div>
                             ))}
                         </div>

@@ -95,7 +95,7 @@ function TiviPage() {
                                         onClick={() => {
                                             loadMoreData('movie');
                                         }}
-                                        type="outline"
+                                        type="outline-basic"
                                         size="large"
                                         rightIcon={loading && <CgSpinnerTwoAlt className="spin" />}
                                     >
@@ -106,7 +106,7 @@ function TiviPage() {
                         ) : (
                             <Gallery
                                 stateHeading="popular"
-                                typeName="tv"
+                                mediaType="tv"
                                 heading="Suggest For You 📺"
                                 seemore={false}
                             />

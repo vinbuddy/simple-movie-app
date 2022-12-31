@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useLocation } from 'react-router-dom'; // update param => useLocation
 import images from 'src/assets/images';
 import './SearchPage.scss';
@@ -11,8 +10,6 @@ import GalleryHeader from 'src/components/Gallery/GalleryHeader';
 import GalleryItem from 'src/components/Gallery/GalleryItem';
 import Button from 'src/components/Button';
 import { CgSpinnerTwoAlt } from 'react-icons/cg';
-
-const PAGE_LIMIT = 7;
 
 function SearchPage() {
     const { state } = useLocation();
@@ -38,7 +35,6 @@ function SearchPage() {
             setSearchValue(searchParam);
             setKey(state?.searchParam);
             setPageNum(2);
-            // setTotalPage(2);
         }
         document.title = 'Search | Simple Movie App';
     }, [searchParam]);
@@ -51,8 +47,6 @@ function SearchPage() {
         }
 
         const fetchSearchAPI = async () => {
-            // setLoading(true);
-
             const searchMovieURL = `${baseURL}search/movie?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${encodeURIComponent(
                 searchValue,
             )}`;
@@ -65,8 +59,6 @@ function SearchPage() {
                 fetch(searchMovieURL).then((res) => res.json()),
                 fetch(searchTvURL).then((res) => res.json()),
             ]);
-
-            // setLoading(false);
 
             // no result
             if (movie.total_results === 0 && tv.total_results === 0) {
@@ -129,31 +121,28 @@ function SearchPage() {
                         </h1>
                     ) : (
                         <div className="search-empty">
-                            <img src={images.glasses} alt="" />
-                            <h1 className="search-result-heading">Please search something ...</h1>
+                            <img src={images.telescope} alt="" />
+                            <h1 className="search-result-heading">
+                                Explore interesting film now !
+                            </h1>
                         </div>
                     )}
 
                     {isResult && searchValue.length > 0 && (
                         <Tabs activeKey={key} onSelect={handleSelectTab}>
+                            {/* Tab all */}
                             <Tab eventKey="search" title="All">
                                 <div className="search-result-list">
                                     <section className="search-section row">
                                         <GalleryHeader heading="MOVIE" />
-                                        {movieResult
-                                            .filter(
-                                                (item) =>
-                                                    item?.original_language !== 'ja' &&
-                                                    item?.original_language !== 'ko',
-                                            )
-                                            .map((result, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
-                                                >
-                                                    <GalleryItem data={result} />
-                                                </div>
-                                            ))}
+                                        {movieResult.map((result, index) => (
+                                            <div
+                                                key={index}
+                                                className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
+                                            >
+                                                <GalleryItem mediaType="movie" data={result} />
+                                            </div>
+                                        ))}
                                         <div
                                             style={{
                                                 display: 'flex',
@@ -165,7 +154,7 @@ function SearchPage() {
                                                 onClick={() => {
                                                     loadMoreSearchData('movie');
                                                 }}
-                                                type="outline"
+                                                type="outline-basic"
                                                 size="medium"
                                                 rightIcon={
                                                     loading && <CgSpinnerTwoAlt className="spin" />
@@ -179,22 +168,14 @@ function SearchPage() {
 
                                     <section className="search-section row">
                                         <GalleryHeader heading="TV" />
-                                        {tvResult
-                                            .filter(
-                                                (item) =>
-                                                    item?.original_language !== 'ja' &&
-                                                    item?.original_language !== 'ko',
-                                            )
-                                            .map((result, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
-                                                >
-                                                    <GalleryItem data={result} />
-                                                </div>
-                                                // <LazyLoadComponent key={index} threshold={80}>
-                                                // </LazyLoadComponent>
-                                            ))}
+                                        {tvResult.map((result, index) => (
+                                            <div
+                                                key={index}
+                                                className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
+                                            >
+                                                <GalleryItem mediaType="tv" data={result} />
+                                            </div>
+                                        ))}
                                         <div
                                             style={{
                                                 display: 'flex',
@@ -206,7 +187,7 @@ function SearchPage() {
                                                 onClick={() => {
                                                     loadMoreSearchData('tv');
                                                 }}
-                                                type="outline"
+                                                type="outline-basic"
                                                 size="medium"
                                                 rightIcon={
                                                     loading && <CgSpinnerTwoAlt className="spin" />
@@ -222,20 +203,14 @@ function SearchPage() {
                                 <div className="search-result-list">
                                     <section className="search-section row">
                                         <GalleryHeader heading="MOVIE" />
-                                        {movieResult
-                                            .filter(
-                                                (item) =>
-                                                    item?.original_language !== 'ja' &&
-                                                    item?.original_language !== 'ko',
-                                            )
-                                            .map((result, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
-                                                >
-                                                    <GalleryItem data={result} />
-                                                </div>
-                                            ))}
+                                        {movieResult.map((result, index) => (
+                                            <div
+                                                key={index}
+                                                className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
+                                            >
+                                                <GalleryItem mediaType="movie" data={result} />
+                                            </div>
+                                        ))}
                                         <div
                                             style={{
                                                 display: 'flex',
@@ -247,14 +222,13 @@ function SearchPage() {
                                                 onClick={() => {
                                                     loadMoreSearchData('movie');
                                                 }}
-                                                type="outline"
+                                                type="outline-basic"
                                                 size="medium"
                                                 rightIcon={
                                                     loading && <CgSpinnerTwoAlt className="spin" />
                                                 }
                                             >
                                                 {loading ? 'Loading' : 'Load More'}
-                                                {/* load more */}
                                             </Button>
                                         </div>
                                     </section>
@@ -264,20 +238,14 @@ function SearchPage() {
                                 <div className="search-result-list">
                                     <section className="search-section row">
                                         <GalleryHeader heading="TV" />
-                                        {tvResult
-                                            .filter(
-                                                (item) =>
-                                                    item?.original_language !== 'ja' &&
-                                                    item?.original_language !== 'ko',
-                                            )
-                                            .map((result, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
-                                                >
-                                                    <GalleryItem data={result} />
-                                                </div>
-                                            ))}
+                                        {tvResult.map((result, index) => (
+                                            <div
+                                                key={index}
+                                                className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
+                                            >
+                                                <GalleryItem mediaType="tv" data={result} />
+                                            </div>
+                                        ))}
                                         <div
                                             style={{
                                                 display: 'flex',
@@ -289,14 +257,13 @@ function SearchPage() {
                                                 onClick={() => {
                                                     loadMoreSearchData('tv');
                                                 }}
-                                                type="outline"
+                                                type="outline-basic"
                                                 size="medium"
                                                 rightIcon={
                                                     loading && <CgSpinnerTwoAlt className="spin" />
                                                 }
                                             >
                                                 {loading ? 'Loading' : 'Load More'}
-                                                {/* load more */}
                                             </Button>
                                         </div>
                                     </section>

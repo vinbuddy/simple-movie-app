@@ -13,12 +13,12 @@ import Image from '../Image';
 
 const cx = classNames.bind(styles);
 
-function GalleryItem({ data }) {
+function GalleryItem({ data, mediaType }) {
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
     const date = getMonthYear(data?.release_date || data?.first_air_date);
 
     return (
-        <Link to="/watch">
+        <Link to={mediaType === 'movie' ? `/infor/movie/${data?.id}` : `/infor/tv/${data?.id}`}>
             <div title={data?.title || data?.name} className={cx('gallery-item')}>
                 <div className={cx('gallery-thumb')}>
                     <div

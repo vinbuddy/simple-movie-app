@@ -155,17 +155,11 @@ function Search() {
                                         </Link>
                                     </header>
                                     {/* Movie */}
-                                    {movieResult
-                                        .filter(
-                                            (item) =>
-                                                item?.original_language !== 'ja' &&
-                                                item?.original_language !== 'ko',
-                                        )
-                                        .map((result) => (
-                                            <LazyLoadComponent key={result.id} threshold={70}>
-                                                <SearchItem data={result} />
-                                            </LazyLoadComponent>
-                                        ))}
+                                    {movieResult.map((result) => (
+                                        <LazyLoadComponent key={result.id} threshold={70}>
+                                            <SearchItem data={result} />
+                                        </LazyLoadComponent>
+                                    ))}
                                 </div>
 
                                 <div className={cx('search-type')}>
@@ -187,17 +181,11 @@ function Search() {
                                         </Link>
                                     </header>
                                     {/* Tv api */}
-                                    {tvResult
-                                        .filter(
-                                            (item) =>
-                                                item?.original_language !== 'ja' &&
-                                                item?.original_language !== 'ko',
-                                        )
-                                        .map((result) => (
-                                            <LazyLoadComponent key={result.id} threshold={70}>
-                                                <SearchItem data={result} />
-                                            </LazyLoadComponent>
-                                        ))}
+                                    {tvResult.map((result) => (
+                                        <LazyLoadComponent key={result.id} threshold={70}>
+                                            <SearchItem data={result} />
+                                        </LazyLoadComponent>
+                                    ))}
                                 </div>
                             </div>
                         </PopperFrame>

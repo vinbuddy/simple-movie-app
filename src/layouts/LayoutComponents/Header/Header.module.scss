@@ -11,6 +11,7 @@
 
 .inner {
     height: 100%;
+    padding: 0 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,10 +26,10 @@
     }
 
     h2 {
+        font-family: 'Ceviche One', cursive;
         color: var(--text-color);
-        font-size: 1.5rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
+        font-size: 2rem;
+        letter-spacing: 1px;
         margin-bottom: 0;
         margin-left: 3px;
     }

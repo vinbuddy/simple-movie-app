@@ -1,3 +1,38 @@
 .swiper-container {
     height: 100% !important;
+
+    // Custom Next, Prev btn default
+    .swiper-button-prev,
+    .swiper-button-next {
+        top: 50% !important;
+        transform: translateY(-50%);
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .swiper-button-prev {
+        background-image: url(../../assets/images/angle-left.png);
+        background-size: contain;
+        background-position: 50% 60%;
+        background-repeat: no-repeat;
+        // left: 46% !important;
+    }
+    .swiper-button-next {
+        background-image: url(../../assets/images/angle-right.png);
+        background-size: contain;
+        background-position: 50% 60%;
+        background-repeat: no-repeat;
+        // right: 46% !important;
+    }
+
+    .swiper-button-prev::after {
+        font-size: 1.6rem !important;
+        content: '' !important;
+    }
+    .swiper-button-next::after {
+        font-size: 1.6rem !important;
+        content: '' !important;
+    }
 }

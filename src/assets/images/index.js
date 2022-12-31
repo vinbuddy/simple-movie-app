@@ -1,6 +1,7 @@
 const images = {
     logo: require('./logo.png'),
     glasses: require('./glasses.png'),
+    telescope: require('./telescope.png'),
     fallback: require('./fallback.png'),
     noResult: require('./noResult.png'),
     avatarPlaceholder: require('./avatar.jpg'),

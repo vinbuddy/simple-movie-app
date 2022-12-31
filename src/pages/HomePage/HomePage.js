@@ -61,25 +61,25 @@ function HomePage() {
                     <div className="row">
                         <Gallery
                             stateHeading="now_playing"
-                            typeName="movie"
+                            mediaType="movie"
                             heading="Now Playing Movie"
                             rightIcon={<BsPlayCircle />}
                         />
                         <Gallery
                             stateHeading="upcoming"
-                            typeName="movie"
+                            mediaType="movie"
                             heading="Upcoming Movie"
                             rightIcon={<AiOutlineFieldTime />}
                         />
                         <Gallery
                             stateHeading="popular"
-                            typeName="tv"
+                            mediaType="tv"
                             heading="Popular TV"
                             rightIcon={<BiTrendingUp />}
                         />
                         <Gallery
                             stateHeading="top_rated"
-                            typeName="tv"
+                            mediaType="tv"
                             heading="Top Rated TV"
                             rightIcon={<CgMenuMotion />}
                         />

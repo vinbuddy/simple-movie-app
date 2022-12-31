@@ -5,8 +5,8 @@ import TippyToolTips from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 
-import Header from '../Header';
-import Sidebar from '../Sidebar';
+import Header from '../LayoutComponents/Header';
+import Sidebar from '../LayoutComponents/Sidebar';
 import GoTopButton from 'src/components/ScrollToTop/GoTopButton';
 
 const cx = classNames.bind(styles);
@@ -26,27 +26,29 @@ function DefaultLayout({ children }) {
             <Header />
             <div className={cx('wrapper')}>
                 <div className="container position-relative">
-                    <div className="row">
-                        <div className="col-lg-2">
-                            <Sidebar />
-                        </div>
-                        <div className="col-lg-10 col-md-12 col-sm-12 col-12">
-                            <div id="content" className={cx('content')}>
-                                {children}
+                    <div className={cx('inner')}>
+                        <div className="row">
+                            <div className="col-lg-2">
+                                <Sidebar />
+                            </div>
+                            <div className="col-lg-10 col-md-12 col-sm-12 col-12">
+                                <div id="content" className={cx('content')}>
+                                    {children}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <TippyToolTips
-                        animation="scale"
-                        delay={[500, 0]}
-                        placement="left-start"
-                        content="Go To Top"
-                    >
-                        <div className={cx('go-top-btn')}>
-                            <GoTopButton onClick={handleGoTop} />
-                        </div>
-                    </TippyToolTips>
+                        <TippyToolTips
+                            animation="scale"
+                            delay={[500, 0]}
+                            placement="left-start"
+                            content="Go To Top"
+                        >
+                            <div className={cx('go-top-btn')}>
+                                <GoTopButton onClick={handleGoTop} />
+                            </div>
+                        </TippyToolTips>
+                    </div>
                 </div>
             </div>
             {/* <footer style={{ height: 300, background: '#000' }}></footer> */}
