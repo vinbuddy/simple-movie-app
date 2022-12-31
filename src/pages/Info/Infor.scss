@@ -1,8 +1,11 @@
 .info-wrapper {
     $textshadow: 1px 1px 2px var(--black);
+    position: relative;
 
     .info-section {
-        margin: 35px 0;
+        margin: 20px 0;
+        padding-top: 40px;
+        border-top: 1px solid var(--nav-background);
     }
 
     .info-background {
@@ -107,7 +110,7 @@
         justify-content: center;
         align-items: center;
         margin-top: 20px;
-        border-top: 1px solid #ccc;
+        border-top: 1px solid var(--nav-background);
         padding: 20px 0;
 
         .info-rating-process {
@@ -139,27 +142,17 @@
         letter-spacing: 0.2px;
         color: var(--text-color);
         background-color: var(--nav-background);
-        padding: 10px;
+        padding: 14px;
         border-radius: 10px;
+        min-height: 200px;
 
         .info-overview-heading {
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             font-weight: 600;
         }
 
         p {
             margin-bottom: 0;
-        }
-    }
-
-    .info-cast {
-        width: 100%;
-        height: 100%;
-
-        // custom swiper btn
-        .swiper-button-prev,
-        .swiper-button-next {
-            border: 1px solid #333;
         }
     }
 
@@ -169,11 +162,20 @@
         margin-top: 20px;
         width: 100%;
         max-height: 400px;
+
+        // custom swiper btn
+        .swiper-button-prev,
+        .swiper-button-next {
+            border: 1px solid #333;
+        }
     }
 
     .info-cast-item {
-        width: fit-content;
-        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        max-width: 180px;
         margin: 0 20px;
     }
 
@@ -191,25 +193,47 @@
     }
 
     .info-cast-name {
-        font-size: 1.8rem;
+        font-size: 1.9rem;
+        font-weight: 600;
         color: var(--text-color);
         margin-top: 10px;
+        max-width: 100%;
+    }
+
+    .info-cast-role {
+        max-width: 100%;
+        color: var(--text-nav);
     }
 
     .info-player {
         display: flex;
         justify-content: center;
     }
+
+    .info-youtube {
+        width: 100%;
+
+        & > iframe {
+            width: 100%;
+            height: 560px;
+        }
+    }
 }
 
 // Responsive
 
 // Mobile small
-@media (max-width: 375px) {
+@media (max-width: 576px) {
     .info-wrapper {
         .info-cast-avatar {
             width: 100px;
             height: 100px;
+        }
+
+        .info-youtube {
+            & > iframe {
+                height: 300px;
+            }
         }
     }
 }
@@ -239,6 +263,10 @@
 
         .info-container {
             padding: 0 12px;
+        }
+
+        .info-overview {
+            min-height: unset;
         }
 
         .info-detail {

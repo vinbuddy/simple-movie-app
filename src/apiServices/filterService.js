@@ -1,13 +1,13 @@
 import * as httpRequest from 'src/utils/httpRequest';
 
 export const loadFilterData = async (
-    typeName,
+    mediaType,
     genreIds,
     sortby = 'popularity.desc',
     pageNum = 1,
 ) => {
     try {
-        const res = await httpRequest.get(`discover/${typeName}/`, {
+        const res = await httpRequest.get(`discover/${mediaType}/`, {
             params: {
                 api_key: process.env.REACT_APP_API_KEY,
                 with_genres: genreIds,
@@ -24,13 +24,13 @@ export const loadFilterData = async (
 };
 
 export const loadMoreFilter = async (
-    typeName,
+    mediaType,
     genreIds,
     sortby = 'popularity.desc',
     pageNum = 1,
 ) => {
     try {
-        const res = await httpRequest.get(`discover/${typeName}/`, {
+        const res = await httpRequest.get(`discover/${mediaType}/`, {
             params: {
                 api_key: process.env.REACT_APP_API_KEY,
                 with_genres: genreIds,

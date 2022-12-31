@@ -1,4 +1,5 @@
 .swiper-container {
+    width: 100% !important;
     height: 100% !important;
 
     // Custom Next, Prev btn default
@@ -17,14 +18,12 @@
         background-size: contain;
         background-position: 50% 60%;
         background-repeat: no-repeat;
-        // left: 46% !important;
     }
     .swiper-button-next {
         background-image: url(../../assets/images/angle-right.png);
         background-size: contain;
         background-position: 50% 60%;
         background-repeat: no-repeat;
-        // right: 46% !important;
     }
 
     .swiper-button-prev::after {

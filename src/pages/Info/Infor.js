@@ -1,28 +1,40 @@
+import { useRef } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import YouTube from 'react-youtube';
 
 import './Infor.scss';
 
 import { BsCalendar4Week, BsCircle } from 'react-icons/bs';
 import { TbTimeline } from 'react-icons/tb';
-import { TiStarFullOutline } from 'react-icons/ti';
 import { BsPlayCircle, BsYoutube } from 'react-icons/bs';
-import { VscBook } from 'react-icons/vsc';
 
+import GalleryItem from 'src/components/Gallery/GalleryItem';
 import Button from 'src/components/Button';
 import GalleryHeader from 'src/components/Gallery/GalleryHeader';
 import { Slider, Slide } from 'src/components/Slider';
-import YouTube from 'react-youtube';
-import GalleryItem from 'src/components/Gallery/GalleryItem';
+import Image from 'src/components/Image';
 
-function Infor() {
+import { formartDate } from 'src/utils/handleDate';
+
+function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
+    const trailerRef = useRef();
+
+    const scrollToTrailer = () => {
+        trailerRef.current.scrollIntoView({ block: 'center' });
+    };
+
+    const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
+    const date = formartDate(detail?.release_date || detail?.first_air_date);
+    const trailerVideo = videos.find((videoItem) => videoItem.name === 'Official Trailer');
+
     return (
         <div className="info-wrapper">
             <div
-                style={{
-                    backgroundImage: `url('https://images7.alphacoders.com/100/thumb-1920-1003272.jpg')`,
-                }}
                 className="info-background"
+                style={{
+                    backgroundImage: `url(${baseImgURL}${detail?.backdrop_path})`,
+                }}
             ></div>
 
             <div className="info-container">
@@ -31,14 +43,11 @@ function Infor() {
                     <div className="col-12 col-sm-12 col-md-12 col-lg-2">
                         <div className="info-poster-wrapper">
                             <div className="info-poster">
-                                <img
-                                    src="https://znews-photo.zingcdn.me/w660/Uploaded/ofh_wuytgazs/2019_06_09/MV5BOGFjYWNkMTMtMTg1ZC00Y2I4LTg0ZTYtN2ZlMzI4MGQwNzg4XkEyXkFqcGdeQXVyMTkxNjUyNQ_V1_.jpg"
-                                    alt="Poster"
-                                />
+                                <Image src={`${baseImgURL}${detail?.poster_path}`} alt="Poster" />
                             </div>
                             <div className="info-button">
                                 <Button
-                                    href="#trailer"
+                                    onClick={scrollToTrailer}
                                     leftIcon={<BsYoutube />}
                                     type="outline-basic"
                                 >
@@ -55,19 +64,16 @@ function Infor() {
                                         styles={buildStyles({
                                             pathColor: '#f37515',
                                             textColor: 'var(--text-color)',
-                                            textSize: '3rem',
+                                            textSize: '2.8rem',
                                         })}
-                                        value={(8.6 / 10) * 100}
+                                        value={(detail?.vote_average / 10) * 100}
                                         maxValue={100}
-                                        text={`8.6`}
+                                        text={`${Math.floor((detail?.vote_average / 10) * 100)}%`}
                                     />
                                 </div>
                                 <div className="info-rating-detail">
                                     <p>
-                                        <span>18000</span> ratings
-                                    </p>
-                                    <p>
-                                        <span>84</span> reviews
+                                        <span>{detail?.vote_count}</span> ratings
                                     </p>
                                 </div>
                             </div>
@@ -77,50 +83,37 @@ function Infor() {
                     {/* Info */}
                     <div className="col-12 col-sm-12 col-md-12 col-lg-10">
                         <div className="info-content">
-                            <h2 className="info-name">Godzilla</h2>
+                            <h2 className="info-name">{detail?.title}</h2>
                             <p className="info-original-title">
-                                Original title: Godzilla king of the monster
+                                Original title: {detail?.original_title}
                             </p>
                             <ul className="info-genres">
-                                <Button type="rounded" size="small">
-                                    Action
-                                </Button>
-                                <Button type="rounded" size="small">
-                                    Adventure
-                                </Button>
+                                {!!detail?.genres &&
+                                    detail?.genres.map((genre) => (
+                                        <Button key={genre?.id} type="rounded" size="small">
+                                            {genre?.name}
+                                        </Button>
+                                    ))}
                             </ul>
                             <ul className="info-detail">
                                 <li className="info-detail-item">
                                     <BsCircle className="info-detail-icon" />
-                                    <span>Status: Playing</span>
+                                    <span>Status: {detail?.status}</span>
                                 </li>
                                 <li className="info-detail-item">
                                     <BsCalendar4Week className="info-detail-icon" />
-                                    <span>Release date: 22-12-2018</span>
+                                    <span>Release date: {date}</span>
                                 </li>
                                 <li className="info-detail-item">
                                     <TbTimeline className="info-detail-icon" />
-                                    <span>Runtime: 180 min</span>
+                                    <span>Runtime: {detail?.runtime} min</span>
                                 </li>
                             </ul>
 
                             {/* story */}
                             <div className="info-overview">
-                                <h2 className="info-overview-heading">
-                                    <VscBook className="info-overview-icon" /> overview:
-                                </h2>
-                                <p>
-                                    It is a long established fact that a reader will be distracted
-                                    by the readable content of a page when looking at its layout.
-                                    The point of using Lorem Ipsum is that it has a more-or-less
-                                    normal distribution of letters, as opposed to using 'Content
-                                    here, content here', making it look like readable English. Many
-                                    desktop publishing packages and web page editors now use Lorem
-                                    Ipsum as their default model text, and a search for 'lorem
-                                    ipsum' will uncover many web sites still in their infancy.
-                                    Various versions have evolved over the years, sometimes by
-                                    accident, sometimes on purpose (injected humour and the like).
-                                </p>
+                                <h2 className="info-overview-heading">Content:</h2>
+                                <p>{detail?.overview}</p>
                             </div>
                         </div>
                     </div>
@@ -166,34 +159,37 @@ function Infor() {
                                         },
                                     }}
                                 >
-                                    {[1, 2, 3, 4, 5, 6, 7, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(
-                                        (item, index) => (
+                                    {!!credit?.cast &&
+                                        credit?.cast.map((castItem, index) => (
                                             <Slide key={index}>
-                                                <div className="info-cast-item">
+                                                <div key={castItem.id} className="info-cast-item">
                                                     <div className="info-cast-avatar">
-                                                        <img
-                                                            src="https://vcdn1-giaitri.vnecdn.net/2020/09/22/Minami-Hamabe-1600749592.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=wQOxwd2UTHWHNeWoFv79Xg"
-                                                            alt=""
+                                                        <Image
+                                                            src={`${baseImgURL}${castItem?.profile_path}`}
+                                                            alt="cast profile"
                                                         />
                                                     </div>
                                                     <h3 className="info-cast-name">
-                                                        Vinh Huynh {index}
+                                                        {castItem?.name}
                                                     </h3>
+                                                    <p className="info-cast-role">
+                                                        {castItem?.character}
+                                                    </p>
                                                 </div>
                                             </Slide>
-                                        ),
-                                    )}
+                                        ))}
                                 </Slider>
                             </div>
                         </div>
                     </div>
 
                     {/* Trailer */}
-                    <div id="trailer" className="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div ref={trailerRef} className="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div className="info-section">
                             <GalleryHeader heading="Trailer" />
+
                             <div className="info-player">
-                                <YouTube />
+                                <YouTube videoId={trailerVideo?.key} className="info-youtube" />
                             </div>
                         </div>
                     </div>
@@ -239,15 +235,13 @@ function Infor() {
                                         },
                                     }}
                                 >
-                                    {[1, 2, 3, 4, 5, 6, 7, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(
-                                        (item, index) => (
-                                            <Slide key={index}>
-                                                <div className="info-similar-item">
-                                                    <GalleryItem mediaType="movie" />
-                                                </div>
-                                            </Slide>
-                                        ),
-                                    )}
+                                    {similar.map((similarItem, index) => (
+                                        <Slide key={index}>
+                                            <div className="info-similar-item">
+                                                <GalleryItem data={similarItem} mediaType="movie" />
+                                            </div>
+                                        </Slide>
+                                    ))}
                                 </Slider>
                             </div>
                         </div>

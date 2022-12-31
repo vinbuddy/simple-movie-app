@@ -1,8 +1,8 @@
 import * as httpRequest from 'src/utils/httpRequest';
 
-export const getListMovieAndTv = async (typeName, state) => {
+export const getListMovieAndTv = async (mediaType, state) => {
     try {
-        const res = await httpRequest.get(`${typeName}/${state}`, {
+        const res = await httpRequest.get(`${mediaType}/${state}`, {
             params: {
                 api_key: process.env.REACT_APP_API_KEY,
             },

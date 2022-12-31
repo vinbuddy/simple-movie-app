@@ -11,11 +11,11 @@ SwiperCore.use([Autoplay, Navigation, Pagination]);
 function Slider({ children, autoplay = false, slidesPerView = 1, ...props }) {
     return (
         <Swiper
-            {...props}
             autoplay={autoplay}
             speed={600}
             direction="horizontal"
             slidesPerView={slidesPerView}
+            {...props}
         >
             {children}
         </Swiper>
