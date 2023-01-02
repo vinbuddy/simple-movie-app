@@ -21,7 +21,6 @@
     transform: rotate(-4deg);
     transition: transform ease 0.3s;
     overflow: hidden;
-    // padding: 16px;
 }
 
 .card-item-wrapper {
@@ -67,4 +66,18 @@
     font-size: 1.5rem;
     color: var(--text-nav);
     margin-bottom: 0;
+}
+
+// responsive
+
+// mobile -> table
+@media (max-width: 767px) {
+    .swipe-card-wrapper {
+        transform: rotate(0deg);
+        background-color: var(--white);
+    }
+
+    .swipe-card-background {
+        transform: rotate(0deg);
+    }
 }

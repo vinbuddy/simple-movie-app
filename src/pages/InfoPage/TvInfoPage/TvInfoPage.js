@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getCredit, getDetail, getSimilar, getVideos } from 'src/apiServices/getInfoService';
-import Infor from '../Infor';
+import FilmInfo from 'src/components/FilmInfo/FilmInfor';
 
 function TvInfoPage() {
     const [detail, setDetail] = useState({});
@@ -28,7 +28,13 @@ function TvInfoPage() {
     }, [id]);
 
     return (
-        <Infor mediaType="tv" detail={detail} credit={credit} videos={videos} similar={similar} />
+        <FilmInfo
+            mediaType="tv"
+            detail={detail}
+            credit={credit}
+            videos={videos}
+            similar={similar}
+        />
     );
 }
 

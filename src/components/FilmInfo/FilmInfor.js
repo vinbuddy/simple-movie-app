@@ -3,7 +3,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import YouTube from 'react-youtube';
 
-import './Infor.scss';
+import './FilmInfor.scss';
 
 import { BsCalendar4Week, BsCircle } from 'react-icons/bs';
 import { TbTimeline } from 'react-icons/tb';
@@ -18,7 +18,7 @@ import Image from 'src/components/Image';
 import { formartDate } from 'src/utils/handleDate';
 import images from 'src/assets/images';
 
-function Infor({ mediaType = 'movie', detail = {}, credit = {}, videos = [], similar = [] }) {
+function FilmInfo({ mediaType = 'movie', detail = {}, credit = {}, videos = [], similar = [] }) {
     const trailerRef = useRef();
 
     useEffect(() => {
@@ -32,7 +32,10 @@ function Infor({ mediaType = 'movie', detail = {}, credit = {}, videos = [], sim
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
     const date = formartDate(detail?.release_date || detail?.first_air_date);
 
-    const trailer = videos.find((videoItem) => videoItem.name === 'Official Trailer');
+    const trailer = videos.find(
+        (videoItem) =>
+            videoItem?.name === 'Official Trailer' || videoItem?.name.includes('trailer'),
+    );
 
     return (
         <div className="info-wrapper">
@@ -276,4 +279,4 @@ function Infor({ mediaType = 'movie', detail = {}, credit = {}, videos = [], sim
     );
 }
 
-export default Infor;
+export default FilmInfo;

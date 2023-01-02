@@ -9,8 +9,8 @@ import Saved from 'src/pages/Saved';
 import Profile from 'src/pages/Profile';
 import LoginPage from 'src/pages/LoginPage';
 import RegisterPage from 'src/pages/RegisterPage';
-import MovieInfoPage from 'src/pages/Info/MovieInfoPage';
-import TvInfoPage from 'src/pages/Info/TvInfoPage';
+import MovieInfoPage from 'src/pages/InfoPage/MovieInfoPage';
+import TvInfoPage from 'src/pages/InfoPage/TvInfoPage';
 
 // layout
 import FilmLayout from 'src/layouts/FilmLayout';

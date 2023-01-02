@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getCredit, getDetail, getSimilar, getVideos } from 'src/apiServices/getInfoService';
-import Infor from '../Infor';
+import FilmInfo from 'src/components/FilmInfo/FilmInfor';
 
 function MovieInfoPage() {
     const [detail, setDetail] = useState({});
@@ -28,7 +28,7 @@ function MovieInfoPage() {
     }, [id]);
 
     return (
-        <Infor
+        <FilmInfo
             mediaType="movie"
             detail={detail}
             credit={credit}

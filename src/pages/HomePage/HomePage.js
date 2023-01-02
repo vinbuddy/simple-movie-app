@@ -20,7 +20,6 @@ function HomePage() {
     useEffect(() => {
         const fetchNews = async () => {
             const newsData = await newsService.getNews('movie');
-            console.log('newsData: ', newsData);
 
             setNewsResult(newsData);
         };

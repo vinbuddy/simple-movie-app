@@ -9,7 +9,7 @@ function Banner() {
 
     useEffect(() => {
         const fetchTrending = async () => {
-            const result = await trendingService.getTrending('all', 'day');
+            const result = await trendingService.getTrending('movie', 'day');
             setTrendingResult(result);
         };
 

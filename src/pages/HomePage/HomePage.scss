@@ -49,3 +49,17 @@
         margin-top: 30px;
     }
 }
+
+// responsive
+
+@media (max-width: 767px) {
+    .home-wrapper {
+        .banner-news {
+            margin-left: 0;
+        }
+
+        .banner-trending {
+            height: 300px;
+        }
+    }
+}

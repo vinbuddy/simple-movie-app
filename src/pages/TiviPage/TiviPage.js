@@ -20,7 +20,7 @@ function TiviPage() {
     const { sortOptions, galleryFilter, loadMoreData, loading } = useContext(FilterContext);
 
     const rows = changeGalleryToRow(galleryFilter);
-    const gallery = rows.map((row, index) => {
+    const gallery = rows.map((row) => {
         return {
             row: row,
         };
@@ -74,7 +74,10 @@ function TiviPage() {
                                                                 className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
                                                             >
                                                                 {/* "col-md-1-5 col-md-4 col-sm-3 col-4 pb-4 d-block" */}
-                                                                <GalleryItem data={colItem} />
+                                                                <GalleryItem
+                                                                    mediaType="tv"
+                                                                    data={colItem}
+                                                                />
                                                             </div>
                                                         ))}
                                                     </div>

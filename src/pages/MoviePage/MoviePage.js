@@ -40,7 +40,7 @@ function MoviePage() {
                             <GenreFilter genreType="movie" />
                         </div>
 
-                        <div className="col-lg-3 col-md-3 col-sm-12 col-12">
+                        <div className="col-lg-3 col-md-3 col-sm-12 col-12 mb-4 mb-md-4">
                             <SortbyFilter sortbyType="movie" options={sortOptions} />
                         </div>
                     </div>
@@ -72,7 +72,10 @@ function MoviePage() {
                                                                 key={indexCol}
                                                                 className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
                                                             >
-                                                                <GalleryItem data={colItem} />
+                                                                <GalleryItem
+                                                                    mediaType="movie"
+                                                                    data={colItem}
+                                                                />
                                                             </div>
                                                         ))}
                                                     </div>
