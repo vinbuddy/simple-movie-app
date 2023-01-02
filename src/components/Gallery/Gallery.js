@@ -12,7 +12,7 @@ import changeGalleryToRow from 'src/utils/changeGalleryToRow';
 
 const cx = classNames.bind(styles);
 
-function Gallery({ data, mediaType, stateHeading, heading, seemore = true, rightIcon }) {
+function Gallery({ data, mediaType, stateHeading, heading, rightIcon }) {
     const [gallery, setGallery] = useState([]);
 
     const rows = changeGalleryToRow(gallery);
@@ -37,9 +37,7 @@ function Gallery({ data, mediaType, stateHeading, heading, seemore = true, right
     }, []);
     return (
         <div className={cx('col-12', 'gallery-wrapper')}>
-            {stateHeading && (
-                <GalleryHeader seemore={seemore} heading={heading} rightIcon={rightIcon} />
-            )}
+            {stateHeading && <GalleryHeader heading={heading} rightIcon={rightIcon} />}
             <ViewportList items={rowGallery}>
                 {(item, index) => {
                     return (

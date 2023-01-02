@@ -3,7 +3,7 @@
     position: relative;
 
     .info-section {
-        margin: 20px 0;
+        margin: 10px 0;
         padding-top: 40px;
         border-top: 1px solid var(--nav-background);
     }
@@ -79,6 +79,7 @@
 
     .info-genres {
         display: flex;
+        flex-wrap: wrap;
     }
 
     .info-detail {

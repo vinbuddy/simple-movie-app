@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { getCredit, getDetail, getSimilar, getVideos } from 'src/apiServices/getInfo';
+import { getCredit, getDetail, getSimilar, getVideos } from 'src/apiServices/getInfoService';
 import Infor from '../Infor';
 
 function MovieInfoPage() {
@@ -16,7 +16,6 @@ function MovieInfoPage() {
             const detailResult = await getDetail('movie', id);
             const creditResult = await getCredit('movie', id);
             const videoResult = await getVideos('movie', id);
-
             const similarResult = await getSimilar('movie', id);
 
             setDetail(detailResult);
@@ -28,7 +27,15 @@ function MovieInfoPage() {
         fetchInfo();
     }, [id]);
 
-    return <Infor detail={detail} credit={credit} videos={videos} similar={similar} />;
+    return (
+        <Infor
+            mediaType="movie"
+            detail={detail}
+            credit={credit}
+            videos={videos}
+            similar={similar}
+        />
+    );
 }
 
 export default MovieInfoPage;

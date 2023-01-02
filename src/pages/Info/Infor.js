@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import YouTube from 'react-youtube';
@@ -16,9 +16,14 @@ import { Slider, Slide } from 'src/components/Slider';
 import Image from 'src/components/Image';
 
 import { formartDate } from 'src/utils/handleDate';
+import images from 'src/assets/images';
 
-function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
+function Infor({ mediaType = 'movie', detail = {}, credit = {}, videos = [], similar = [] }) {
     const trailerRef = useRef();
+
+    useEffect(() => {
+        if (Boolean(detail?.title)) document.title = `${detail?.title}`;
+    }, [detail]);
 
     const scrollToTrailer = () => {
         trailerRef.current.scrollIntoView({ block: 'center' });
@@ -26,7 +31,8 @@ function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
 
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
     const date = formartDate(detail?.release_date || detail?.first_air_date);
-    const trailerVideo = videos.find((videoItem) => videoItem.name === 'Official Trailer');
+
+    const trailer = videos.find((videoItem) => videoItem.name === 'Official Trailer');
 
     return (
         <div className="info-wrapper">
@@ -43,7 +49,15 @@ function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
                     <div className="col-12 col-sm-12 col-md-12 col-lg-2">
                         <div className="info-poster-wrapper">
                             <div className="info-poster">
-                                <Image src={`${baseImgURL}${detail?.poster_path}`} alt="Poster" />
+                                <Image
+                                    fallback={images.posterFallback}
+                                    src={
+                                        detail?.poster_path
+                                            ? `${baseImgURL}${detail?.poster_path}`
+                                            : ''
+                                    }
+                                    alt="Poster"
+                                />
                             </div>
                             <div className="info-button">
                                 <Button
@@ -83,12 +97,13 @@ function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
                     {/* Info */}
                     <div className="col-12 col-sm-12 col-md-12 col-lg-10">
                         <div className="info-content">
-                            <h2 className="info-name">{detail?.title}</h2>
+                            <h2 className="info-name">{detail?.title || detail?.name}</h2>
                             <p className="info-original-title">
-                                Original title: {detail?.original_title}
+                                Original title: {detail?.original_title || detail?.original_name}
                             </p>
                             <ul className="info-genres">
                                 {!!detail?.genres &&
+                                    detail?.genres.length > 0 &&
                                     detail?.genres.map((genre) => (
                                         <Button key={genre?.id} type="rounded" size="small">
                                             {genre?.name}
@@ -106,7 +121,11 @@ function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
                                 </li>
                                 <li className="info-detail-item">
                                     <TbTimeline className="info-detail-icon" />
-                                    <span>Runtime: {detail?.runtime} min</span>
+                                    <span>
+                                        Runtime:{' '}
+                                        {detail?.runtime || detail?.last_episode_to_air?.runtime}
+                                        min
+                                    </span>
                                 </li>
                             </ul>
 
@@ -160,11 +179,13 @@ function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
                                     }}
                                 >
                                     {!!credit?.cast &&
+                                        credit?.cast.length > 0 &&
                                         credit?.cast.map((castItem, index) => (
                                             <Slide key={index}>
                                                 <div key={castItem.id} className="info-cast-item">
                                                     <div className="info-cast-avatar">
                                                         <Image
+                                                            fallback={images.avatarPlaceholder}
                                                             src={`${baseImgURL}${castItem?.profile_path}`}
                                                             alt="cast profile"
                                                         />
@@ -189,7 +210,7 @@ function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
                             <GalleryHeader heading="Trailer" />
 
                             <div className="info-player">
-                                <YouTube videoId={trailerVideo?.key} className="info-youtube" />
+                                <YouTube videoId={trailer?.key} className="info-youtube" />
                             </div>
                         </div>
                     </div>
@@ -229,7 +250,7 @@ function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
                                             slidesPerGroup: 3,
                                         },
                                         100: {
-                                            slidesPerView: 2.5,
+                                            slidesPerView: 2,
                                             spaceBetweenSlides: 20,
                                             slidesPerGroup: 2,
                                         },
@@ -238,7 +259,10 @@ function Infor({ detail = {}, credit = {}, videos = [], similar = [] }) {
                                     {similar.map((similarItem, index) => (
                                         <Slide key={index}>
                                             <div className="info-similar-item">
-                                                <GalleryItem data={similarItem} mediaType="movie" />
+                                                <GalleryItem
+                                                    data={similarItem}
+                                                    mediaType={mediaType}
+                                                />
                                             </div>
                                         </Slide>
                                     ))}

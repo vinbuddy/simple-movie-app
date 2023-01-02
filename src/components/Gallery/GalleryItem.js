@@ -18,7 +18,7 @@ function GalleryItem({ data, mediaType }) {
     const date = getMonthYear(data?.release_date || data?.first_air_date);
 
     return (
-        <Link to={mediaType === 'movie' ? `/infor/movie/${data?.id}` : `/infor/tv/${data?.id}`}>
+        <Link to={`/infor/${mediaType}/${data?.id}`}>
             <div title={data?.title || data?.name} className={cx('gallery-item')}>
                 <div className={cx('gallery-thumb')}>
                     <div

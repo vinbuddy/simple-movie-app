@@ -136,6 +136,7 @@ function Search() {
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperFrame>
                             <div className={cx('search-inner')}>
+                                {/* movie  */}
                                 <div className={cx('search-type')}>
                                     <header className={cx('search-header')}>
                                         <h4 className={cx('search-heading')}>
@@ -157,11 +158,12 @@ function Search() {
                                     {/* Movie */}
                                     {movieResult.map((result) => (
                                         <LazyLoadComponent key={result.id} threshold={70}>
-                                            <SearchItem data={result} />
+                                            <SearchItem mediaType="movie" data={result} />
                                         </LazyLoadComponent>
                                     ))}
                                 </div>
 
+                                {/* tv */}
                                 <div className={cx('search-type')}>
                                     <header className={cx('search-header')}>
                                         <h4 className={cx('search-heading')}>
@@ -183,7 +185,7 @@ function Search() {
                                     {/* Tv api */}
                                     {tvResult.map((result) => (
                                         <LazyLoadComponent key={result.id} threshold={70}>
-                                            <SearchItem data={result} />
+                                            <SearchItem mediaType="tv" data={result} />
                                         </LazyLoadComponent>
                                     ))}
                                 </div>
@@ -205,8 +207,6 @@ function Search() {
                         }}
                         onFocus={() => {
                             setShowResult(true);
-
-                            // isResult && setIsResult(false);
                         }}
                         onKeyUp={handleNavigateSearch}
                         onBlur={() => setIsResult(true)}

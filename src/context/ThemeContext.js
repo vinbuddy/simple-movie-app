@@ -21,6 +21,13 @@ function ThemeProvider({ children }) {
         setTheme(localStorage.getItem('currentTheme'));
     };
 
+    useEffect(() => {
+        // Check if localStorage null first time -> set theme 'light' default
+        if (!localStorage.getItem('currentTheme')) {
+            localStorage.setItem('currentTheme', theme);
+        }
+    }, []);
+
     // set base on theme
     useEffect(() => {
         if (localStorage.getItem('currentTheme') === 'dark') {

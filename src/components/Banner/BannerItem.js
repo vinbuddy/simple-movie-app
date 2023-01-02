@@ -1,10 +1,12 @@
+import { BsPlayCircle } from 'react-icons/bs';
 import { memo } from 'react';
 import './Banner.scss';
-import { getYear } from 'src/utils/handleDate';
-import Button from '../Button';
 
-import { BsPlayCircle } from 'react-icons/bs';
+import { getYear } from 'src/utils/handleDate';
+
+import Button from '../Button';
 import Image from '../Image';
+
 function BannerItem({ data }) {
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
     const year = getYear(data.release_date || data.first_air_date);
@@ -19,7 +21,12 @@ function BannerItem({ data }) {
                 <div className="banner-desc">
                     <p className="banner-year">{year}</p>
 
-                    <Button to="/watch" leftIcon={<BsPlayCircle />} size="small" type="primary">
+                    <Button
+                        to={`infor/movie/${data?.id}`}
+                        leftIcon={<BsPlayCircle />}
+                        size="small"
+                        type="primary"
+                    >
                         Watch Now
                     </Button>
                 </div>

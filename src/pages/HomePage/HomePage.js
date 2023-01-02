@@ -19,7 +19,9 @@ function HomePage() {
 
     useEffect(() => {
         const fetchNews = async () => {
-            const newsData = await newsService.getNews('film');
+            const newsData = await newsService.getNews('movie');
+            console.log('newsData: ', newsData);
+
             setNewsResult(newsData);
         };
         document.title = 'Simple Movie App';
@@ -41,14 +43,15 @@ function HomePage() {
                             <div className="banner-news">
                                 <SwipeCard>
                                     <Slider navigation={true}>
-                                        {newsResult.map((newsItem, index) => (
-                                            <Slide key={newsItem.url}>
-                                                <SwipeCardItem
-                                                    pageNumber={index + 1}
-                                                    data={newsItem}
-                                                />
-                                            </Slide>
-                                        ))}
+                                        {!!newsResult &&
+                                            newsResult.map((newsItem, index) => (
+                                                <Slide key={index}>
+                                                    <SwipeCardItem
+                                                        pageNumber={index + 1}
+                                                        data={newsItem}
+                                                    />
+                                                </Slide>
+                                            ))}
                                     </Slider>
                                 </SwipeCard>
                             </div>

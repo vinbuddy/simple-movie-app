@@ -9,12 +9,12 @@ import Image from '../Image';
 
 const cx = classNames.bind(styles);
 
-function SearchItem({ data }) {
+function SearchItem({ data, mediaType }) {
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
     const newDate = formartDate(data?.release_date || data?.first_air_date);
 
     return (
-        <Link to="/watch">
+        <Link to={`/infor/${mediaType}/${data?.id}`}>
             <div className={cx('search-item')}>
                 <div className={cx('search-img')}>
                     <Image effect="blur" src={`${baseImgURL}${data?.poster_path}`} alt="" />
