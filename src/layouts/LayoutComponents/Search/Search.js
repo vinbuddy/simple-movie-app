@@ -158,7 +158,11 @@ function Search() {
                                     {/* Movie */}
                                     {movieResult.map((result) => (
                                         <LazyLoadComponent key={result.id} threshold={70}>
-                                            <SearchItem mediaType="movie" data={result} />
+                                            <SearchItem
+                                                onClick={handleHideResultNavigate}
+                                                mediaType="movie"
+                                                data={result}
+                                            />
                                         </LazyLoadComponent>
                                     ))}
                                 </div>
@@ -185,7 +189,11 @@ function Search() {
                                     {/* Tv api */}
                                     {tvResult.map((result) => (
                                         <LazyLoadComponent key={result.id} threshold={70}>
-                                            <SearchItem mediaType="tv" data={result} />
+                                            <SearchItem
+                                                onClick={handleHideResultNavigate}
+                                                mediaType="tv"
+                                                data={result}
+                                            />
                                         </LazyLoadComponent>
                                     ))}
                                 </div>

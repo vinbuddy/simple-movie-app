@@ -51,3 +51,19 @@
         background-color: rgba(255, 255, 255, 0.8);
     }
 }
+
+//res
+
+@media (max-width: 575px) {
+    .search-wrapper {
+        .search-empty {
+            img {
+                width: 280px;
+            }
+        }
+
+        .search-result-heading {
+            font-size: 2rem;
+        }
+    }
+}

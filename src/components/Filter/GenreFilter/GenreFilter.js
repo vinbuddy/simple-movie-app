@@ -1,5 +1,4 @@
-import { useEffect, useState, memo, useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from '../Filter.module.scss';
@@ -66,4 +65,4 @@ function GenreFilter({ genreType }) {
     );
 }
 
-export default memo(GenreFilter);
+export default GenreFilter;

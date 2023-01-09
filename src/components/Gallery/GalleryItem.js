@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
@@ -7,7 +6,7 @@ import styles from './Gallery.module.scss';
 import { getMonthYear } from 'src/utils/handleDate';
 
 import { TiStarFullOutline } from 'react-icons/ti';
-import { AiOutlineLike } from 'react-icons/ai';
+import { BsPeople } from 'react-icons/bs';
 
 import Image from '../Image';
 
@@ -45,8 +44,8 @@ function GalleryItem({ data, mediaType }) {
 
                     <div className="d-flex align-items-center justify-content-between">
                         <p className={cx('gallery-year')}>{date}</p>
-                        <div className="d-flex">
-                            <AiOutlineLike className={cx('gallery-like-icon')} />
+                        <div title="vote count" className="d-flex">
+                            <BsPeople className={cx('gallery-like-icon')} />
                             <span className={cx('gallery-vote-count')}>{data?.vote_count}</span>
                         </div>
                     </div>
@@ -56,4 +55,4 @@ function GalleryItem({ data, mediaType }) {
     );
 }
 
-export default memo(GalleryItem);
+export default GalleryItem;

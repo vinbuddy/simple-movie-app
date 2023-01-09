@@ -4,6 +4,7 @@ const images = {
     telescope: require('./telescope.png'),
     fallback: require('./fallback.png'),
     posterFallback: require('./poster-placeholder.png'),
+    backgroundFallback: require('./fallback-background.png'),
     noResult: require('./noResult.png'),
     avatarPlaceholder: require('./avatar.jpg'),
     starWarHead: require('./starwarHead.png'),

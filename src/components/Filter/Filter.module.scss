@@ -4,7 +4,6 @@
     align-items: center;
     overflow-x: scroll;
     padding-bottom: 16px;
-    margin-bottom: 25px;
     background-color: var(--app-background);
 
     &::-webkit-scrollbar:horizontal {
@@ -18,7 +17,6 @@
 
     &::-webkit-scrollbar-track:horizontal {
         border-radius: 0;
-        // background-color: #f2f1f1;
         background-color: rgba(0, 0, 0, 0.1);
         border-radius: 10px;
     }

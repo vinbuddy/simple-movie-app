@@ -9,15 +9,15 @@ import Image from '../Image';
 
 const cx = classNames.bind(styles);
 
-function SearchItem({ data, mediaType }) {
+function SearchItem({ data, mediaType, onClick }) {
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
     const newDate = formartDate(data?.release_date || data?.first_air_date);
 
     return (
-        <Link to={`/infor/${mediaType}/${data?.id}`}>
+        <Link to={`/infor/${mediaType}/${data?.id}`} onClick={onClick}>
             <div className={cx('search-item')}>
                 <div className={cx('search-img')}>
-                    <Image effect="blur" src={`${baseImgURL}${data?.poster_path}`} alt="" />
+                    <Image effect="blur" src={baseImgURL + data?.poster_path} alt="" />
                 </div>
                 <div className={cx('info')}>
                     <p className={cx('title')}>{data?.title || data?.name}</p>

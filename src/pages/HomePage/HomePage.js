@@ -48,6 +48,7 @@ function HomePage() {
                                                     <SwipeCardItem
                                                         pageNumber={index + 1}
                                                         data={newsItem}
+                                                        totalPage={newsResult.length}
                                                     />
                                                 </Slide>
                                             ))}

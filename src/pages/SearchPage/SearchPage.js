@@ -122,9 +122,7 @@ function SearchPage() {
                     ) : (
                         <div className="search-empty">
                             <img src={images.telescope} alt="" />
-                            <h1 className="search-result-heading">
-                                Explore interesting film now !
-                            </h1>
+                            <h1 className="search-result-heading">Explore interesting films now</h1>
                         </div>
                     )}
 

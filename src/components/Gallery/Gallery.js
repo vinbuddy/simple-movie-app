@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Gallery.module.scss';
@@ -16,6 +16,7 @@ function Gallery({ data, mediaType, stateHeading, heading, rightIcon }) {
     const [gallery, setGallery] = useState([]);
 
     const rows = changeGalleryToRow(gallery);
+
     const rowGallery = rows.map((row) => {
         return {
             row: row,
@@ -58,4 +59,4 @@ function Gallery({ data, mediaType, stateHeading, heading, rightIcon }) {
     );
 }
 
-export default memo(Gallery);
+export default Gallery;

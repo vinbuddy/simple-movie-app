@@ -51,7 +51,7 @@ function DefaultLayout({ children }) {
                     </div>
                 </div>
             </div>
-            {/* <footer style={{ height: 300, background: '#000' }}></footer> */}
+            <footer></footer>
         </div>
     );
 }

@@ -1,6 +1,4 @@
-import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'src/components/Button';
 
 import classNames from 'classnames/bind';
 import styles from './Gallery.module.scss';
@@ -23,13 +21,8 @@ function GalleryHeader({ heading, rightIcon, link }) {
                     </h1>
                 </div>
             )}
-            {/* {seemore && (
-                <Button to="/category" size="mini" type="outline">
-                    See more
-                </Button>
-            )} */}
         </div>
     );
 }
 
-export default memo(GalleryHeader);
+export default GalleryHeader;

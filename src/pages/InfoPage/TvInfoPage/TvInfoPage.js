@@ -1,27 +1,42 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { getCredit, getDetail, getSimilar, getVideos } from 'src/apiServices/getInfoService';
+import {
+    getCredit,
+    getDetail,
+    getReview,
+    getSimilar,
+    getVideos,
+} from 'src/apiServices/getInfoService';
 import FilmInfo from 'src/components/FilmInfo/FilmInfor';
 
 function TvInfoPage() {
     const [detail, setDetail] = useState({});
     const [credit, setCredit] = useState({});
     const [videos, setVideos] = useState([]);
-    const [similar, setSimilar] = useState([]);
+    const [similars, setSimilars] = useState([]);
+    const [reviews, setReviews] = useState([]);
+
+    const [loading, setLoading] = useState(false);
 
     const { id } = useParams();
 
     useEffect(() => {
         const fetchInfo = async () => {
+            setLoading(true);
+
             const detailResult = await getDetail('tv', id);
             const creditResult = await getCredit('tv', id);
             const videoResult = await getVideos('tv', id);
             const similarResult = await getSimilar('tv', id);
+            const reviewResult = await getReview('tv', id);
+
+            setLoading(false);
 
             setDetail(detailResult);
             setCredit(creditResult);
             setVideos(videoResult);
-            setSimilar(similarResult);
+            setSimilars(similarResult);
+            setReviews(reviewResult);
         };
 
         fetchInfo();
@@ -33,7 +48,9 @@ function TvInfoPage() {
             detail={detail}
             credit={credit}
             videos={videos}
-            similar={similar}
+            similars={similars}
+            reviews={reviews}
+            loading={loading}
         />
     );
 }

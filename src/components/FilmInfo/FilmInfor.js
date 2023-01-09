@@ -1,13 +1,13 @@
-import { useEffect, useRef } from 'react';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import YouTube from 'react-youtube';
-
+import React, { useEffect, useRef } from 'react';
 import './FilmInfor.scss';
+import YouTube from 'react-youtube';
 
 import { BsCalendar4Week, BsCircle } from 'react-icons/bs';
 import { TbTimeline } from 'react-icons/tb';
 import { BsPlayCircle, BsYoutube } from 'react-icons/bs';
+import { RiMedalLine } from 'react-icons/ri';
+import { BsPeople } from 'react-icons/bs';
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 
 import GalleryItem from 'src/components/Gallery/GalleryItem';
 import Button from 'src/components/Button';
@@ -17,8 +17,17 @@ import Image from 'src/components/Image';
 
 import { formartDate } from 'src/utils/handleDate';
 import images from 'src/assets/images';
+import LoadingBar from '../LoadingBar';
 
-function FilmInfo({ mediaType = 'movie', detail = {}, credit = {}, videos = [], similar = [] }) {
+function FilmInfo({
+    mediaType = 'movie',
+    detail = {},
+    credit = {},
+    videos = [],
+    similars = [],
+    reviews = [],
+    loading = false,
+}) {
     const trailerRef = useRef();
 
     useEffect(() => {
@@ -34,15 +43,61 @@ function FilmInfo({ mediaType = 'movie', detail = {}, credit = {}, videos = [], 
 
     const trailer = videos.find(
         (videoItem) =>
-            videoItem?.name === 'Official Trailer' || videoItem?.name.includes('trailer'),
+            videoItem?.name === 'Official Trailer' || videoItem?.name.includes('Trailer'),
     );
+
+    const fixAvatarPath = (avatarPath) => {
+        let path = avatarPath;
+
+        if (!!avatarPath) {
+            if (avatarPath.charAt(0) === '/' && avatarPath.includes('/https')) {
+                path = path.substring(1);
+            } else {
+                path = '';
+            }
+        }
+
+        return path;
+    };
+
+    const renderStars = () => {
+        let starOutlines = [];
+        let starSolids = [];
+
+        let starOutine = { icon: <AiOutlineStar className="info-star-outline" /> };
+        let starSolid = { icon: <AiFillStar className="info-star-solid" /> };
+
+        for (let i = 0; i < 5; i++) {
+            starSolids[i] = starSolid;
+            starOutlines[i] = starOutine;
+        }
+
+        return [...starSolids, ...starOutlines];
+    };
+
+    const calculateStar = (rating = 0) => {
+        const stars = renderStars();
+        const finishStar = stars.slice(5 - rating, 10 - rating);
+
+        return finishStar;
+    };
+
+    // Star component to render
+    const Star = ({ icon }) => {
+        return <span>{icon}</span>;
+    };
 
     return (
         <div className="info-wrapper">
+            {loading && <LoadingBar height={4} />}
+
+            {/* Background */}
             <div
                 className="info-background"
                 style={{
-                    backgroundImage: `url(${baseImgURL}${detail?.backdrop_path})`,
+                    backgroundImage: !!detail?.backdrop_path
+                        ? `url(${baseImgURL}${detail?.backdrop_path})`
+                        : 'unset',
                 }}
             ></div>
 
@@ -74,33 +129,15 @@ function FilmInfo({ mediaType = 'movie', detail = {}, credit = {}, videos = [], 
                                     Watch
                                 </Button>
                             </div>
-
-                            <div className="info-rating">
-                                <div className="info-rating-process">
-                                    <CircularProgressbar
-                                        styles={buildStyles({
-                                            pathColor: '#f37515',
-                                            textColor: 'var(--text-color)',
-                                            textSize: '2.8rem',
-                                        })}
-                                        value={(detail?.vote_average / 10) * 100}
-                                        maxValue={100}
-                                        text={`${Math.floor((detail?.vote_average / 10) * 100)}%`}
-                                    />
-                                </div>
-                                <div className="info-rating-detail">
-                                    <p>
-                                        <span>{detail?.vote_count}</span> ratings
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
                     {/* Info */}
                     <div className="col-12 col-sm-12 col-md-12 col-lg-10">
                         <div className="info-content">
-                            <h2 className="info-name">{detail?.title || detail?.name}</h2>
+                            <h2 className="info-name" title={detail?.title || detail?.name}>
+                                {detail?.title || detail?.name}
+                            </h2>
                             <p className="info-original-title">
                                 Original title: {detail?.original_title || detail?.original_name}
                             </p>
@@ -120,7 +157,7 @@ function FilmInfo({ mediaType = 'movie', detail = {}, credit = {}, videos = [], 
                                 </li>
                                 <li className="info-detail-item">
                                     <BsCalendar4Week className="info-detail-icon" />
-                                    <span>Release date: {date}</span>
+                                    <span>Release: {date}</span>
                                 </li>
                                 <li className="info-detail-item">
                                     <TbTimeline className="info-detail-icon" />
@@ -130,12 +167,20 @@ function FilmInfo({ mediaType = 'movie', detail = {}, credit = {}, videos = [], 
                                         min
                                     </span>
                                 </li>
+                                <li className="info-detail-item">
+                                    <RiMedalLine className="info-detail-icon" />
+                                    <span>Score: {detail?.vote_average}</span>
+                                </li>
+                                <li className="info-detail-item">
+                                    <BsPeople className="info-detail-icon" />
+                                    <span>Ratings: {detail?.vote_count}</span>
+                                </li>
                             </ul>
 
                             {/* story */}
                             <div className="info-overview">
                                 <h2 className="info-overview-heading">Content:</h2>
-                                <p>{detail?.overview}</p>
+                                <p className="info-overview-content">{detail?.overview}</p>
                             </div>
                         </div>
                     </div>
@@ -218,6 +263,77 @@ function FilmInfo({ mediaType = 'movie', detail = {}, credit = {}, videos = [], 
                         </div>
                     </div>
 
+                    {/* Review */}
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div className="info-section">
+                            <GalleryHeader heading="Review" />
+
+                            <div className="info-review row">
+                                {reviews.map((reviewItem, index) => (
+                                    <div key={index} className="col-12">
+                                        <div className="info-review-item row">
+                                            <div className="col-lg-1 col-md-2 d-md-flex d-lg-flex justify-content-md-center justify-content-lg-center d-none d-sm-block d-sm-none d-md-block">
+                                                <div className="info-review-avatar">
+                                                    <Image
+                                                        fallback={images.avatarPlaceholder}
+                                                        src={fixAvatarPath(
+                                                            reviewItem?.author_details?.avatar_path,
+                                                        )}
+                                                        alt="Avatar reviewer"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-lg-11 col-md-10 col-sm-12 col-12">
+                                                <div className="info-review-section">
+                                                    <div className="info-review-header">
+                                                        <div className="info-review-author">
+                                                            <div
+                                                                className="info-review-avatar d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none"
+                                                                style={{ width: 30, height: 30 }}
+                                                            >
+                                                                <Image
+                                                                    fallback={
+                                                                        images.avatarPlaceholder
+                                                                    }
+                                                                    src={fixAvatarPath(
+                                                                        reviewItem?.author_details
+                                                                            ?.avatar_path,
+                                                                    )}
+                                                                    alt="Avatar reviewer"
+                                                                />
+                                                            </div>
+                                                            <h3 className="info-review-name">
+                                                                {reviewItem?.author}
+                                                            </h3>
+                                                        </div>
+                                                        <span className="info-review-stars">
+                                                            {!!reviewItem?.author_details?.rating &&
+                                                                calculateStar(
+                                                                    Math.round(
+                                                                        reviewItem?.author_details
+                                                                            ?.rating / 2,
+                                                                    ),
+                                                                ).map((item, index) => (
+                                                                    <Star
+                                                                        icon={item.icon}
+                                                                        key={index}
+                                                                    />
+                                                                ))}
+                                                        </span>
+                                                    </div>
+                                                    <div className="info-review-cmt">
+                                                        <p>{reviewItem?.content}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Similar */}
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div className="info-section">
@@ -259,7 +375,7 @@ function FilmInfo({ mediaType = 'movie', detail = {}, credit = {}, videos = [], 
                                         },
                                     }}
                                 >
-                                    {similar.map((similarItem, index) => (
+                                    {similars.map((similarItem, index) => (
                                         <Slide key={index}>
                                             <div className="info-similar-item">
                                                 <GalleryItem

@@ -1,4 +1,4 @@
-import { useState, createContext, useCallback } from 'react';
+import { useState, createContext, useCallback, useLayoutEffect } from 'react';
 
 import { loadFilterData, loadMoreFilter } from 'src/apiServices/filterService';
 
@@ -15,10 +15,8 @@ const sortOptions = [
 function FilterProvider({ children }) {
     const [galleryFilter, setGalleryFilter] = useState([]);
     const [currentGenres, setCurrentGenres] = useState([]);
-
     const [currentSortby, setCurrentSortby] = useState('popularity.desc');
     const [pageNum, setPageNum] = useState(2);
-
     const [loading, setLoading] = useState(false);
 
     // callback when click genre

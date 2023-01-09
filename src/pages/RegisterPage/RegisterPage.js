@@ -30,7 +30,6 @@ function RegisterPage() {
 
     const userData = useContext(UserContext);
     const { authError, authLoading, handleCreateAccount } = useContext(AuthContext);
-    console.log('authError: ', authError);
 
     useEffect(() => {
         if (userData) navigate('/', { replace: true }); // go back prev page
