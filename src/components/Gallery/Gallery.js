@@ -25,7 +25,7 @@ function Gallery({ data, mediaType, stateHeading, heading, rightIcon }) {
 
     useEffect(() => {
         const getGalleryData = async () => {
-            if ((stateHeading, mediaType)) {
+            if (stateHeading && mediaType) {
                 const result = await getListMovieAndTv(mediaType, stateHeading);
                 setGallery(result);
             }
@@ -36,8 +36,9 @@ function Gallery({ data, mediaType, stateHeading, heading, rightIcon }) {
 
         getGalleryData();
     }, []);
+
     return (
-        <div className={cx('col-12', 'gallery-wrapper')}>
+        <div className={cx('col-12 col-lg-12 col-md-12 col-sm-12', 'gallery-wrapper')}>
             {stateHeading && <GalleryHeader heading={heading} rightIcon={rightIcon} />}
             <ViewportList items={rowGallery}>
                 {(item, index) => {

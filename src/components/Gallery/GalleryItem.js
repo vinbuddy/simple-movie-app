@@ -20,17 +20,7 @@ function GalleryItem({ data, mediaType }) {
         <Link to={`/infor/${mediaType}/${data?.id}`}>
             <div title={data?.title || data?.name} className={cx('gallery-item')}>
                 <div className={cx('gallery-thumb')}>
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            background: 'var(--thumb-gallery-background)',
-                        }}
-                        className="blink"
-                    ></div>
+                    <div className={cx('gallery-fallback-img')}></div>
                     <Image src={`${baseImgURL}${data?.poster_path}`} alt="gallery" />
 
                     <div className={cx('gallery-vote-wrapper')}>
@@ -42,9 +32,9 @@ function GalleryItem({ data, mediaType }) {
                 <div className={cx('gallery-info')}>
                     <p className={cx('gallery-name')}>{data?.title || data?.name}</p>
 
-                    <div className="d-flex align-items-center justify-content-between">
+                    <div className={cx('d-flex align-items-center', 'justify-content-between')}>
                         <p className={cx('gallery-year')}>{date}</p>
-                        <div title="vote count" className="d-flex">
+                        <div title="vote count" className={cx('d-flex')}>
                             <BsPeople className={cx('gallery-like-icon')} />
                             <span className={cx('gallery-vote-count')}>{data?.vote_count}</span>
                         </div>

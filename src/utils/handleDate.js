@@ -1,5 +1,4 @@
 export const formartDate = (date) => {
-    // Khi data API k chứa ngày thì k hiển thị
     if (!date) {
         return 'No Date 🚫';
     }

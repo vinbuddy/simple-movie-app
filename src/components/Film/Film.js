@@ -1,8 +1,8 @@
-import React, { Suspense, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { CgRowFirst, CgSpinnerTwoAlt } from 'react-icons/cg';
 
-// import Gallery from 'src/components/Gallery';
+import Gallery from 'src/components/Gallery';
 import GalleryItem from 'src/components/Gallery/GalleryItem';
 import GalleryHeader from 'src/components/Gallery/GalleryHeader';
 
@@ -15,8 +15,6 @@ import Button from 'src/components/Button';
 import changeGalleryToRow from 'src/utils/changeGalleryToRow';
 
 import ViewportList from 'react-viewport-list';
-
-const Gallery = React.lazy(() => import('src/components/Gallery'));
 
 function Film({ mediaType }) {
     const { sortOptions, galleryFilter, loadMoreData, loading } = useContext(FilterContext);
@@ -34,7 +32,7 @@ function Film({ mediaType }) {
     }, []);
 
     return (
-        <div className="film-wrapper">
+        <div style={{ minHeight: '100vh' }} className="film-wrapper">
             <div className="row">
                 <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                     <div className="row flex-wrap-reverse">
@@ -48,7 +46,6 @@ function Film({ mediaType }) {
                     </div>
                 </div>
 
-                {/* Gallery filter */}
                 <div className="col-lg-12 col-md-12 col-sm-12 col-12 mt-4 mt-md-4">
                     {galleryFilter.length > 0 ? (
                         <>
@@ -102,13 +99,11 @@ function Film({ mediaType }) {
                         </>
                     ) : (
                         <div className="row">
-                            <Suspense fallback={<CgSpinnerTwoAlt className="spin" />}>
-                                <Gallery
-                                    stateHeading="popular"
-                                    mediaType={mediaType}
-                                    heading="Suggest For You"
-                                />
-                            </Suspense>
+                            <Gallery
+                                stateHeading="popular"
+                                mediaType={mediaType}
+                                heading="Suggest For You"
+                            />
                         </div>
                     )}
                 </div>
