@@ -7,7 +7,7 @@ import {
     getSimilar,
     getVideos,
 } from 'src/apiServices/getInfoService';
-import FilmInfo from 'src/components/FilmInfo/FilmInfor';
+import FilmInfo from 'src/components/FilmInfo';
 
 function MovieInfoPage() {
     const [detail, setDetail] = useState({});

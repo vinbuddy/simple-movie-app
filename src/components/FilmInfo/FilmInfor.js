@@ -122,7 +122,7 @@ function FilmInfo({
                                             alt="Poster"
                                         />
                                     ) : (
-                                        <Skeleton height="100%" />
+                                        <Skeleton borderRadius={16} height="100%" />
                                     )}
                                 </div>
                                 <div className="info-button">
@@ -213,17 +213,13 @@ function FilmInfo({
                                         spaceBetween={25}
                                         observeParents={true}
                                         breakpoints={{
-                                            // width >= 1200px
+                                            // screen <= 992px
                                             992: {
                                                 slidesPerView: 6.5,
                                                 spaceBetweenSlides: 30,
                                                 slidesPerGroup: 6,
                                             },
-                                            991: {
-                                                slidesPerView: 5,
-                                                spaceBetweenSlides: 20,
-                                                slidesPerGroup: 5,
-                                            },
+
                                             768: {
                                                 slidesPerView: 4.5,
                                                 spaceBetweenSlides: 20,
@@ -372,16 +368,10 @@ function FilmInfo({
                                         spaceBetween={25}
                                         observeParents={true}
                                         breakpoints={{
-                                            // width >= 1200px
                                             992: {
                                                 slidesPerView: 6.5,
                                                 spaceBetweenSlides: 30,
                                                 slidesPerGroup: 6,
-                                            },
-                                            991: {
-                                                slidesPerView: 5,
-                                                spaceBetweenSlides: 20,
-                                                slidesPerGroup: 5,
                                             },
                                             768: {
                                                 slidesPerView: 4.5,

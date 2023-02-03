@@ -24,30 +24,24 @@ function DefaultLayout({ children }) {
     return (
         <div>
             <Header containerType="container-fluid" />
-            <div className={cx('wrapper')}>
-                <div className={cx('inner')}>
-                    <div className="row">
-                        <div className="col-lg-1">
-                            <Sidebar sidebarType="mini" />
-                        </div>
-                        <div className="col-lg-11 col-md-12 col-sm-12 col-12">
-                            <div id="content" className={cx('content')}>
-                                {children}
-                            </div>
+            <div className={cx('wrapper', 'container-fluid')}>
+                <div className="row ">
+                    {/* g-0 -> no gutter */}
+                    <div className="col-lg-1 col-sm-12 col-12 g-0">
+                        <Sidebar sidebarType="mini" />
+                    </div>
+                    <div className="col-lg-11 col-md-12 col-sm-12 col-12 g-0">
+                        <div id="content" className={cx('content')}>
+                            {children}
                         </div>
                     </div>
-
-                    <TippyToolTips
-                        animation="scale"
-                        delay={[500, 0]}
-                        placement="left-start"
-                        content="Go To Top"
-                    >
-                        <div className={cx('go-top-btn')}>
-                            <GoTopButton onClick={handleGoTop} />
-                        </div>
-                    </TippyToolTips>
                 </div>
+
+                <div className={cx('go-top-btn')}>
+                    <GoTopButton onClick={handleGoTop} />
+                </div>
+                {/* <div className={cx('inner')}>
+                </div> */}
             </div>
             {/* <footer style={{ height: 300, background: '#000' }}></footer> */}
         </div>

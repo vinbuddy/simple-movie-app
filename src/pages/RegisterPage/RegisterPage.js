@@ -93,7 +93,7 @@ function RegisterPage() {
                             {...register('name', { required: true, maxLength: 30 })}
                         />
                         {errors.name?.type === 'required' && (
-                            <p className="error-message">* Please Enter Name</p>
+                            <p className="error-message">Please enter name</p>
                         )}
                     </div>
 
@@ -112,10 +112,10 @@ function RegisterPage() {
                         />
 
                         {errors.email?.type === 'required' && (
-                            <p className="error-message">* Please Enter Email</p>
+                            <p className="error-message">Please enter email</p>
                         )}
                         {errors.email?.type === 'pattern' && (
-                            <p className="error-message">* Please Enter Invalid Email</p>
+                            <p className="error-message">Please enter invalid email</p>
                         )}
                     </div>
 
@@ -134,13 +134,13 @@ function RegisterPage() {
                             })}
                         />
                         {errors.password?.type === 'required' && (
-                            <p className="error-message">* Please Enter Password</p>
+                            <p className="error-message">Please enter password</p>
                         )}
                         {errors.password?.type === 'minLength' && (
-                            <p className="error-message">* Please Enter at least 6 characters</p>
+                            <p className="error-message">Please enter at least 6 characters</p>
                         )}
                         {errors.password?.type === 'maxLength' && (
-                            <p className="error-message">* Please Enter up to 15 characters</p>
+                            <p className="error-message">Please enter up to 15 characters</p>
                         )}
                     </div>
                 </div>
@@ -149,7 +149,7 @@ function RegisterPage() {
 
                 <div className="submit-btn">
                     <Button type="primary" size="medium">
-                        Register
+                        Create my account
                     </Button>
                 </div>
 

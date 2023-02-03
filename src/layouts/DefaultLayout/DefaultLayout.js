@@ -38,16 +38,9 @@ function DefaultLayout({ children }) {
                             </div>
                         </div>
 
-                        <TippyToolTips
-                            animation="scale"
-                            delay={[500, 0]}
-                            placement="left-start"
-                            content="Go To Top"
-                        >
-                            <div className={cx('go-top-btn')}>
-                                <GoTopButton onClick={handleGoTop} />
-                            </div>
-                        </TippyToolTips>
+                        <div className={cx('go-top-btn')}>
+                            <GoTopButton onClick={handleGoTop} />
+                        </div>
                     </div>
                 </div>
             </div>

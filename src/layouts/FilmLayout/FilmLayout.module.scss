@@ -2,6 +2,10 @@
     margin-top: var(--header-height);
 }
 
+.content {
+    overflow: hidden;
+}
+
 .go-top-btn {
     z-index: 10;
     position: fixed;

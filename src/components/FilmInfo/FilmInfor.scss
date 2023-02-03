@@ -1,11 +1,11 @@
 .info-wrapper {
     $textshadow: 1px 1px 2px var(--black);
+
     position: relative;
 
     .info-section {
         margin: 24px 0;
         padding-top: 20px;
-        border-top: 1px solid var(--nav-background);
     }
 
     .info-background {
@@ -99,6 +99,10 @@
         .info-genre-item {
             display: block;
             margin: 0 10px 0 0;
+
+            &:last-child {
+                margin-right: 0;
+            }
         }
     }
 
@@ -180,12 +184,13 @@
         img {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             object-fit: cover;
         }
     }
 
     .info-cast-name {
-        font-size: 1.9rem;
+        font-size: 1.6rem;
         font-weight: 600;
         color: var(--text-color);
         margin-top: 10px;
@@ -196,6 +201,7 @@
         font-size: 1.4rem;
         max-width: 100%;
         color: var(--text-nav);
+        margin-bottom: 0;
     }
 
     .info-player {
@@ -219,8 +225,8 @@
     }
 
     .info-review-avatar {
-        width: 85px;
-        height: 85px;
+        width: 65px;
+        height: 65px;
         border-radius: 50%;
         overflow: hidden;
 
@@ -243,6 +249,7 @@
         justify-content: space-between;
         margin-bottom: 10px;
     }
+
     .info-review-author {
         display: flex;
         align-items: center;
@@ -253,7 +260,6 @@
         color: var(--text-color);
         font-weight: 600;
         margin-bottom: 0;
-        margin-left: 10px;
     }
 
     .info-star-solid {
@@ -287,7 +293,7 @@
     }
 }
 
-// Mobile -> Tablet
+// Mobile - Tablet
 @media (min-width: 300px) and (max-width: 991px) {
     .info-wrapper {
         .info-poster {
@@ -318,6 +324,7 @@
         }
 
         .info-genres {
+            width: 100%;
             justify-content: center;
 
             .info-genre-item {
@@ -340,11 +347,16 @@
 
             .info-detail-item {
                 margin-right: 0;
+                padding: 8px 0;
             }
         }
 
         .info-overview {
             width: 100%;
+        }
+
+        .info-review-avatar {
+            margin-right: 10px;
         }
     }
 }

@@ -108,10 +108,10 @@ function LoginPage() {
                             })}
                         />
                         {errors.email?.type === 'required' && (
-                            <p className="error-message">* Please Enter Email</p>
+                            <p className="error-message">Please enter email</p>
                         )}
                         {errors.email?.type === 'pattern' && (
-                            <p className="error-message">* Please Enter Invalid Email</p>
+                            <p className="error-message">Please enter invalid email</p>
                         )}
                     </div>
                     <div className="input-item">
@@ -128,7 +128,7 @@ function LoginPage() {
                         />
                     </div>
                     {errors.password?.type === 'required' && (
-                        <p className="error-message">* Please Enter Password</p>
+                        <p className="error-message">Please enter password</p>
                     )}
                 </div>
 
