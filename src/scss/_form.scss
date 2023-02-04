@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fafafa;
+    background-color: #1d2024;
     height: 100vh;
 
     form {
@@ -14,6 +14,7 @@
         width: 400px;
         height: auto;
         padding: 30px;
+        background-color: #fafafa;
         box-shadow: 0 0 6px rgb(0 0 0 / 8%);
         border-radius: 8px;
         transition: all ease 0.3s;
@@ -42,6 +43,7 @@
         margin-top: 20px;
 
         .input-item {
+            position: relative;
             margin: 16px 0;
         }
 
@@ -62,6 +64,17 @@
                 border: 1px solid #ff3333;
             }
         }
+
+        .toggle-password-btn {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: 16px;
+            line-height: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
         .error-message {
             width: 100%;
             font-size: 1.3rem;

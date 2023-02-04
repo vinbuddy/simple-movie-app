@@ -7,8 +7,6 @@ import Button from 'src/components/Button';
 import Image from 'src/components/Image';
 import { UserContext } from 'src/context/UserContext';
 
-// import { handleCreateAccount } from 'src/firebase/useFirebase';
-
 import './RegisterPage.scss';
 import { AuthContext } from 'src/context/AuthContext';
 import LoadingBar from 'src/components/LoadingBar';
@@ -17,6 +15,7 @@ function RegisterPage() {
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors },
     } = useForm();
 
@@ -141,6 +140,27 @@ function RegisterPage() {
                         )}
                         {errors.password?.type === 'maxLength' && (
                             <p className="error-message">Please enter up to 15 characters</p>
+                        )}
+                    </div>
+
+                    <div className="input-item">
+                        <input
+                            type="text"
+                            placeholder="Confirm password"
+                            name="confirm"
+                            {...register('confirm', {
+                                require: true,
+                                validate: (value) => {
+                                    if (watch('password') !== value || watch('password') === '')
+                                        return 'Your passwords do not match';
+                                },
+                            })}
+                        />
+                        {errors.confirm?.type === 'validate' && (
+                            <p className="error-message">{errors.confirm?.message}</p>
+                        )}
+                        {errors.confirm?.type === 'required' && (
+                            <p className="error-message">Please enter confirm password</p>
                         )}
                     </div>
                 </div>

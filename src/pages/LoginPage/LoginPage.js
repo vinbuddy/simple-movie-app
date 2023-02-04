@@ -8,6 +8,8 @@ import Button from 'src/components/Button';
 import Image from 'src/components/Image';
 import LoadingBar from 'src/components/LoadingBar';
 
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+
 import { UserContext } from 'src/context/UserContext';
 import { AuthContext } from 'src/context/AuthContext';
 
@@ -21,9 +23,11 @@ function LoginPage() {
 
     const [errorMessage, setErrorMessage] = useState('');
     const [error, setError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const emailRef = useRef();
     const passwordRef = useRef();
+
     const { state } = useLocation();
     const navigate = useNavigate();
 
@@ -107,6 +111,7 @@ function LoginPage() {
                                 pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                             })}
                         />
+
                         {errors.email?.type === 'required' && (
                             <p className="error-message">Please enter email</p>
                         )}
@@ -120,16 +125,23 @@ function LoginPage() {
                             name="password"
                             ref={passwordRef}
                             spellCheck={false}
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             placeholder="Password"
                             {...register('password', {
                                 required: true,
                             })}
                         />
+                        <button
+                            type="button"
+                            className="toggle-password-btn"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                        </button>
+                        {errors.password?.type === 'required' && (
+                            <p className="error-message">Please enter password</p>
+                        )}
                     </div>
-                    {errors.password?.type === 'required' && (
-                        <p className="error-message">Please enter password</p>
-                    )}
                 </div>
 
                 {error && <p className="error-message">{errorMessage}</p>}
