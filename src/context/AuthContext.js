@@ -9,9 +9,13 @@ import {
     FacebookAuthProvider,
     createUserWithEmailAndPassword,
     updateProfile,
+    sendPasswordResetEmail,
 } from 'firebase/auth';
 
 import { app } from 'src/firebase/firebase';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const auth = getAuth();
 
@@ -72,6 +76,24 @@ function AuthProvider({ children }) {
             .catch((error) => {});
     };
 
+    const handleResetPassword = (email) => {
+        setAuthLoading(true);
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                toast.success(`Sent email successfully`, {
+                    position: toast.POSITION.BOTTOM_CENTER,
+                });
+            })
+            .catch(() => {
+                toast.error('Sent email unsuccessfully', {
+                    position: toast.POSITION.BOTTOM_CENTER,
+                });
+            })
+            .finally(() => {
+                setAuthLoading(false);
+            });
+    };
+
     const AuthData = {
         authLoading,
         authError,
@@ -80,6 +102,7 @@ function AuthProvider({ children }) {
         handleSignInGoogle,
         handleSignInFacebook,
         handleSignOut,
+        handleResetPassword,
     };
 
     return <AuthContext.Provider value={AuthData}>{children}</AuthContext.Provider>;

@@ -144,11 +144,12 @@
 
     .navigate-link {
         font-size: 1.4rem;
-        margin-bottom: 0;
+        margin-bottom: 7px;
+    }
 
-        .navigate-link-item {
-            margin-left: 4px;
-            color: var(--primary);
-        }
+    .navigate-link-item {
+        font-size: 1.4rem;
+        margin-left: 4px;
+        color: var(--primary);
     }
 }

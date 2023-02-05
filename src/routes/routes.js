@@ -14,6 +14,7 @@ import TvInfoPage from 'src/pages/InfoPage/TvInfoPage';
 
 // layout
 import FilmLayout from 'src/layouts/FilmLayout';
+import ResetPage from 'src/pages/ResetPage';
 
 const routes = [
     { path: config.routes.home, component: HomePage },
@@ -26,6 +27,7 @@ const routes = [
     { path: config.routes.tvInfo, component: TvInfoPage, layout: FilmLayout },
     { path: config.routes.login, component: LoginPage, layout: null },
     { path: config.routes.register, component: RegisterPage, layout: null },
+    { path: config.routes.reset, component: ResetPage, layout: null },
     { path: config.routes.notFound, component: NotFound, layout: null },
 ];
 

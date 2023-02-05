@@ -1,4 +1,4 @@
-import './LoginPage.scss';
+import './ResetPage.scss';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -8,12 +8,13 @@ import Button from 'src/components/Button';
 import Image from 'src/components/Image';
 import LoadingBar from 'src/components/LoadingBar';
 
-import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
-
 import { UserContext } from 'src/context/UserContext';
 import { AuthContext } from 'src/context/AuthContext';
 
-function LoginPage() {
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+function ResetPage() {
     // React hook form
     const {
         register,
@@ -23,22 +24,14 @@ function LoginPage() {
 
     const [errorMessage, setErrorMessage] = useState('');
     const [error, setError] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
 
     const emailRef = useRef();
-    const passwordRef = useRef();
 
     const { state } = useLocation();
     const navigate = useNavigate();
 
     const userData = useContext(UserContext);
-    const {
-        authError,
-        authLoading,
-        handleSignInGoogleEmailPassword,
-        handleSignInGoogle,
-        handleSignInFacebook,
-    } = useContext(AuthContext);
+    const { authError, authLoading, handleResetPassword } = useContext(AuthContext);
 
     useEffect(() => {
         if (userData) {
@@ -78,9 +71,7 @@ function LoginPage() {
         if (authError.length > 0) {
             setError(true);
         }
-
-        if (data?.email && data?.password)
-            handleSignInGoogleEmailPassword(data.email, data.password);
+        if (data?.email) handleResetPassword(data.email);
     };
 
     const handleFocus = () => {
@@ -91,11 +82,14 @@ function LoginPage() {
         <div className="form-wrapper">
             {authLoading && <LoadingBar top={0} width="100%" height={5} />}
 
+            {/* Put here to display toast message */}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Link to="/" className="logo">
                     <Image src={images.logo} alt="logo" />
                 </Link>
-                <h1 className="title">Sign in to Simple Movie App</h1>
+                <h1 className="title">Forgot password</h1>
+
+                <ToastContainer hideProgressBar pauseOnHover={false} />
 
                 <div className="input-wrapper">
                     <div className="input-item">
@@ -119,65 +113,18 @@ function LoginPage() {
                             <p className="error-message">Please enter invalid email</p>
                         )}
                     </div>
-                    <div className="input-item">
-                        <input
-                            onFocus={handleFocus}
-                            name="password"
-                            ref={passwordRef}
-                            spellCheck={false}
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder="Password"
-                            {...register('password', {
-                                required: true,
-                            })}
-                        />
-                        <button
-                            type="button"
-                            className="toggle-password-btn"
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-                        </button>
-                        {errors.password?.type === 'required' && (
-                            <p className="error-message">Please enter password</p>
-                        )}
-                    </div>
                 </div>
 
                 {error && <p className="error-message">{errorMessage}</p>}
 
                 <div className="submit-btn">
                     <Button type="primary" size="medium">
-                        Sign In
+                        Reset password
                     </Button>
                 </div>
-
-                <div className="divider"></div>
-
-                <div className="submit-btn-another">
-                    <button onClick={handleSignInGoogle}>
-                        <img src={images.google} alt="google" />
-                        Google
-                    </button>
-                    <button onClick={handleSignInFacebook}>
-                        <img src={images.facebook} alt="facebook" />
-                        Facebook
-                    </button>
-                </div>
-                <p className="navigate-link">
-                    <Link className="navigate-link-item" to="/reset">
-                        Forgot password
-                    </Link>
-                </p>
-                <p className="navigate-link">
-                    Not registered yet?
-                    <Link className="navigate-link-item" to="/register">
-                        Register
-                    </Link>
-                </p>
             </form>
         </div>
     );
 }
 
-export default LoginPage;
+export default ResetPage;

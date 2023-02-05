@@ -11,6 +11,7 @@ const routes = {
     profile: '/profile',
     login: '/login',
     register: '/register',
+    reset: '/reset',
     notFound: '*',
 };
 

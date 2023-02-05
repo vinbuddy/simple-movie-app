@@ -23,6 +23,7 @@
         "react-router-dom": "^6.3.0",
         "react-scripts": "5.0.1",
         "react-select": "^5.5.7",
+        "react-toastify": "^9.1.1",
         "react-viewport-list": "^6.1.0",
         "react-youtube": "^10.1.0",
         "swiper": "^6.8.4",

@@ -152,7 +152,7 @@ function RegisterPage() {
                                 require: true,
                                 validate: (value) => {
                                     if (watch('password') !== value || watch('password') === '')
-                                        return 'Your passwords do not match';
+                                        return 'Your password do not match';
                                 },
                             })}
                         />
