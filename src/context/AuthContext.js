@@ -15,7 +15,6 @@ import {
 import { app } from 'src/firebase/firebase';
 
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const auth = getAuth();
 
@@ -71,7 +70,9 @@ function AuthProvider({ children }) {
     const handleSignOut = () => {
         signOut(auth)
             .then(() => {
-                // console.log('user sign out');
+                toast.success('Sign out successfully', {
+                    position: toast.POSITION.BOTTOM_CENTER,
+                });
             })
             .catch((error) => {});
     };
@@ -80,11 +81,15 @@ function AuthProvider({ children }) {
         setAuthLoading(true);
         sendPasswordResetEmail(auth, email)
             .then(() => {
-                toast.success(`Sent email successfully`, {
+                toast.success('Sent email successfully', {
                     position: toast.POSITION.BOTTOM_CENTER,
                 });
             })
-            .catch(() => {
+            .catch((error) => {
+                setAuthLoading(false);
+
+                setAuthError(error.code);
+
                 toast.error('Sent email unsuccessfully', {
                     position: toast.POSITION.BOTTOM_CENTER,
                 });

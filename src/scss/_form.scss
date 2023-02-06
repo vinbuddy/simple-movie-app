@@ -5,6 +5,7 @@
     justify-content: center;
     background-color: #1d2024;
     height: 100vh;
+    padding: 20px;
 
     form {
         display: flex;
@@ -36,6 +37,16 @@
         font-weight: 600;
         letter-spacing: 0.3px;
         margin-top: 14px;
+        text-align: center;
+    }
+
+    .error-message {
+        width: 100%;
+        font-size: 1.3rem;
+        text-align: center;
+        color: #ff3333;
+        letter-spacing: 0.3px;
+        margin-bottom: 12px;
     }
 
     .input-wrapper {
@@ -67,19 +78,18 @@
 
         .toggle-password-btn {
             position: absolute;
+            font-size: 2.2rem;
             width: 25px;
             height: 25px;
-            right: 16px;
+            right: 12px;
             line-height: 0;
+            color: #8d8d8d;
             top: 50%;
             transform: translateY(-50%);
         }
 
         .error-message {
-            width: 100%;
-            font-size: 1.3rem;
             text-align: left;
-            color: #ff3333;
             letter-spacing: 0.3px;
             margin-top: 5px;
             margin-bottom: 12px;
@@ -151,5 +161,13 @@
         font-size: 1.4rem;
         margin-left: 4px;
         color: var(--primary);
+    }
+}
+
+@media (max-width: 576px) {
+    .form-wrapper {
+        form {
+            padding: 20px;
+        }
     }
 }

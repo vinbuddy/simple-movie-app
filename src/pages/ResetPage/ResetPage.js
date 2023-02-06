@@ -55,6 +55,9 @@ function ResetPage() {
             case 'auth/too-many-requests':
                 setErrorMessage('Too many request, try later');
                 break;
+            case 'auth/network-request-failed':
+                setErrorMessage('Email address does not exist');
+                break;
             default:
                 setErrorMessage('Error , Try again later');
                 break;
@@ -81,15 +84,14 @@ function ResetPage() {
     return (
         <div className="form-wrapper">
             {authLoading && <LoadingBar top={0} width="100%" height={5} />}
-
             {/* Put here to display toast message */}
+            <ToastContainer hideProgressBar pauseOnHover={false} />
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Link to="/" className="logo">
                     <Image src={images.logo} alt="logo" />
                 </Link>
                 <h1 className="title">Forgot password</h1>
-
-                <ToastContainer hideProgressBar pauseOnHover={false} />
 
                 <div className="input-wrapper">
                     <div className="input-item">

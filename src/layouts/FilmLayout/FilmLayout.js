@@ -9,6 +9,9 @@ import Header from '../LayoutComponents/Header';
 import Sidebar from '../LayoutComponents/Sidebar';
 import GoTopButton from 'src/components/ScrollToTop/GoTopButton';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const cx = classNames.bind(styles);
 
 // children = Page
@@ -23,6 +26,8 @@ function DefaultLayout({ children }) {
 
     return (
         <div>
+            <ToastContainer hideProgressBar pauseOnHover={false} />
+
             <Header containerType="container-fluid" />
             <div className={cx('wrapper', 'container-fluid')}>
                 <div className="row ">

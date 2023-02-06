@@ -284,7 +284,7 @@ function FilmInfo({
 
                                 <div className="info-review row">
                                     {reviews.map((reviewItem, index) => (
-                                        <div key={index} className="col-12">
+                                        <div key={index} className="col-sm-11 col-11 col-lg-12">
                                             <div className="info-review-item row">
                                                 <div className="col-lg-1 col-md-2 d-md-flex d-lg-flex justify-content-md-center justify-content-lg-center d-none d-sm-block d-sm-none d-md-block">
                                                     <div className="info-review-avatar">

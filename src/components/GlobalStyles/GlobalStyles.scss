@@ -102,6 +102,23 @@ body *::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0);
 }
 
+// Scroll Vertical
+// Custom All Scrollbar Vertical into Body
+body *::-webkit-scrollbar:horizontal {
+    border-radius: 0;
+    height: 7px;
+}
+
+body *::-webkit-scrollbar-thumb:horizontal {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+body *::-webkit-scrollbar-track:horizontal {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 // reset
 input,
 button,
