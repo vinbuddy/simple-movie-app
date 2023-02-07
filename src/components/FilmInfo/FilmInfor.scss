@@ -300,7 +300,8 @@
             overflow-x: scroll;
         }
 
-        .info-review-item {
+        .info-review-item,
+        .info-review-section {
             max-height: 350px;
             min-height: 350px;
             overflow-y: scroll;
@@ -310,13 +311,13 @@
             }
         }
 
-        .info-review-section {
-            max-height: 350px;
-            min-height: 350px;
-            overflow-y: scroll;
+        .info-review-item {
+            width: 90%;
+            margin-bottom: 10px;
 
-            &::-webkit-scrollbar {
-                display: none;
+            // Apply css only one element
+            &:only-of-type {
+                width: 100%;
             }
         }
     }

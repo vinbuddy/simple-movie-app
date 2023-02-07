@@ -21,6 +21,7 @@ import images from 'src/assets/images';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import LoadingBar from 'src/components/LoadingBar';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -29,8 +30,8 @@ function Search() {
     const [movieResult, setMovieResult] = useState([]);
     const [tvResult, setTvResult] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [isResult, setIsResult] = useState(true);
-    const [showResult, setShowResult] = useState(true);
+    const [isResult, setIsResult] = useState(false);
+    const [showResult, setShowResult] = useState(false);
 
     const inputRef = useRef();
 
@@ -86,6 +87,8 @@ function Search() {
         setMovieResult([]);
         setTvResult([]);
 
+        // setIsResult(true);
+        setLoading(false);
         setIsResult(false);
         inputRef.current.focus();
     };
@@ -123,80 +126,97 @@ function Search() {
     };
 
     return (
-        <div>
+        <div className={cx('search-area')}>
             <Tippy
-                placement="bottom-end"
+                placement="bottom-start"
                 popperOptions={{ modifiers: [{ name: 'flip', enabled: false }] }}
                 onClickOutside={handleHideResult}
                 visible={
-                    (showResult && movieResult.length > 0) || (showResult && tvResult.length > 0)
+                    showResult && searchValue.length > 0
+                    // (showResult && movieResult.length > 0) || (showResult && tvResult.length > 0)
                 }
                 interactive={true}
+                appendTo="parent"
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperFrame>
                             <div className={cx('search-inner')}>
-                                {/* movie  */}
-                                <div className={cx('search-type')}>
-                                    <header className={cx('search-header')}>
-                                        <h4 className={cx('search-heading')}>
-                                            Movie for {searchValue}
-                                        </h4>
-                                        <Link
-                                            className={cx('search-detail')}
-                                            to={{
-                                                pathname: '/search',
-                                                search: `?searchmovie=${searchValue}`,
-                                            }}
-                                            state={{ searchParam: 'searchmovie' }}
-                                            onClick={() => handleHideResultNavigate()}
-                                        >
-                                            See more
-                                            <MdOpenInNew style={{ marginLeft: 3 }} />
-                                        </Link>
-                                    </header>
-                                    {/* Movie */}
-                                    {movieResult.map((result) => (
-                                        <LazyLoadComponent key={result.id} threshold={70}>
-                                            <SearchItem
-                                                onClick={handleHideResultNavigate}
-                                                mediaType="movie"
-                                                data={result}
-                                            />
-                                        </LazyLoadComponent>
-                                    ))}
-                                </div>
+                                {isResult && (
+                                    <div>
+                                        {/* movie  */}
+                                        <div className={cx('search-type')}>
+                                            <header className={cx('search-header')}>
+                                                <h4 className={cx('search-heading')}>
+                                                    Movie for {searchValue}
+                                                </h4>
+                                                <Link
+                                                    className={cx('search-detail')}
+                                                    to={{
+                                                        pathname: '/search',
+                                                        search: `?searchmovie=${searchValue}`,
+                                                    }}
+                                                    state={{ searchParam: 'searchmovie' }}
+                                                    onClick={() => handleHideResultNavigate()}
+                                                >
+                                                    See more
+                                                    <MdOpenInNew style={{ marginLeft: 3 }} />
+                                                </Link>
+                                            </header>
+                                            {movieResult.map((result) => (
+                                                <LazyLoadComponent key={result.id} threshold={70}>
+                                                    <SearchItem
+                                                        onClick={handleHideResultNavigate}
+                                                        mediaType="movie"
+                                                        data={result}
+                                                    />
+                                                </LazyLoadComponent>
+                                            ))}
+                                        </div>
 
-                                {/* tv */}
-                                <div className={cx('search-type')}>
-                                    <header className={cx('search-header')}>
-                                        <h4 className={cx('search-heading')}>
-                                            Tv for {searchValue}
-                                        </h4>
-                                        <Link
-                                            className={cx('search-detail')}
-                                            to={{
-                                                pathname: '/search',
-                                                search: `?searchtv=${searchValue}`,
-                                            }}
-                                            state={{ searchParam: 'searchtv' }}
-                                            onClick={() => handleHideResultNavigate()}
-                                        >
-                                            See more
-                                            <MdOpenInNew style={{ marginLeft: 3 }} />
-                                        </Link>
-                                    </header>
-                                    {/* Tv api */}
-                                    {tvResult.map((result) => (
-                                        <LazyLoadComponent key={result.id} threshold={70}>
-                                            <SearchItem
-                                                onClick={handleHideResultNavigate}
-                                                mediaType="tv"
-                                                data={result}
+                                        {/* tv */}
+                                        <div className={cx('search-type')}>
+                                            <header className={cx('search-header')}>
+                                                <h4 className={cx('search-heading')}>
+                                                    Tv for {searchValue}
+                                                </h4>
+                                                <Link
+                                                    className={cx('search-detail')}
+                                                    to={{
+                                                        pathname: '/search',
+                                                        search: `?searchtv=${searchValue}`,
+                                                    }}
+                                                    state={{ searchParam: 'searchtv' }}
+                                                    onClick={() => handleHideResultNavigate()}
+                                                >
+                                                    See more
+                                                    <MdOpenInNew style={{ marginLeft: 3 }} />
+                                                </Link>
+                                            </header>
+                                            {/* Tv api */}
+                                            {tvResult.map((result) => (
+                                                <LazyLoadComponent key={result.id} threshold={70}>
+                                                    <SearchItem
+                                                        onClick={handleHideResultNavigate}
+                                                        mediaType="tv"
+                                                        data={result}
+                                                    />
+                                                </LazyLoadComponent>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                                {!isResult && (
+                                    <div className={cx('no-result')}>
+                                        {!loading && (
+                                            <img
+                                                className={cx('no-result-img')}
+                                                src={images.noResult}
+                                                alt=""
                                             />
-                                        </LazyLoadComponent>
-                                    ))}
-                                </div>
+                                        )}
+                                        <h3>{loading ? 'Searching' : 'No Result Found'} </h3>
+                                    </div>
+                                )}
                             </div>
                         </PopperFrame>
                     </div>
@@ -211,13 +231,14 @@ function Search() {
                         spellCheck={false}
                         placeholder="Search movie, tv..."
                         onChange={(e) => {
+                            setLoading(true);
                             setSearchValue(e.target.value);
                         }}
                         onFocus={() => {
                             setShowResult(true);
                         }}
                         onKeyUp={handleNavigateSearch}
-                        onBlur={() => setIsResult(true)}
+                        onBlur={() => setLoading(false)}
                     />
                     {!!searchValue && (
                         <button className={cx('clear')} onClick={handleClear}>
@@ -228,16 +249,18 @@ function Search() {
                     {loading && <LoadingBar top="100%" width="100%" />}
 
                     {/* No result */}
-                    {!isResult && searchValue !== '' && (
+                    {/* {!isResult && searchValue !== '' && (
                         <div className={cx('no-result')}>
                             <PopperFrame>
                                 <img src={images.noResult} alt="" />
                                 <h3>No Result Found</h3>
                             </PopperFrame>
                         </div>
-                    )}
+                    )} */}
                 </div>
             </Tippy>
+
+            <ToastContainer />
         </div>
     );
 }

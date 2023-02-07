@@ -172,15 +172,18 @@ body {
     .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
         top: -8px;
     }
+
+    div[data-tippy-root],
+    #tippy-1,
+    #tippy-2 {
+        overflow-x: hidden;
+        border-radius: 7px;
+    }
 }
 
 .spin {
     animation: spin 0.27s linear infinite;
 }
-
-// .blink {
-//     animation: blink 1s linear infinite alternate;
-// }
 
 @keyframes spin {
     from {
@@ -276,5 +279,16 @@ body {
     }
     .col-lg-5-5 {
         width: 100%;
+    }
+}
+
+// Mobile - Tablet
+@media (min-width: 300px) and (max-width: 991px) {
+    body {
+        div[data-tippy-root],
+        #tippy-1,
+        #tippy-2 {
+            width: 100vw;
+        }
     }
 }

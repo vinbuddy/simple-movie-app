@@ -284,68 +284,62 @@ function FilmInfo({
 
                                 <div className="info-review row">
                                     {reviews.map((reviewItem, index) => (
-                                        <div key={index} className="col-sm-11 col-11 col-lg-12">
-                                            <div className="info-review-item row">
-                                                <div className="col-lg-1 col-md-2 d-md-flex d-lg-flex justify-content-md-center justify-content-lg-center d-none d-sm-block d-sm-none d-md-block">
-                                                    <div className="info-review-avatar">
-                                                        <Image
-                                                            fallback={images.avatarPlaceholder}
-                                                            src={fixAvatarPath(
-                                                                reviewItem?.author_details
-                                                                    ?.avatar_path,
-                                                            )}
-                                                            alt="Avatar reviewer"
-                                                        />
-                                                    </div>
+                                        <div key={index} className="info-review-item">
+                                            <div className="col-lg-1 col-md-2 d-md-flex d-lg-flex justify-content-md-center justify-content-lg-center d-none d-sm-block d-sm-none d-md-block">
+                                                <div className="info-review-avatar">
+                                                    <Image
+                                                        fallback={images.avatarPlaceholder}
+                                                        src={fixAvatarPath(
+                                                            reviewItem?.author_details?.avatar_path,
+                                                        )}
+                                                        alt="Avatar reviewer"
+                                                    />
                                                 </div>
+                                            </div>
 
-                                                <div className="col-lg-11 col-md-10 col-sm-12 col-12">
-                                                    <div className="info-review-section">
-                                                        <div className="info-review-header">
-                                                            <div className="info-review-author">
-                                                                <div
-                                                                    className="info-review-avatar d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none"
-                                                                    style={{
-                                                                        width: 30,
-                                                                        height: 30,
-                                                                    }}
-                                                                >
-                                                                    <Image
-                                                                        fallback={
-                                                                            images.avatarPlaceholder
-                                                                        }
-                                                                        src={fixAvatarPath(
-                                                                            reviewItem
-                                                                                ?.author_details
-                                                                                ?.avatar_path,
-                                                                        )}
-                                                                        alt="Avatar reviewer"
-                                                                    />
-                                                                </div>
-                                                                <h3 className="info-review-name">
-                                                                    {reviewItem?.author}
-                                                                </h3>
+                                            <div className="col-lg-11 col-md-10 col-sm-12 col-12">
+                                                <div className="info-review-section">
+                                                    <div className="info-review-header">
+                                                        <div className="info-review-author">
+                                                            <div
+                                                                className="info-review-avatar d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none"
+                                                                style={{
+                                                                    width: 30,
+                                                                    height: 30,
+                                                                }}
+                                                            >
+                                                                <Image
+                                                                    fallback={
+                                                                        images.avatarPlaceholder
+                                                                    }
+                                                                    src={fixAvatarPath(
+                                                                        reviewItem?.author_details
+                                                                            ?.avatar_path,
+                                                                    )}
+                                                                    alt="Avatar reviewer"
+                                                                />
                                                             </div>
-                                                            <span className="info-review-stars">
-                                                                {!!reviewItem?.author_details
-                                                                    ?.rating &&
-                                                                    calculateStar(
-                                                                        Math.round(
-                                                                            reviewItem
-                                                                                ?.author_details
-                                                                                ?.rating / 2,
-                                                                        ),
-                                                                    ).map((item, index) => (
-                                                                        <Star
-                                                                            icon={item.icon}
-                                                                            key={index}
-                                                                        />
-                                                                    ))}
-                                                            </span>
+                                                            <h3 className="info-review-name">
+                                                                {reviewItem?.author}
+                                                            </h3>
                                                         </div>
-                                                        <div className="info-review-cmt">
-                                                            <p>{reviewItem?.content}</p>
-                                                        </div>
+                                                        <span className="info-review-stars">
+                                                            {!!reviewItem?.author_details?.rating &&
+                                                                calculateStar(
+                                                                    Math.round(
+                                                                        reviewItem?.author_details
+                                                                            ?.rating / 2,
+                                                                    ),
+                                                                ).map((item, index) => (
+                                                                    <Star
+                                                                        icon={item.icon}
+                                                                        key={index}
+                                                                    />
+                                                                ))}
+                                                        </span>
+                                                    </div>
+                                                    <div className="info-review-cmt">
+                                                        <p>{reviewItem?.content}</p>
                                                     </div>
                                                 </div>
                                             </div>
