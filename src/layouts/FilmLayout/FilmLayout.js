@@ -32,7 +32,7 @@ function DefaultLayout({ children }) {
             <div className={cx('wrapper', 'container-fluid')}>
                 <div className="row ">
                     {/* g-0 -> no gutter */}
-                    <div className="col-lg-1 col-sm-12 col-12 g-0">
+                    <div className="col-lg-1 d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block g-0">
                         <Sidebar sidebarType="mini" />
                     </div>
                     <div className="col-lg-11 col-md-12 col-sm-12 col-12 g-0">

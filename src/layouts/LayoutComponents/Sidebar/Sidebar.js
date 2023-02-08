@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 
-import MobileAction from 'src/components/MobileAction';
+// import MobileAction from 'src/components/MobileAction';
 import NavigateItem from 'src/components/NavigateItem/';
 import config from 'src/config';
 
@@ -68,7 +68,7 @@ function Sidebar({ sidebarType = 'normal' }) {
                 </NavigateItem>
             </nav>
 
-            <MobileAction />
+            {/* <MobileAction /> */}
         </aside>
     );
 }

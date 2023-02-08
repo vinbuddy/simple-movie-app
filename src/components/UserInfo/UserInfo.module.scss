@@ -30,3 +30,11 @@
     font-size: 1.6rem;
     color: var(--text-color);
 }
+
+// res
+// Mobile - Tablet
+@media (min-width: 300px) and (max-width: 991px) {
+    .user-icon {
+        display: none;
+    }
+}

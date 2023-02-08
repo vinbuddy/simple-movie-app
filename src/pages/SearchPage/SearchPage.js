@@ -121,7 +121,7 @@ function SearchPage() {
                         </h1>
                     ) : (
                         <div className="search-empty">
-                            <img src={images.telescope} alt="" />
+                            <img src={images.manRemote} alt="" />
                             <h1 className="search-result-heading">Explore interesting films now</h1>
                         </div>
                     )}

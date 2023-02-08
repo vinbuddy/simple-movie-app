@@ -2,6 +2,7 @@ const images = {
     logo: require('./logo.png'),
     glasses: require('./glasses.png'),
     telescope: require('./telescope.png'),
+    manRemote: require('./man-remote.png'),
     fallback: require('./fallback.png'),
     posterFallback: require('./poster-placeholder.png'),
     backgroundFallback: require('./fallback-background.png'),

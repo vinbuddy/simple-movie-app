@@ -173,11 +173,9 @@ body {
         top: -8px;
     }
 
-    div[data-tippy-root],
-    #tippy-1,
-    #tippy-2 {
-        overflow-x: hidden;
+    div[data-tippy-root] {
         border-radius: 7px;
+        box-shadow: 0 0 6px rgb(0 0 0 / 20%);
     }
 }
 
@@ -285,9 +283,7 @@ body {
 // Mobile - Tablet
 @media (min-width: 300px) and (max-width: 991px) {
     body {
-        div[data-tippy-root],
-        #tippy-1,
-        #tippy-2 {
+        div[data-tippy-root] {
             width: 100vw;
         }
     }

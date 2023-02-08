@@ -33,7 +33,7 @@ function DefaultLayout({ children }) {
                 <div className="container position-relative">
                     <div className={cx('inner')}>
                         <div className="row">
-                            <div className="col-lg-2">
+                            <div className="col-lg-2 d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">
                                 <Sidebar />
                             </div>
                             <div className="col-lg-10 col-md-12 col-sm-12 col-12">

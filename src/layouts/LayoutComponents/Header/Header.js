@@ -24,7 +24,8 @@ import { FiSearch } from 'react-icons/fi';
 import { UserContext } from 'src/context/UserContext';
 import { UserInfo } from 'src/components/UserInfo';
 
-import { AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import MobileSidebar from '../Sidebar/MobileSidebar';
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +33,16 @@ function Header({ containerType = 'container' }) {
     const userDataContext = useContext(UserContext);
     const location = useLocation();
     const [searchActive, setSearchActive] = useState(false);
+
+    const [showSidebar, setShowSidebar] = useState(false);
+
+    const handleShowSidebar = () => {
+        setShowSidebar(!showSidebar);
+    };
+
+    const handleHideSidebar = () => {
+        setShowSidebar(false);
+    };
 
     return (
         <div className={cx('header')}>
@@ -44,7 +55,7 @@ function Header({ containerType = 'container' }) {
                         to="/"
                     >
                         <img className={cx('logo')} src={images.logo} alt="" />
-                        <h2>Simple Not Trivial</h2>
+                        <h2 className={cx('qoute')}>Simple Not Trivial</h2>
                     </Link>
 
                     <div
@@ -120,9 +131,35 @@ function Header({ containerType = 'container' }) {
                             </div>
                         )}
 
-                        <button className={cx('menu-mobile-btn')}>
-                            <AiOutlineMenu />
-                        </button>
+                        <div>
+                            <button className={cx('menu-mobile-btn')} onClick={handleShowSidebar}>
+                                <AiOutlineMenu />
+                            </button>
+                            {/* Menu-sidebar */}
+                            <div
+                                className={cx('menu-sidebar', {
+                                    'show-sidebar': showSidebar,
+                                })}
+                            >
+                                <header className={cx('menu-sidebar-header')}>
+                                    <button
+                                        className={cx('menu-sidebar-close')}
+                                        onClick={handleHideSidebar}
+                                    >
+                                        <AiOutlineClose />
+                                    </button>
+                                    <h2 className={cx('qoute')}>Simple Movie App</h2>
+                                </header>
+                                <MobileSidebar hideSidebar={handleHideSidebar} />
+                            </div>
+
+                            <div
+                                className={cx('overlay', {
+                                    'show-overlay': showSidebar,
+                                })}
+                                onClick={handleHideSidebar}
+                            ></div>
+                        </div>
                     </div>
                 </div>
             </div>

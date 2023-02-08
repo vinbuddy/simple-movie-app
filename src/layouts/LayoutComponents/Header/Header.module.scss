@@ -10,6 +10,7 @@
 }
 
 .inner {
+    position: relative;
     height: 100%;
     padding: 0 10px;
     display: flex;
@@ -24,15 +25,15 @@
     .logo {
         width: 80px;
     }
+}
 
-    h2 {
-        font-family: 'Ceviche One', cursive;
-        color: var(--text-color);
-        font-size: 2rem;
-        letter-spacing: 1px;
-        margin-bottom: 0;
-        margin-left: 3px;
-    }
+.qoute {
+    font-family: 'Ceviche One', cursive;
+    color: var(--text-color);
+    font-size: 2rem;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    margin-left: 3px;
 }
 
 .actions {
@@ -54,6 +55,56 @@
     height: 20px;
     background-color: #ddd;
     margin: 0 10px;
+}
+
+.menu-sidebar {
+    display: none;
+    width: 75vw;
+    z-index: 11;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--app-background);
+    padding: 0 24px 24px 24px;
+    transform: translateX(100%);
+    transition: all 0.45s;
+    opacity: 0;
+
+    &.show-sidebar {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.menu-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+}
+
+.menu-sidebar-close {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.overlay {
+    opacity: 0;
+    display: none;
+    width: 100vw;
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: 0.4s;
+
+    &.show-overlay {
+        opacity: 1;
+    }
 }
 
 // Mobile - Tablet
@@ -106,5 +157,13 @@
     .cancel-btn {
         padding: 0 7px;
         color: var(--text-color);
+    }
+
+    .menu-sidebar {
+        display: block;
+    }
+
+    .overlay.show-overlay {
+        display: block;
     }
 }
