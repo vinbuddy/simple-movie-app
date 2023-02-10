@@ -44,6 +44,7 @@ function MovieInfoPage() {
 
     return (
         <FilmInfo
+            id={id}
             mediaType="movie"
             detail={detail}
             credit={credit}

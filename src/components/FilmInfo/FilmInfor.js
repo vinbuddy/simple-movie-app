@@ -23,6 +23,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 function FilmInfo({
+    id,
     mediaType = 'movie',
     detail = {},
     credit = {},
@@ -122,7 +123,11 @@ function FilmInfo({
                                             alt="Poster"
                                         />
                                     ) : (
-                                        <Skeleton borderRadius={16} height="100%" />
+                                        <Skeleton
+                                            style={{ border: '5px solid var(--app-background)' }}
+                                            borderRadius={16}
+                                            height="100%"
+                                        />
                                     )}
                                 </div>
                                 <div className="info-button">
@@ -133,7 +138,11 @@ function FilmInfo({
                                     >
                                         Trailer
                                     </Button>
-                                    <Button leftIcon={<BsPlayCircle />} type="primary">
+                                    <Button
+                                        to={`/watch/${mediaType}/${id}`}
+                                        leftIcon={<BsPlayCircle />}
+                                        type="primary"
+                                    >
                                         Watch
                                     </Button>
                                 </div>

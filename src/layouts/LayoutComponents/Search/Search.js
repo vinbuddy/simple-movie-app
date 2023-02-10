@@ -126,7 +126,7 @@ function Search() {
     };
 
     return (
-        <div className={cx('search-area')}>
+        <div id="search" className={cx('search-area')}>
             <Tippy
                 placement="bottom-start"
                 popperOptions={{ modifiers: [{ name: 'flip', enabled: false }] }}

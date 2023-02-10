@@ -45,7 +45,7 @@ function Header({ containerType = 'container' }) {
     };
 
     return (
-        <div className={cx('header')}>
+        <div id="header" className={cx('header')}>
             <div className={containerType} style={{ height: '100%' }}>
                 <div className={cx('inner')}>
                     <Link
@@ -156,6 +156,7 @@ function Header({ containerType = 'container' }) {
                             <div
                                 className={cx('overlay', {
                                     'show-overlay': showSidebar,
+                                    // 'fade-in': showSidebar,
                                 })}
                                 onClick={handleHideSidebar}
                             ></div>

@@ -91,19 +91,34 @@
 }
 
 .overlay {
-    opacity: 0;
-    display: none;
+    visibility: hidden;
     width: 100vw;
     z-index: 2;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: 0.4s;
+    background-color: rgba(0, 0, 0, 0.3);
+    pointer-events: all;
+    transition: all 0.3s;
+    opacity: 0;
+}
 
-    &.show-overlay {
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
         opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
     }
 }
 
@@ -164,6 +179,7 @@
     }
 
     .overlay.show-overlay {
-        display: block;
+        visibility: visible;
+        opacity: 1;
     }
 }

@@ -173,14 +173,19 @@ body {
         top: -8px;
     }
 
-    div[data-tippy-root] {
+    // Custom popper search
+    #header #search div[data-tippy-root] {
         border-radius: 7px;
         box-shadow: 0 0 6px rgb(0 0 0 / 20%);
     }
 }
 
+// Animations
 .spin {
     animation: spin 0.27s linear infinite;
+}
+.fade-in {
+    animation: fadeIn 0.25s ease-in;
 }
 
 @keyframes spin {
@@ -189,18 +194,6 @@ body {
     }
     to {
         transform: rotate(360deg);
-    }
-}
-
-@keyframes blink {
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 1;
     }
 }
 
@@ -243,7 +236,7 @@ body {
     transition: all ease-in-out 0.2s;
 }
 
-// Break point
+// Break point col-5
 @media (min-width: 992px) {
     .col-md-1-5 {
         width: 20%;
@@ -283,7 +276,7 @@ body {
 // Mobile - Tablet
 @media (min-width: 300px) and (max-width: 991px) {
     body {
-        div[data-tippy-root] {
+        #header #search div[data-tippy-root] {
             width: 100vw;
         }
     }
