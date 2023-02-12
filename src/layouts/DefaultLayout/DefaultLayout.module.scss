@@ -6,13 +6,13 @@
     padding: 0 10px;
 }
 
+.content {
+    padding-top: var(--padding-top-content);
+}
+
 .go-top-btn {
     z-index: 2;
     position: fixed;
     bottom: 30px;
     right: 30px;
-}
-
-.content {
-    padding-top: 24px;
 }

@@ -6,7 +6,7 @@ import styles from './Gallery.module.scss';
 import GalleryItem from './GalleryItem';
 import GalleryHeader from './GalleryHeader';
 
-import { getListMovieAndTv } from 'src/apiServices/getListMovieAndTv';
+import { getListMovieAndTv } from 'src/services/getListMovieAndTv';
 import ViewportList from 'react-viewport-list';
 import changeGalleryToRow from 'src/utils/changeGalleryToRow';
 

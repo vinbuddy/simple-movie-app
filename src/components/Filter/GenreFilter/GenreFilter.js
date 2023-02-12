@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import classNames from 'classnames/bind';
 import styles from '../Filter.module.scss';
 
-import { getGenreList } from 'src/apiServices/genresService';
+import { getGenreList } from 'src/services/genresService';
 
 import GenreItem from './GenreItem';
 import { FilterContext } from 'src/context/FilterContext';

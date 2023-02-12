@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './Banner.scss';
 import { BannerItem } from 'src/components/Banner';
 import Slide, { Slider } from '../Slider';
-import * as trendingService from 'src/apiServices/trendingService';
+import * as trendingService from 'src/services/trendingService';
 
 function Banner() {
     const [trendingResult, setTrendingResult] = useState([]);

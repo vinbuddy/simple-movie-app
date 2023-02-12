@@ -1,6 +1,6 @@
 import { useState, createContext, useCallback, useLayoutEffect } from 'react';
 
-import { loadFilterData, loadMoreFilter } from 'src/apiServices/filterService';
+import { loadFilterData, loadMoreFilter } from 'src/services/filterService';
 
 const FilterContext = createContext();
 

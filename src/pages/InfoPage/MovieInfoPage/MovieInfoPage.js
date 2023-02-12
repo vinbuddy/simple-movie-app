@@ -6,7 +6,7 @@ import {
     getReview,
     getSimilar,
     getVideos,
-} from 'src/apiServices/getInfoService';
+} from 'src/services/getInfoService';
 import FilmInfo from 'src/components/FilmInfo';
 
 function MovieInfoPage() {

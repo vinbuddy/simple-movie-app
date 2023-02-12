@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './HomePage.scss';
-import * as newsService from 'src/apiServices/newsService';
+import * as newsService from 'src/services/newsService';
 
 import Slide, { Slider } from 'src/components/Slider';
 import { SwipeCard } from 'src/components/SwipeCard';
