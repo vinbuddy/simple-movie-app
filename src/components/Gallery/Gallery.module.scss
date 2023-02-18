@@ -16,7 +16,7 @@
 
     h1,
     span {
-        font-size: 2.8rem;
+        font-size: 2.4rem;
         letter-spacing: 0.3px;
         margin-bottom: 0;
         font-weight: 700;
@@ -28,10 +28,15 @@
     padding-bottom: 20px;
 }
 
-.gallery-item {
+.gallery-item-vertical {
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border-color-gallery-item);
+}
+
+.gallery-item-horizontal {
+    display: flex;
+    justify-content: flex-start;
 }
 
 .gallery-thumb {
@@ -77,24 +82,32 @@
     background-color: #fafafa;
     padding: 2px 5px;
     border-radius: 10px;
+}
 
-    .gallery-vote {
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin-left: 2px;
-        color: var(--black);
-    }
+.gallery-vote {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-left: 2px;
+    color: var(--black);
+}
 
-    .gallery-vote-icon {
-        color: var(--primary);
-    }
+.gallery-vote-icon {
+    color: var(--primary);
 }
 
 .gallery-info {
     padding: 7px 10px;
 }
 
-.gallery-name {
+.gallery-info-horizontal {
+    width: 100%;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.gallery-name-vertical {
     width: 100%;
     font-size: 1.7rem;
     font-weight: 600;
@@ -103,6 +116,19 @@
 
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gallery-name-horizontal {
+    display: -webkit-box;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-color);
+
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     text-overflow: ellipsis;
 }
 
@@ -124,4 +150,16 @@
     font-weight: 600;
     color: var(--text-nav);
     margin-right: 3px;
+}
+
+.gallery-vote-horizontal {
+    display: flex;
+    align-items: center;
+    span {
+        font-size: 1.3rem;
+        margin-left: 2px;
+        font-weight: 600;
+
+        color: var(--text-nav);
+    }
 }

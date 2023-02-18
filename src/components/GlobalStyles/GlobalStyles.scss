@@ -107,7 +107,7 @@ body *::-webkit-scrollbar-track {
 // Custom All Scrollbar Vertical into Body
 body *::-webkit-scrollbar:horizontal {
     border-radius: 0;
-    height: 7px;
+    height: 5px;
 }
 
 body *::-webkit-scrollbar-thumb:horizontal {
@@ -220,7 +220,7 @@ body {
 
 .lazy-load-image-background.blur.lazy-load-image-loaded {
     filter: blur(0);
-    transition: filter 0.3s;
+    // transition: filter 0.2s;
 }
 
 .lazy-load-image-background.blur {

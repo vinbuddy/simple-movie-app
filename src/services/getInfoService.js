@@ -69,3 +69,17 @@ export const getReview = async (mediaType, id) => {
         console.log(error);
     }
 };
+
+export const getRecommend = async (mediaType, id) => {
+    try {
+        const res = await httpRequest.get(`${mediaType}/${id}/recommendations`, {
+            params: {
+                api_key: process.env.REACT_APP_API_KEY,
+            },
+        });
+
+        return res.data.results;
+    } catch (error) {
+        console.log(error);
+    }
+};

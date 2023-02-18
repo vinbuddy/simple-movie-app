@@ -131,10 +131,7 @@ function Search() {
                 placement="bottom-start"
                 popperOptions={{ modifiers: [{ name: 'flip', enabled: false }] }}
                 onClickOutside={handleHideResult}
-                visible={
-                    showResult && searchValue.length > 0
-                    // (showResult && movieResult.length > 0) || (showResult && tvResult.length > 0)
-                }
+                visible={showResult && searchValue.length > 0}
                 interactive={true}
                 appendTo="parent"
                 render={(attrs) => (
@@ -246,17 +243,9 @@ function Search() {
                         </button>
                     )}
 
-                    {loading && <LoadingBar top="100%" width="100%" />}
-
-                    {/* No result */}
-                    {/* {!isResult && searchValue !== '' && (
-                        <div className={cx('no-result')}>
-                            <PopperFrame>
-                                <img src={images.noResult} alt="" />
-                                <h3>No Result Found</h3>
-                            </PopperFrame>
-                        </div>
-                    )} */}
+                    {loading && (
+                        <LoadingBar className={cx('hide-loading-mobile')} top="100%" width="100%" />
+                    )}
                 </div>
             </Tippy>
 

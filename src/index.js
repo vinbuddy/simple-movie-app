@@ -8,6 +8,9 @@ import { ThemeProvider } from './context/ThemeContext';
 import { UserProvider } from './context/UserContext';
 import { AuthProvider } from './context/AuthContext';
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>
@@ -15,7 +18,13 @@ root.render(
         <ThemeProvider>
             <UserProvider>
                 <AuthProvider>
-                    <App />
+                    <SkeletonTheme
+                        duration={1}
+                        highlightColor="var(--nav-background)"
+                        baseColor="var(--app-background)"
+                    >
+                        <App />
+                    </SkeletonTheme>
                 </AuthProvider>
             </UserProvider>
         </ThemeProvider>

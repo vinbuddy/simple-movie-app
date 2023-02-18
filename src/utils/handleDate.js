@@ -1,6 +1,6 @@
 export const formartDate = (date) => {
     if (!date) {
-        return 'No Date 🚫';
+        return 'xx-xx-xxxx';
     }
 
     const [year, month, day] = date.split('-');
