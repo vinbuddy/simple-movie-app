@@ -24,7 +24,7 @@ import { FiSearch } from 'react-icons/fi';
 import { UserContext } from 'src/context/UserContext';
 import { UserInfo } from 'src/components/UserInfo';
 
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineMenu, AiOutlineCloseCircle } from 'react-icons/ai';
 import MobileSidebar from '../Sidebar/MobileSidebar';
 
 const cx = classNames.bind(styles);
@@ -146,7 +146,7 @@ function Header({ containerType = 'container' }) {
                                         className={cx('menu-sidebar-close')}
                                         onClick={handleHideSidebar}
                                     >
-                                        <AiOutlineClose />
+                                        <AiOutlineCloseCircle />
                                     </button>
                                     <h2 className={cx('qoute')}>Simple Movie App</h2>
                                 </header>
@@ -156,7 +156,6 @@ function Header({ containerType = 'container' }) {
                             <div
                                 className={cx('overlay', {
                                     'show-overlay': showSidebar,
-                                    // 'fade-in': showSidebar,
                                 })}
                                 onClick={handleHideSidebar}
                             ></div>

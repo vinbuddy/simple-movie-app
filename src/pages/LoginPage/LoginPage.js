@@ -8,7 +8,8 @@ import Button from 'src/components/Button';
 import Image from 'src/components/Image';
 import LoadingBar from 'src/components/LoadingBar';
 
-import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+import { AiOutlineEye } from 'react-icons/ai';
+import { RiEyeCloseLine } from 'react-icons/ri';
 
 import { UserContext } from 'src/context/UserContext';
 import { AuthContext } from 'src/context/AuthContext';
@@ -136,7 +137,7 @@ function LoginPage() {
                             className="toggle-password-btn"
                             onClick={() => setShowPassword(!showPassword)}
                         >
-                            {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                            {showPassword ? <AiOutlineEye /> : <RiEyeCloseLine />}
                         </button>
                         {errors.password?.type === 'required' && (
                             <p className="error-message">Please enter password</p>

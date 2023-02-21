@@ -10,6 +10,7 @@ import { AuthProvider } from './context/AuthContext';
 
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { ModalProvider } from './context/ModalContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,7 +24,9 @@ root.render(
                         highlightColor="var(--nav-background)"
                         baseColor="var(--app-background)"
                     >
-                        <App />
+                        <ModalProvider>
+                            <App />
+                        </ModalProvider>
                     </SkeletonTheme>
                 </AuthProvider>
             </UserProvider>

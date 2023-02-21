@@ -5,6 +5,7 @@ import { getYear } from 'src/utils/handleDate';
 
 import Button from '../Button';
 import Image from '../Image';
+import Skeleton from 'react-loading-skeleton';
 
 function BannerItem({ data }) {
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
@@ -15,10 +16,12 @@ function BannerItem({ data }) {
             <Image className="banner-img" src={baseImgURL + data?.backdrop_path} alt="Slider" />
 
             <div className="banner-info">
-                <h2 className="banner-name">{data?.title || data?.name}</h2>
-                <p className="banner-overview">{data?.overview}</p>
+                <h2 className="banner-name">
+                    {data?.title || data?.name || <Skeleton width="50%" />}
+                </h2>
+                <p className="banner-overview">{data?.overview || <Skeleton />}</p>
                 <div className="banner-desc">
-                    <p className="banner-year">{year}</p>
+                    <p className="banner-year">{year || <Skeleton />}</p>
 
                     <Button
                         to={`infor/movie/${data?.id}`}

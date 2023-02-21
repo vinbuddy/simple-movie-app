@@ -177,34 +177,65 @@ function FilmInfo({
                                 )}
                             </ul>
                             <ul className={cx('info-detail')}>
-                                <li className={cx('info-detail-item')}>
-                                    <BsCircle className={cx('info-detail-icon')} />
-                                    <span>Status: {detail?.status}</span>
-                                </li>
-                                <li className={cx('info-detail-item')}>
-                                    <BsCalendar4Week className={cx('info-detail-icon')} />
-                                    <span>Release: {date}</span>
-                                </li>
-                                <li className={cx('info-detail-item')}>
-                                    <TbTimeline className={cx('info-detail-icon')} />
-                                    <span>
-                                        Runtime:{' '}
-                                        {detail?.runtime || detail?.last_episode_to_air?.runtime}
-                                        min
-                                    </span>
-                                </li>
-                                <li className={cx('info-detail-item')}>
-                                    <RiMedalLine className={cx('info-detail-icon')} />
-                                    <span>Score: {detail?.vote_average}</span>
-                                </li>
-                                <li className={cx('info-detail-item')}>
-                                    <BsPeople className={cx('info-detail-icon')} />
-                                    <span>Ratings: {detail?.vote_count}</span>
-                                </li>
+                                <>
+                                    {detail?.status ? (
+                                        <li className={cx('info-detail-item')}>
+                                            <BsCircle className={cx('info-detail-icon')} />
+                                            <span>Status: {detail?.status}</span>
+                                        </li>
+                                    ) : (
+                                        <Skeleton width={100} />
+                                    )}
+
+                                    {date ? (
+                                        <li className={cx('info-detail-item')}>
+                                            <BsCalendar4Week className={cx('info-detail-icon')} />
+                                            <span>{date}</span>
+                                        </li>
+                                    ) : (
+                                        <Skeleton width={100} />
+                                    )}
+
+                                    {detail?.runtime || detail?.last_episode_to_air?.runtime ? (
+                                        <li className={cx('info-detail-item')}>
+                                            <TbTimeline className={cx('info-detail-icon')} />
+                                            <span>
+                                                Runtime:{' '}
+                                                {detail?.runtime ||
+                                                    detail?.last_episode_to_air?.runtime}{' '}
+                                                min
+                                            </span>
+                                        </li>
+                                    ) : (
+                                        <Skeleton width={100} />
+                                    )}
+
+                                    {detail?.vote_average ? (
+                                        <li className={cx('info-detail-item')}>
+                                            <RiMedalLine className={cx('info-detail-icon')} />
+                                            <span>Score: {detail?.vote_average}</span>
+                                        </li>
+                                    ) : (
+                                        <Skeleton width={100} />
+                                    )}
+
+                                    {detail?.vote_count ? (
+                                        <li className={cx('info-detail-item')}>
+                                            <BsPeople className={cx('info-detail-icon')} />
+                                            <span>{detail?.vote_count}</span>
+                                        </li>
+                                    ) : (
+                                        <Skeleton width={100} />
+                                    )}
+                                </>
                             </ul>
 
                             {/* story */}
-                            <OverviewInfo>{detail?.overview}</OverviewInfo>
+                            {detail?.overview ? (
+                                <OverviewInfo>{detail?.overview}</OverviewInfo>
+                            ) : (
+                                <Skeleton height={70} />
+                            )}
                         </div>
                     </div>
 

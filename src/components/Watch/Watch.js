@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import './Watch.scss';
 import Skeleton from 'react-loading-skeleton';
 
@@ -6,21 +6,75 @@ import GalleryHeader from '../Gallery/GalleryHeader';
 import GalleryItem from '../Gallery/GalleryItem';
 import GenreInfor from '../FilmInfo/GenreInfor';
 import OverviewInfo from '../FilmInfo/OverviewInfor';
+import Modal from '../Modal';
 
 import { IoShareOutline } from 'react-icons/io5';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { TiStarFullOutline } from 'react-icons/ti';
 import { TbTimeline } from 'react-icons/tb';
+import { MdOutlineContentCopy } from 'react-icons/md';
+import { BsLink45Deg } from 'react-icons/bs';
+
+import { toast, ToastContainer } from 'react-toastify';
+import { ModalContext } from 'src/context/ModalContext';
+import Button from '../Button';
 
 function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
+    const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
+    console.log('modalName: ', modalName);
+
     useEffect(() => {
         if (Boolean(detail?.title)) document.title = `${detail?.title} | Watch`;
     }, [detail]);
 
+    const handleCopyURL = async () => {
+        try {
+            const copyValue = window.location.href;
+            await navigator.clipboard.writeText(copyValue);
+            toast.success('Copied to clipbroad', {
+                position: toast.POSITION.BOTTOM_CENTER,
+            });
+        } catch (err) {
+            toast.error('Error', {
+                position: toast.POSITION.BOTTOM_CENTER,
+            });
+        }
+    };
+
+    const showShareModal = () => {
+        handleShowModal('share');
+    };
+
     return (
         <div style={{ padding: '24px 18px 0 0' }}>
+            <ToastContainer hideProgressBar pauseOnHover={false} />
+
+            {modalName === 'share' && showModal && (
+                <Modal title="Share" modalName="share">
+                    <div className="share-url-bar">
+                        <span className="share-url-icon">
+                            <BsLink45Deg />
+                        </span>
+                        <input
+                            value={window.location.href}
+                            className="share-url-input"
+                            type="text"
+                            readOnly
+                        />
+                    </div>
+                    <footer className="share-url-footer">
+                        <Button onClick={handleHideModal} type="no-outline">
+                            Cancel
+                        </Button>
+                        <Button onClick={handleCopyURL} type="primary">
+                            Copy link
+                        </Button>
+                    </footer>
+                </Modal>
+            )}
+
             <div className="row pb-4">
-                {/* Watch  */}
+                {/* Watch Section */}
                 <div className="col-lg-9 pb-4">
                     <div className="watch">
                         <div className="watch-frame">
@@ -39,13 +93,19 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                         {/* Title - Actions */}
                         <div className="watch-info">
                             <h2 className="watch-title">
-                                {detail?.original_title || detail?.original_name}
+                                {detail?.original_title || detail?.original_name || (
+                                    <Skeleton width="40%" />
+                                )}
                             </h2>
                             <div className="watch-actions">
                                 <button className="watch-actions-btn">
                                     <AiOutlineHeart />
                                 </button>
-                                <button style={{ lineHeight: 0 }} className="watch-actions-btn">
+                                <button
+                                    onClick={showShareModal}
+                                    style={{ lineHeight: 0 }}
+                                    className="watch-actions-btn"
+                                >
                                     <IoShareOutline />
                                 </button>
                             </div>
@@ -77,16 +137,22 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                 )}
                             </ul>
 
-                            <OverviewInfo>{detail?.overview}</OverviewInfo>
+                            {detail?.overview ? (
+                                <OverviewInfo>{detail?.overview}</OverviewInfo>
+                            ) : (
+                                <Skeleton height={70} />
+                            )}
                         </div>
                     </div>
                 </div>
 
-                {/* Suggest film */}
+                {/* Recommend film */}
                 <div className="col-lg-3">
                     <div className="suggest-bar">
                         <ul className="suggest-list">
-                            <GalleryHeader heading="Recommend" />
+                            <GalleryHeader
+                                heading={recommend.length > 0 ? 'Recommend' : 'Not recommend film'}
+                            />
                             {recommend.map((item, index) => (
                                 <li key={index} className="suggest-item">
                                     <GalleryItem
