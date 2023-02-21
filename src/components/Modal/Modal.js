@@ -9,7 +9,7 @@ import { useContext } from 'react';
 const cx = classNames.bind(styles);
 
 function Modal({ title, children }) {
-    const { showModal, setModalName, handleHideModal } = useContext(ModalContext);
+    const { handleHideModal } = useContext(ModalContext);
 
     return (
         <div onClick={handleHideModal} className={cx('modal-overlay')}>

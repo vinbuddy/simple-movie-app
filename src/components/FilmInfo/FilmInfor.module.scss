@@ -282,6 +282,71 @@ $textshadow: 1px 1px 2px var(--black);
     text-align: center;
 }
 
+.info-season-item {
+    width: 100%;
+    cursor: pointer;
+}
+
+.info-season-wrapper {
+    border-radius: 10px;
+    border: 1px solid var(--border-color-gallery-item);
+}
+
+.info-season-img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.info-season {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 6px;
+
+    h3 {
+        color: var(--text-color);
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+
+    span {
+        font-size: 1.3rem;
+        color: var(--text-nav);
+    }
+}
+
+.modal-season {
+    display: flex;
+    align-items: center;
+}
+
+.modal-season-img {
+    width: 25%;
+    border-radius: 7px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.modal-season-overview {
+    color: var(--text-color);
+}
+
+.modal-season-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.modal-season-info {
+    display: inline-block;
+    margin-right: 14px;
+    color: var(--text-nav);
+}
+
 // Responsive
 
 // Mobile
@@ -387,5 +452,10 @@ $textshadow: 1px 1px 2px var(--black);
 
     .info-review-avatar {
         margin-right: 10px;
+    }
+
+    .info-season-list {
+        overflow-x: scroll;
+        flex-wrap: nowrap !important;
     }
 }

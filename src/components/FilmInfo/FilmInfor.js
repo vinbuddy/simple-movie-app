@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styles from './FilmInfor.module.scss';
 import classNames from 'classnames/bind';
 import YouTube from 'react-youtube';
@@ -25,6 +25,9 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import GenreInfor from './GenreInfor';
 import OverviewInfo from './OverviewInfor';
 
+import { ModalContext } from 'src/context/ModalContext';
+import Modal from '../Modal';
+
 const cx = classNames.bind(styles);
 
 function FilmInfo({
@@ -38,6 +41,8 @@ function FilmInfo({
     loading = false,
 }) {
     const trailerRef = useRef();
+    const [seasonData, setSeasonData] = useState({});
+    const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
 
     useEffect(() => {
         if (Boolean(detail?.title)) document.title = `${detail?.title}`;
@@ -48,7 +53,7 @@ function FilmInfo({
     };
 
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
-    const date = formartDate(detail?.release_date || detail?.first_air_date);
+    const date = formartDate(detail?.release_date || detail?.last_episode_to_air?.air_date);
 
     const trailer = videos.find(
         (videoItem) =>
@@ -96,9 +101,37 @@ function FilmInfo({
         return <span>{icon}</span>;
     };
 
+    const showSeasonModal = (season, data) => {
+        handleShowModal(season);
+        setSeasonData(data);
+    };
+
     return (
         <div className={cx('info-wrapper')}>
             {loading && <LoadingBar height={4} />}
+
+            {/* detail seasons modal */}
+            {modalName === seasonData?.season_number && showModal && (
+                <Modal title={seasonData?.name}>
+                    <div className={cx('modal-season')}>
+                        <img
+                            className={cx('modal-season-img')}
+                            src={`${baseImgURL}${seasonData?.poster_path}`}
+                            alt=""
+                        />
+                        <p className={cx('modal-season-overview')}>
+                            {seasonData?.overview || 'No overview'}
+                        </p>
+                    </div>
+                    <footer className={cx('modal-season-footer')}>
+                        <span className={cx('modal-season-info')}>
+                            {seasonData?.episode_count} episodes
+                        </span>
+                        <Button type="primary">Watch Now</Button>
+                    </footer>
+                </Modal>
+            )}
+
             {/* Background */}
             {!!detail?.backdrop_path ? (
                 <div
@@ -308,6 +341,44 @@ function FilmInfo({
                             )}
                         </div>
                     </div>
+
+                    {/* Season - TV */}
+                    {mediaType === 'tv' && (
+                        <div className="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <div className={cx('info-section')}>
+                                <GalleryHeader heading="Seasons" />
+
+                                <div className={cx('info-season-list', 'row')}>
+                                    {!!detail?.seasons &&
+                                        detail?.seasons.map((item) => (
+                                            <div className="col-lg-2 col-md-3 col-sm-4 col-6 pb-4 d-block">
+                                                <div
+                                                    onClick={() =>
+                                                        showSeasonModal(item?.season_number, item)
+                                                    }
+                                                    key={item.id}
+                                                    className={cx('info-season-item')}
+                                                >
+                                                    <div className={cx('info-season-wrapper')}>
+                                                        <img
+                                                            className={cx('info-season-img')}
+                                                            src={`${baseImgURL}${item?.poster_path}`}
+                                                            alt=""
+                                                        />
+                                                        <div className={cx('info-season')}>
+                                                            <h3>{item?.name}</h3>
+                                                            <span>
+                                                                {formartDate(item?.air_date)}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Trailer */}
                     <div ref={trailerRef} className="col-12 col-sm-12 col-md-12 col-lg-12">

@@ -12,7 +12,6 @@ import { IoShareOutline } from 'react-icons/io5';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { TiStarFullOutline } from 'react-icons/ti';
 import { TbTimeline } from 'react-icons/tb';
-import { MdOutlineContentCopy } from 'react-icons/md';
 import { BsLink45Deg } from 'react-icons/bs';
 
 import { toast, ToastContainer } from 'react-toastify';
@@ -50,7 +49,7 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
             <ToastContainer hideProgressBar pauseOnHover={false} />
 
             {modalName === 'share' && showModal && (
-                <Modal title="Share" modalName="share">
+                <Modal title="Share">
                     <div className="share-url-bar">
                         <span className="share-url-icon">
                             <BsLink45Deg />
