@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import styles from './FilmInfor.module.scss';
 import classNames from 'classnames/bind';
 import YouTube from 'react-youtube';
+import Skeleton from 'react-loading-skeleton';
 
 import { BsCalendar4Week, BsCircle } from 'react-icons/bs';
 import { TbTimeline } from 'react-icons/tb';
@@ -10,23 +11,20 @@ import { RiMedalLine } from 'react-icons/ri';
 import { BsPeople } from 'react-icons/bs';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 
+import { formartDate } from 'src/utils/handleDate';
+import images from 'src/assets/images';
+
 import GalleryItem from 'src/components/Gallery/GalleryItem';
 import Button from 'src/components/Button';
 import GalleryHeader from 'src/components/Gallery/GalleryHeader';
 import { Slider, Slide } from 'src/components/Slider';
 import Image from 'src/components/Image';
-
-import { formartDate } from 'src/utils/handleDate';
-import images from 'src/assets/images';
 import LoadingBar from '../LoadingBar';
-
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-// import 'react-loading-skeleton/dist/skeleton.css';
 import GenreInfor from './GenreInfor';
 import OverviewInfo from './OverviewInfor';
+import Modal from '../Modal';
 
 import { ModalContext } from 'src/context/ModalContext';
-import Modal from '../Modal';
 
 const cx = classNames.bind(styles);
 
@@ -42,7 +40,9 @@ function FilmInfo({
 }) {
     const trailerRef = useRef();
     const [seasonData, setSeasonData] = useState({});
-    const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
+    console.log(detail);
+
+    const { showModal, handleShowModal, modalName } = useContext(ModalContext);
 
     useEffect(() => {
         if (Boolean(detail?.title)) document.title = `${detail?.title}`;
@@ -179,7 +179,15 @@ function FilmInfo({
                                     Trailer
                                 </Button>
                                 <Button
-                                    to={`/watch/${mediaType}/${id}`}
+                                    to={{
+                                        pathname: `/watch/${mediaType}/${id}`,
+                                        search:
+                                            mediaType === 'tv' &&
+                                            `?seasons=${
+                                                seasonData?.season_number ||
+                                                detail?.number_of_seasons
+                                            }&episodes=${1}`,
+                                    }}
                                     leftIcon={<BsPlayCircle />}
                                     type="primary"
                                 >
@@ -350,8 +358,11 @@ function FilmInfo({
 
                                 <div className={cx('info-season-list', 'row')}>
                                     {!!detail?.seasons &&
-                                        detail?.seasons.map((item) => (
-                                            <div className="col-lg-2 col-md-3 col-sm-4 col-6 pb-4 d-block">
+                                        detail?.seasons.map((item, index) => (
+                                            <div
+                                                key={index}
+                                                className="col-lg-2 col-md-3 col-sm-4 col-6 pb-4 d-block"
+                                            >
                                                 <div
                                                     onClick={() =>
                                                         showSeasonModal(item?.season_number, item)

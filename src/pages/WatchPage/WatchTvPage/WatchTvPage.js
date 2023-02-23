@@ -13,8 +13,8 @@ function WatchTvPage() {
 
     useEffect(() => {
         const fetchRecommend = async () => {
-            const recommendResult = await getRecommend('movie', id);
-            const detailResult = await getDetail('movie', id);
+            const recommendResult = await getRecommend('tv', id);
+            const detailResult = await getDetail('tv', id);
 
             setRecommend(recommendResult);
             setDetail(detailResult);
@@ -23,7 +23,7 @@ function WatchTvPage() {
         fetchRecommend();
     }, [id]);
 
-    return <Watch id={id} detail={detail} recommend={recommend} />;
+    return <Watch id={id} mediaType="tv" detail={detail} recommend={recommend} />;
 }
 
 export default WatchTvPage;

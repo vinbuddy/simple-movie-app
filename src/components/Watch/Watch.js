@@ -1,4 +1,5 @@
 import { useEffect, useContext, useState } from 'react';
+import { useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import './Watch.scss';
 import Skeleton from 'react-loading-skeleton';
 
@@ -17,10 +18,33 @@ import { BsLink45Deg } from 'react-icons/bs';
 import { toast, ToastContainer } from 'react-toastify';
 import { ModalContext } from 'src/context/ModalContext';
 import Button from '../Button';
+import SeasonTrack from '../SeasonTrack';
+import { getEpisode, getSeason } from 'src/services/seasonService';
 
 function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
     const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
-    console.log('modalName: ', modalName);
+
+    const [searchParams, setSearchParams] = useSearchParams({});
+    const [episode, setEpisode] = useState([]);
+
+    const [currentSeason, setCurrentSeason] = useState(() => {
+        const current = searchParams.get('seasons');
+        return Number(current);
+    });
+    const [currentEpisode, setCurrentEpisode] = useState(() => {
+        const current = searchParams.get('episodes');
+        return Number(current);
+    });
+
+    useEffect(() => {
+        // Get current season - episode
+        const fetchEpisode = async () => {
+            const result = await getEpisode(id, currentSeason);
+            setEpisode(result);
+        };
+
+        fetchEpisode();
+    }, [currentSeason]);
 
     useEffect(() => {
         if (Boolean(detail?.title)) document.title = `${detail?.title} | Watch`;
@@ -28,8 +52,8 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
 
     const handleCopyURL = async () => {
         try {
-            const copyValue = window.location.href;
-            await navigator.clipboard.writeText(copyValue);
+            await navigator.clipboard.writeText(window.location.href);
+
             toast.success('Copied to clipbroad', {
                 position: toast.POSITION.BOTTOM_CENTER,
             });
@@ -38,6 +62,7 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                 position: toast.POSITION.BOTTOM_CENTER,
             });
         }
+        handleHideModal();
     };
 
     const showShareModal = () => {
@@ -145,25 +170,41 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                     </div>
                 </div>
 
-                {/* Recommend film */}
+                {/* Recommend/Episode film */}
                 <div className="col-lg-3">
                     <div className="suggest-bar">
-                        <ul className="suggest-list">
-                            <GalleryHeader
-                                heading={recommend.length > 0 ? 'Recommend' : 'Not recommend film'}
-                            />
-                            {recommend.map((item, index) => (
-                                <li key={index} className="suggest-item">
-                                    <GalleryItem
-                                        imgHeight={130}
-                                        imgWidth={110}
-                                        mediaType="movie"
-                                        galleryItemType="horizontal"
-                                        data={item}
-                                    />
-                                </li>
-                            ))}
-                        </ul>
+                        {mediaType === 'movie' && (
+                            <ul className="suggest-list">
+                                <GalleryHeader
+                                    heading={
+                                        recommend.length > 0 ? 'Recommend' : 'Not recommend film'
+                                    }
+                                />
+                                {recommend.map((item, index) => (
+                                    <li key={index} className="suggest-item">
+                                        <GalleryItem
+                                            imgHeight={130}
+                                            imgWidth={110}
+                                            mediaType="movie"
+                                            galleryItemType="horizontal"
+                                            data={item}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+
+                        {/* Track Seasons - Episodes */}
+                        {mediaType === 'tv' && (
+                            <>
+                                <GalleryHeader heading="Season" />
+                                <SeasonTrack
+                                    id={id}
+                                    seasonDetail={detail?.seasons}
+                                    currentSeason={currentSeason}
+                                />
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
