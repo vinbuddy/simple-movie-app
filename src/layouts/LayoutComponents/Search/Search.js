@@ -248,8 +248,6 @@ function Search() {
                     )}
                 </div>
             </Tippy>
-
-            <ToastContainer />
         </div>
     );
 }

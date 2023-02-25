@@ -40,12 +40,12 @@ function FilmInfo({
 }) {
     const trailerRef = useRef();
     const [seasonData, setSeasonData] = useState({});
-    console.log(detail);
 
     const { showModal, handleShowModal, modalName } = useContext(ModalContext);
 
     useEffect(() => {
-        if (Boolean(detail?.title)) document.title = `${detail?.title}`;
+        if (Boolean(detail?.title || detail?.name))
+            document.title = `${detail?.title || detail?.name}`;
     }, [detail]);
 
     const scrollToTrailer = () => {
@@ -127,7 +127,19 @@ function FilmInfo({
                         <span className={cx('modal-season-info')}>
                             {seasonData?.episode_count} episodes
                         </span>
-                        <Button type="primary">Watch Now</Button>
+                        <Button
+                            to={{
+                                pathname: `/watch/${mediaType}/${id}`,
+                                search:
+                                    mediaType === 'tv' &&
+                                    `?seasons=${
+                                        seasonData?.season_number || detail?.number_of_seasons
+                                    }&episodes=${1}`,
+                            }}
+                            type="primary"
+                        >
+                            Watch Now
+                        </Button>
                     </footer>
                 </Modal>
             )}

@@ -85,7 +85,7 @@ function ResetPage() {
         <div className="form-wrapper">
             {authLoading && <LoadingBar top={0} width="100%" height={5} />}
             {/* Put here to display toast message */}
-            <ToastContainer hideProgressBar pauseOnHover={false} />
+            {/* <ToastContainer hideProgressBar pauseOnHover={false} /> */}
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Link to="/" className="logo">

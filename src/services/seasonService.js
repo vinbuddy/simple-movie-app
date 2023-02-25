@@ -1,6 +1,6 @@
 import * as httpRequest from 'src/utils/httpRequest';
 
-export const getEpisode = async (id, seasonNumber) => {
+export const getEpisodeList = async (id, seasonNumber) => {
     try {
         const res = await httpRequest.get(
             `https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}`,

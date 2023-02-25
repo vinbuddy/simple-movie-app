@@ -7,12 +7,15 @@ import DefaultLayout from './layouts/DefaultLayout';
 import { ScrollToTop } from './components/ScrollToTop';
 
 import { FilterProvider } from './context/FilterContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     return (
         <Router>
             <div className="app">
                 {/* Scroll to top */}
+                <ToastContainer limit={1} hideProgressBar pauseOnHover={false} />
                 <ScrollToTop />
 
                 <Routes>

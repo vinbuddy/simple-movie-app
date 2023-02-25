@@ -68,6 +68,7 @@ function LoginPage() {
                 break;
         }
     };
+
     useEffect(() => {
         if (authError.length > 0) {
             setError(true);

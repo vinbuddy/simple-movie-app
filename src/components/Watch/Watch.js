@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from 'react';
-import { useLocation, useSearchParams, useNavigate } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import './Watch.scss';
 import Skeleton from 'react-loading-skeleton';
 
@@ -8,25 +8,22 @@ import GalleryItem from '../Gallery/GalleryItem';
 import GenreInfor from '../FilmInfo/GenreInfor';
 import OverviewInfo from '../FilmInfo/OverviewInfor';
 import Modal from '../Modal';
+import Button from '../Button';
+import SeasonTrack from '../SeasonTrack';
 
 import { IoShareOutline } from 'react-icons/io5';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { TiStarFullOutline } from 'react-icons/ti';
-import { TbTimeline } from 'react-icons/tb';
+import { TbTimeline, TbCalendar } from 'react-icons/tb';
 import { BsLink45Deg } from 'react-icons/bs';
 
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { ModalContext } from 'src/context/ModalContext';
-import Button from '../Button';
-import SeasonTrack from '../SeasonTrack';
-import { getEpisode, getSeason } from 'src/services/seasonService';
 
 function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
     const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
 
     const [searchParams, setSearchParams] = useSearchParams({});
-    const [episode, setEpisode] = useState([]);
-
     const [currentSeason, setCurrentSeason] = useState(() => {
         const current = searchParams.get('seasons');
         return Number(current);
@@ -37,23 +34,13 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
     });
 
     useEffect(() => {
-        // Get current season - episode
-        const fetchEpisode = async () => {
-            const result = await getEpisode(id, currentSeason);
-            setEpisode(result);
-        };
-
-        fetchEpisode();
-    }, [currentSeason]);
-
-    useEffect(() => {
-        if (Boolean(detail?.title)) document.title = `${detail?.title} | Watch`;
+        if (Boolean(detail?.title || detail?.name))
+            document.title = `${detail?.title || detail?.name} | Watch`;
     }, [detail]);
 
     const handleCopyURL = async () => {
         try {
             await navigator.clipboard.writeText(window.location.href);
-
             toast.success('Copied to clipbroad', {
                 position: toast.POSITION.BOTTOM_CENTER,
             });
@@ -62,6 +49,7 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                 position: toast.POSITION.BOTTOM_CENTER,
             });
         }
+
         handleHideModal();
     };
 
@@ -71,8 +59,6 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
 
     return (
         <div style={{ padding: '24px 18px 0 0' }}>
-            <ToastContainer hideProgressBar pauseOnHover={false} />
-
             {modalName === 'share' && showModal && (
                 <Modal title="Share">
                     <div className="share-url-bar">
@@ -109,7 +95,11 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                     allowFullScreen={true}
                                     title="watch embed"
                                     className="watch-embed"
-                                    src={`https://2embed.org/embed/${mediaType}?tmdb=${id}`}
+                                    src={
+                                        mediaType === 'movie'
+                                            ? `https://2embed.org/embed/${mediaType}?tmdb=${id}`
+                                            : `https://www.2embed.to/embed/tmdb/tv?id=${id}&s=${currentSeason}&e=${currentEpisode}`
+                                    }
                                 ></iframe>
                             )}
                         </div>
@@ -119,6 +109,9 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                             <h2 className="watch-title">
                                 {detail?.original_title || detail?.original_name || (
                                     <Skeleton width="40%" />
+                                )}
+                                {mediaType === 'tv' && (
+                                    <span className="watch-title-episode"></span>
                                 )}
                             </h2>
                             <div className="watch-actions">
@@ -149,6 +142,11 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                         {detail?.runtime || detail?.last_episode_to_air?.runtime}
                                     </span>
                                     &#160;min
+                                </li>
+                                <li className="watch-detail-item">
+                                    <TbCalendar />
+                                    &#160;
+                                    <span>{detail?.release_date}</span>
                                 </li>
                             </ul>
                             <ul className="watch-genres">
@@ -202,6 +200,11 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                     id={id}
                                     seasonDetail={detail?.seasons}
                                     currentSeason={currentSeason}
+                                    currentEpisode={currentEpisode}
+                                    // episodeList={episodeList}
+                                    setCurrentSeason={setCurrentSeason}
+                                    setCurrentEpisode={setCurrentEpisode}
+                                    setSearchParams={setSearchParams}
                                 />
                             </>
                         )}

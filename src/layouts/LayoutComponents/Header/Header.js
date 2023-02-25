@@ -104,7 +104,7 @@ function Header({ containerType = 'container' }) {
                                 <div style={{ marginLeft: 24 }}>
                                     <Button
                                         to="/login"
-                                        state={{ prevPath: location.pathname }}
+                                        state={{ prevPath: location.pathname + location?.search }}
                                         type="primary"
                                     >
                                         Sign in

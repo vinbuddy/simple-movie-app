@@ -15,6 +15,11 @@
     padding: 10px 0;
 }
 
+.suggest-bar {
+    max-height: 550px;
+    overflow-y: scroll;
+}
+
 .watch-info {
     margin-top: 16px;
     display: flex;
@@ -28,6 +33,10 @@
     font-size: 2.4rem;
     font-weight: 600;
     margin-bottom: 0;
+}
+
+.watch-title-episode {
+    color: var(--text-nav);
 }
 
 .watch-actions {
