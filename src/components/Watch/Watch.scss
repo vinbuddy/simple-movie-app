@@ -16,8 +16,7 @@
 }
 
 .suggest-bar {
-    max-height: 550px;
-    overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
 .watch-info {
@@ -30,13 +29,17 @@
 .watch-title {
     max-width: 50%;
     color: var(--text-color);
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     font-weight: 600;
     margin-bottom: 0;
 }
 
 .watch-title-episode {
+    margin-top: 10px;
+    margin-bottom: 14px;
     color: var(--text-nav);
+    font-style: italic;
+    font-size: 2rem;
 }
 
 .watch-actions {

@@ -19,6 +19,8 @@ import { BsLink45Deg } from 'react-icons/bs';
 
 import { toast } from 'react-toastify';
 import { ModalContext } from 'src/context/ModalContext';
+import { getEpisode } from 'src/services/seasonService';
+import { formartDate } from 'src/utils/handleDate';
 
 function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
     const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
@@ -32,11 +34,21 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
         const current = searchParams.get('episodes');
         return Number(current);
     });
+    const [episode, setEpisode] = useState({});
 
     useEffect(() => {
         if (Boolean(detail?.title || detail?.name))
             document.title = `${detail?.title || detail?.name} | Watch`;
     }, [detail]);
+
+    useEffect(() => {
+        const fetchEpisode = async () => {
+            const result = await getEpisode(id, currentSeason, currentEpisode);
+            setEpisode(result);
+        };
+
+        fetchEpisode();
+    }, [currentEpisode, currentSeason]);
 
     const handleCopyURL = async () => {
         try {
@@ -98,7 +110,7 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                     src={
                                         mediaType === 'movie'
                                             ? `https://2embed.org/embed/${mediaType}?tmdb=${id}`
-                                            : `https://www.2embed.to/embed/tmdb/tv?id=${id}&s=${currentSeason}&e=${currentEpisode}`
+                                            : `https://2embed.org/embed/series?tmdb=${id}&s=${currentSeason}&e=${currentEpisode}`
                                     }
                                 ></iframe>
                             )}
@@ -110,10 +122,8 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                 {detail?.original_title || detail?.original_name || (
                                     <Skeleton width="40%" />
                                 )}
-                                {mediaType === 'tv' && (
-                                    <span className="watch-title-episode"></span>
-                                )}
                             </h2>
+
                             <div className="watch-actions">
                                 <button className="watch-actions-btn">
                                     <AiOutlineHeart />
@@ -128,6 +138,14 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                             </div>
                         </div>
 
+                        {/* Episode name title */}
+                        {mediaType === 'tv' && (
+                            <h3 className="watch-title-episode">
+                                Season {episode?.season_number} - Episode {episode?.episode_number}:{' '}
+                                {episode?.name}
+                            </h3>
+                        )}
+
                         <div className="watch-detail-wrapper">
                             <ul className="watch-detail">
                                 <li className="watch-detail-item">
@@ -138,15 +156,14 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                 <li className="watch-detail-item">
                                     <TbTimeline />
                                     &#160;
-                                    <span>
-                                        {detail?.runtime || detail?.last_episode_to_air?.runtime}
-                                    </span>
-                                    &#160;min
+                                    <span>{detail?.runtime || episode?.runtime} min</span>
                                 </li>
                                 <li className="watch-detail-item">
                                     <TbCalendar />
                                     &#160;
-                                    <span>{detail?.release_date}</span>
+                                    <span>
+                                        {formartDate(detail?.release_date || episode?.air_date)}
+                                    </span>
                                 </li>
                             </ul>
                             <ul className="watch-genres">
@@ -160,7 +177,7 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                             </ul>
 
                             {detail?.overview ? (
-                                <OverviewInfo>{detail?.overview}</OverviewInfo>
+                                <OverviewInfo>{detail?.overview || episode?.overview}</OverviewInfo>
                             ) : (
                                 <Skeleton height={70} />
                             )}
@@ -170,7 +187,17 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
 
                 {/* Recommend/Episode film */}
                 <div className="col-lg-3">
-                    <div className="suggest-bar">
+                    <div
+                        style={
+                            mediaType === 'tv'
+                                ? {
+                                      overflowY: 'scroll',
+                                      maxHeight: '100vh',
+                                  }
+                                : {}
+                        }
+                        className="suggest-bar"
+                    >
                         {mediaType === 'movie' && (
                             <ul className="suggest-list">
                                 <GalleryHeader

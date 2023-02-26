@@ -23,7 +23,7 @@ function WatchMoviePage() {
         fetchRecommend();
     }, [id]);
 
-    return <Watch id={id} detail={detail} recommend={recommend} />;
+    return <Watch mediaType="movie" id={id} detail={detail} recommend={recommend} />;
 }
 
 export default WatchMoviePage;

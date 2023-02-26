@@ -4,7 +4,6 @@ import styles from './SeasonTrack.module.scss';
 
 import Image from '../Image';
 
-import { FaAngleDown } from 'react-icons/fa';
 import { getEpisodeList } from 'src/services/seasonService';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
@@ -20,14 +19,14 @@ function SeasonTrack({
 }) {
     const [activeSeason, setActiveSeason] = useState(currentSeason);
     const [activeEpisode, setActiveEpisode] = useState(currentEpisode);
-    const [episodeList, setEpisodeList] = useState({});
     const [open, setOpen] = useState(true);
+    // Episode list of current season
+    const [episodeList, setEpisodeList] = useState({});
     const [searchParams, setSearchParams] = useSearchParams();
     const episodePath = Number(searchParams.get('episodes'));
     const seasonPath = Number(searchParams.get('seasons'));
 
     useEffect(() => {
-        // Get episode list
         const fetchEpisodeList = async () => {
             const result = await getEpisodeList(id, activeSeason);
             setEpisodeList(result);
@@ -41,6 +40,7 @@ function SeasonTrack({
     // Open -> show episode
     const handleActiveSeason = (seasonNum) => {
         setActiveSeason(seasonNum);
+
         if (activeSeason === seasonNum) {
             setOpen(!open);
         } else {
@@ -76,7 +76,12 @@ function SeasonTrack({
                                     alt="season image"
                                 />
                             </div>
-                            <h3 className={cx('track-title')}>{season?.name}</h3>
+                            <div className={cx('track-info')}>
+                                <h3 className={cx('track-title')}>{season?.name}</h3>
+                                <span className={cx('track-episode-count')}>
+                                    {season.episode_count} episodes
+                                </span>
+                            </div>
                         </div>
 
                         {/* Episodes list */}
