@@ -275,7 +275,7 @@ function FilmInfo({
                                     {detail?.vote_count ? (
                                         <li className={cx('info-detail-item')}>
                                             <BsPeople className={cx('info-detail-icon')} />
-                                            <span>{detail?.vote_count}</span>
+                                            <span>Vote count: {detail?.vote_count}</span>
                                         </li>
                                     ) : (
                                         <Skeleton width={100} />
@@ -389,7 +389,9 @@ function FilmInfo({
                                                             alt=""
                                                         />
                                                         <div className={cx('info-season')}>
-                                                            <h3>{item?.name}</h3>
+                                                            <h3 className={cx('info-season-name')}>
+                                                                {item?.name}
+                                                            </h3>
                                                             <span>
                                                                 {formartDate(item?.air_date)}
                                                             </span>

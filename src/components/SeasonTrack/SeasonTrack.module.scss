@@ -1,5 +1,16 @@
 $track-border-radius: 6px;
 
+.track {
+    position: relative;
+
+    .track-scroll-view {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+}
+
 .track-item {
     &:last-child {
         border-color: transparent;

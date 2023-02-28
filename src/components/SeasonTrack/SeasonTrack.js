@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SeasonTrack.module.scss';
 
@@ -18,7 +18,6 @@ function SeasonTrack({
     setCurrentEpisode,
 }) {
     const [activeSeason, setActiveSeason] = useState(currentSeason);
-    const [activeEpisode, setActiveEpisode] = useState(currentEpisode);
     const [open, setOpen] = useState(true);
     // Episode list of current season
     const [episodeList, setEpisodeList] = useState({});
@@ -38,9 +37,10 @@ function SeasonTrack({
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
 
     // Open -> show episode
-    const handleActiveSeason = (seasonNum) => {
+    const handleActiveSeason = (seasonNum, index) => {
         setActiveSeason(seasonNum);
 
+        // Close
         if (activeSeason === seasonNum) {
             setOpen(!open);
         } else {
@@ -53,8 +53,12 @@ function SeasonTrack({
         setCurrentEpisode(episodeNum);
     };
 
+    useEffect(() => {}, [currentSeason, currentEpisode]);
+
     return (
         <ul className={cx('track')}>
+            {/* <div className="track-scroll-view"></div> */}
+
             {!!seasonDetail &&
                 seasonDetail.map((season, index) => (
                     <li
@@ -68,7 +72,7 @@ function SeasonTrack({
                             className={cx('track-field', {
                                 open: open && activeSeason === season?.season_number,
                             })}
-                            onClick={() => handleActiveSeason(season?.season_number)}
+                            onClick={() => handleActiveSeason(season?.season_number, index)}
                         >
                             <div className={cx('track-img')}>
                                 <Image
@@ -90,6 +94,7 @@ function SeasonTrack({
                                 {episodeList?.season_number === season?.season_number &&
                                     episodeList.episodes.map((episode, index) => (
                                         <li
+                                            // ref={(el) => (episodeRef.current[index] = el)}
                                             key={index}
                                             className={cx('track-episode-item', {
                                                 active:
@@ -105,8 +110,8 @@ function SeasonTrack({
                                                 }}
                                                 onClick={() =>
                                                     handleActiveEpisode(
-                                                        episode?.episode_number,
                                                         episode?.season_number,
+                                                        episode?.episode_number,
                                                     )
                                                 }
                                             >

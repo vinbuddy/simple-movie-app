@@ -148,7 +148,7 @@ function Header({ containerType = 'container' }) {
                                     >
                                         <AiOutlineCloseCircle />
                                     </button>
-                                    <h2 className={cx('qoute')}>Simple Movie App</h2>
+                                    <h2 className={cx('qoute')}>Simple Not Trivial</h2>
                                 </header>
                                 <MobileSidebar hideSidebar={handleHideSidebar} />
                             </div>

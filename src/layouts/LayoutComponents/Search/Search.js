@@ -37,7 +37,7 @@ function Search() {
 
     const navigateSearch = useNavigate();
 
-    const debouncedSearch = useDebounce(searchValue, 700);
+    const debouncedSearch = useDebounce(searchValue, 800);
 
     useEffect(() => {
         if (debouncedSearch.trim().length <= 0) {
@@ -243,7 +243,7 @@ function Search() {
                         </button>
                     )}
 
-                    {loading && (
+                    {loading && searchValue.length > 0 && (
                         <LoadingBar className={cx('hide-loading-mobile')} top="100%" width="100%" />
                     )}
                 </div>
