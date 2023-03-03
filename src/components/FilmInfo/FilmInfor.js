@@ -25,6 +25,7 @@ import OverviewInfo from './OverviewInfor';
 import Modal from '../Modal';
 
 import { ModalContext } from 'src/context/ModalContext';
+import convertZeroToTruthy from 'src/utils/convertZeroToTruthy';
 
 const cx = classNames.bind(styles);
 
@@ -263,7 +264,7 @@ function FilmInfo({
                                         <Skeleton width={100} />
                                     )}
 
-                                    {detail?.vote_average ? (
+                                    {convertZeroToTruthy(detail?.vote_average) ? (
                                         <li className={cx('info-detail-item')}>
                                             <RiMedalLine className={cx('info-detail-icon')} />
                                             <span>Score: {detail?.vote_average}</span>
@@ -272,7 +273,7 @@ function FilmInfo({
                                         <Skeleton width={100} />
                                     )}
 
-                                    {detail?.vote_count ? (
+                                    {convertZeroToTruthy(detail?.vote_count) ? (
                                         <li className={cx('info-detail-item')}>
                                             <BsPeople className={cx('info-detail-icon')} />
                                             <span>Vote count: {detail?.vote_count}</span>

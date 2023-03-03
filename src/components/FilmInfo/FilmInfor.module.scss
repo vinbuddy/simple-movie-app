@@ -368,8 +368,12 @@ $textshadow: 1px 1px 2px var(--black);
 
     .info-review {
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: nowrap !important;
         overflow-x: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     .info-review-item,
@@ -377,14 +381,10 @@ $textshadow: 1px 1px 2px var(--black);
         max-height: 350px;
         min-height: 350px;
         overflow-y: scroll;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
     }
 
     .info-review-item {
-        width: 90%;
+        width: 90% !important;
         margin-bottom: 10px;
 
         // Apply css only one element

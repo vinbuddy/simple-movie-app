@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SeasonTrack.module.scss';
 
@@ -25,6 +25,15 @@ function SeasonTrack({
     const episodePath = Number(searchParams.get('episodes'));
     const seasonPath = Number(searchParams.get('seasons'));
 
+    const episodeRef = useRef([]);
+
+    const scrollEpisodeToView = (index) =>
+        episodeRef.current[index].scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'start',
+        });
+
     useEffect(() => {
         const fetchEpisodeList = async () => {
             const result = await getEpisodeList(id, activeSeason);
@@ -48,17 +57,16 @@ function SeasonTrack({
         }
     };
 
-    const handleActiveEpisode = (seasonNum, episodeNum) => {
+    const handleActiveEpisode = (seasonNum, episodeNum, index) => {
+        scrollEpisodeToView(index);
         setCurrentSeason(seasonNum);
         setCurrentEpisode(episodeNum);
-    };
 
-    useEffect(() => {}, [currentSeason, currentEpisode]);
+        window.scrollTo(0, 0);
+    };
 
     return (
         <ul className={cx('track')}>
-            {/* <div className="track-scroll-view"></div> */}
-
             {!!seasonDetail &&
                 seasonDetail.map((season, index) => (
                     <li
@@ -94,7 +102,8 @@ function SeasonTrack({
                                 {episodeList?.season_number === season?.season_number &&
                                     episodeList.episodes.map((episode, index) => (
                                         <li
-                                            // ref={(el) => (episodeRef.current[index] = el)}
+                                            // ref={episodeRef}
+                                            ref={(el) => (episodeRef.current[index] = el)}
                                             key={index}
                                             className={cx('track-episode-item', {
                                                 active:
@@ -112,6 +121,7 @@ function SeasonTrack({
                                                     handleActiveEpisode(
                                                         episode?.season_number,
                                                         episode?.episode_number,
+                                                        index,
                                                     )
                                                 }
                                             >

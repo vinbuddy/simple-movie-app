@@ -2,13 +2,7 @@ $track-border-radius: 6px;
 
 .track {
     position: relative;
-
-    .track-scroll-view {
-        position: absolute;
-        width: 100%;
-        top: 0;
-        left: 0;
-    }
+    overscroll-behavior: contain;
 }
 
 .track-item {
@@ -42,6 +36,10 @@ $track-border-radius: 6px;
     &.open {
         background-color: var(--nav-background);
     }
+
+    // &.open ~ .track-episode {
+    //     height: auto;
+    // }
 }
 
 .track-img {
@@ -87,6 +85,7 @@ $track-border-radius: 6px;
 .track-episode {
     padding: 10px;
     animation: fadeIn linear 0.3s;
+    // transition: all ease 0.4s;
 }
 
 .track-episode-item {

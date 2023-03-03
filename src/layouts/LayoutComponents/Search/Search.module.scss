@@ -12,6 +12,7 @@
     border-radius: 7px;
     padding: 0 14px 0 22px;
     border: 2px solid transparent;
+    transition: border ease-in 0.2s;
 
     &:focus-within {
         border-color: #ced4da;
@@ -86,10 +87,6 @@
 }
 
 .no-result {
-    // width: 100%;
-    // position: absolute;
-    // top: calc(100% + 10px);
-    // left: 0;
     text-align: center;
 
     img {

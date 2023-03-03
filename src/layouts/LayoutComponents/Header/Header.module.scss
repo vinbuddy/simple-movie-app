@@ -60,7 +60,7 @@
 .menu-sidebar {
     display: none;
     width: 75vw;
-    z-index: 11;
+    z-index: 3;
     position: fixed;
     top: 0;
     right: 0;
@@ -68,7 +68,8 @@
     background-color: var(--app-background);
     padding: 0 24px 24px 24px;
     transform: translateX(100%);
-    transition: all 0.45s;
+    transition: all 0.4s;
+
     opacity: 0;
 
     &.show-sidebar {

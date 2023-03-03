@@ -12,6 +12,8 @@
 }
 
 .suggest-list {
+    overflow: hidden;
+
     padding: 0 12px;
 }
 
@@ -123,4 +125,47 @@
 .share-url-footer {
     display: flex;
     justify-content: flex-end;
+}
+
+// Mobile - Tablet
+@media (min-width: 300px) and (max-width: 991px) {
+    .watch {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .watch-title {
+        font-size: 2rem;
+    }
+
+    .watch-title-episode {
+        font-size: 1.7rem;
+        margin-top: 20px;
+    }
+
+    .watch-detail-wrapper {
+        margin-top: 20px;
+    }
+
+    .suggest-bar {
+        margin-top: 20px;
+    }
+
+    .suggest-list {
+        padding: 0 0;
+    }
+}
+
+// Mobile
+@media (max-width: 576px) {
+    .watch-frame {
+        height: 240px;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+    .watch-frame {
+        height: 420px;
+    }
 }
