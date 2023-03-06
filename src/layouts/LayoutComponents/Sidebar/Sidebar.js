@@ -5,6 +5,10 @@ import styles from './Sidebar.module.scss';
 import NavigateItem from 'src/components/NavigateItem/';
 import config from 'src/config';
 
+import { useContext } from 'react';
+import images from 'src/assets/images';
+import { UserContext } from 'src/context/UserContext';
+
 import { BiSearch } from 'react-icons/bi';
 import { MdOutlineWidgets, MdAirplay } from 'react-icons/md';
 import { AiOutlineUser } from 'react-icons/ai';
@@ -14,6 +18,8 @@ import { BsBookmark } from 'react-icons/bs';
 const cx = classNames.bind(styles);
 
 function Sidebar({ sidebarType = 'normal' }) {
+    const currentUser = useContext(UserContext);
+
     // return navigateItem content
     const classifySidebarContent = (content) => {
         switch (sidebarType) {
@@ -63,12 +69,19 @@ function Sidebar({ sidebarType = 'normal' }) {
                     {classifySidebarContent('Saved')}
                 </NavigateItem>
 
-                <NavigateItem to={config.routes.profile} leftIcon={<AiOutlineUser />}>
+                <NavigateItem
+                    to={config.routes.profile}
+                    leftIcon={
+                        currentUser ? (
+                            <img src={currentUser?.photoURL} alt="avatar" />
+                        ) : (
+                            <AiOutlineUser />
+                        )
+                    }
+                >
                     {classifySidebarContent('Profile')}
                 </NavigateItem>
             </nav>
-
-            {/* <MobileAction /> */}
         </aside>
     );
 }

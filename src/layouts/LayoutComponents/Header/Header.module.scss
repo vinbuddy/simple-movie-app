@@ -12,10 +12,14 @@
 .inner {
     position: relative;
     height: 100%;
-    padding: 0 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
 }
 
 .logo-wrapper {
@@ -34,6 +38,26 @@
     letter-spacing: 1px;
     margin-bottom: 0;
     margin-left: 3px;
+}
+
+.nav-list {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.nav-item {
+    a {
+        font-size: 1.5rem;
+        padding: 7px 8px;
+        transition: all 0.2s;
+        border-radius: 5px;
+        color: var(--text-nav);
+        &:hover {
+            color: var(--text-color);
+            background-color: var(--nav-background);
+        }
+    }
 }
 
 .actions {
@@ -133,6 +157,10 @@
         &.search-active {
             display: none;
         }
+    }
+
+    .nav-list {
+        display: none;
     }
 
     .actions {

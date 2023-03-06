@@ -11,6 +11,7 @@ const images = {
     starWarHead: require('./starwarHead.png'),
     google: require('./google.png'),
     facebook: require('./facebook.png'),
+    profileBackground: require('./profile-background.png'),
 };
 
 export default images;

@@ -6,7 +6,7 @@ import TiviPage from 'src/pages/TiviPage';
 import SearchPage from 'src/pages/SearchPage';
 import NotFound from 'src/pages/NotFound';
 import Saved from 'src/pages/Saved';
-import Profile from 'src/pages/Profile';
+import ProfilePage from 'src/pages/ProfilePage';
 import LoginPage from 'src/pages/LoginPage';
 import RegisterPage from 'src/pages/RegisterPage';
 import MovieInfoPage from 'src/pages/InfoPage/MovieInfoPage';
@@ -17,6 +17,7 @@ import FilmLayout from 'src/layouts/FilmLayout';
 import ResetPage from 'src/pages/ResetPage';
 import WatchMoviePage from 'src/pages/WatchPage/WatchMoviePage';
 import WatchTvPage from 'src/pages/WatchPage/WatchTvPage';
+import HeaderOnlyLayout from 'src/layouts/HeaderOnlyLayout';
 
 const routes = [
     { path: config.routes.home, component: HomePage },
@@ -24,7 +25,7 @@ const routes = [
     { path: config.routes.tvs, component: TiviPage, isFilterProvider: true },
     { path: config.routes.search, component: SearchPage },
     { path: config.routes.saved, component: Saved },
-    { path: config.routes.profile, component: Profile },
+    { path: config.routes.profile, component: ProfilePage, layout: HeaderOnlyLayout },
     { path: config.routes.movieInfo, component: MovieInfoPage, layout: FilmLayout },
     { path: config.routes.tvInfo, component: TvInfoPage, layout: FilmLayout },
     { path: config.routes.watchMovie, component: WatchMoviePage, layout: FilmLayout },

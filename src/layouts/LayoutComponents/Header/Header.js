@@ -26,11 +26,13 @@ import { UserInfo } from 'src/components/UserInfo';
 
 import { AiOutlineMenu, AiOutlineCloseCircle } from 'react-icons/ai';
 import MobileSidebar from '../Sidebar/MobileSidebar';
+import NavigateItem from 'src/components/NavigateItem';
+import config from 'src/config';
 
 const cx = classNames.bind(styles);
 
-function Header({ containerType = 'container' }) {
-    const userDataContext = useContext(UserContext);
+function Header({ containerType = 'container', isNav = false }) {
+    const currentUser = useContext(UserContext);
     const location = useLocation();
     const [searchActive, setSearchActive] = useState(false);
 
@@ -48,15 +50,34 @@ function Header({ containerType = 'container' }) {
         <div id="header" className={cx('header')}>
             <div className={containerType} style={{ height: '100%' }}>
                 <div className={cx('inner')}>
-                    <Link
-                        className={cx('logo-wrapper', {
-                            'search-active': searchActive,
-                        })}
-                        to="/"
-                    >
-                        <img className={cx('logo')} src={images.logo} alt="" />
-                        <h2 className={cx('qoute')}>Simple Not Trivial</h2>
-                    </Link>
+                    <div className={cx('logo')}>
+                        <Link
+                            className={cx('logo-wrapper', {
+                                'search-active': searchActive,
+                            })}
+                            to="/"
+                        >
+                            <img className={cx('logo')} src={images.logo} alt="" />
+                            {!isNav && <h2 className={cx('qoute')}>Simple Not Trivial</h2>}
+                        </Link>
+
+                        {isNav && (
+                            <ul className={cx('nav-list')}>
+                                <li className={cx('nav-item')}>
+                                    <Link to={config.routes.home}>Home</Link>
+                                </li>
+                                <li className={cx('nav-item')}>
+                                    <Link to={config.routes.movies}>Movie</Link>
+                                </li>
+                                <li className={cx('nav-item')}>
+                                    <Link to={config.routes.tvs}>TV</Link>
+                                </li>
+                                <li className={cx('nav-item')}>
+                                    <Link to={config.routes.search}>Search</Link>
+                                </li>
+                            </ul>
+                        )}
+                    </div>
 
                     <div
                         className={cx('search-wrapper', {
@@ -66,12 +87,9 @@ function Header({ containerType = 'container' }) {
                         <Search />
                     </div>
 
-                    {/* type: primary, normal, outline, rounded */}
-                    {/* size: smmall, medium (default), large */}
-
                     <div className={cx('actions')}>
                         {/* if user login -> display avatar */}
-                        {!!userDataContext ? (
+                        {!!currentUser ? (
                             <>
                                 <TippyToolTips
                                     animation="scale"

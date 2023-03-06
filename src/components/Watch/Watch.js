@@ -1,6 +1,9 @@
 import { useEffect, useContext, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import './Watch.scss';
+
+import classNames from 'classnames/bind';
+import styles from './Watch.module.scss';
+
 import Skeleton from 'react-loading-skeleton';
 
 import GalleryHeader from '../Gallery/GalleryHeader';
@@ -22,6 +25,8 @@ import { ModalContext } from 'src/context/ModalContext';
 import { getEpisode } from 'src/services/seasonService';
 import { formartDate } from 'src/utils/handleDate';
 import LoadingBar from '../LoadingBar';
+
+const cx = classNames.bind(styles);
 
 function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
     const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
@@ -76,23 +81,23 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
     };
 
     return (
-        <div className="watch">
+        <div className={cx('watch')}>
             {loading && <LoadingBar top={0} />}
 
             {modalName === 'share' && showModal && (
                 <Modal title="Share">
-                    <div className="share-url-bar">
-                        <span className="share-url-icon">
+                    <div className={cx('share-url-bar')}>
+                        <span className={cx('share-url-icon')}>
                             <BsLink45Deg />
                         </span>
                         <input
                             value={window.location.href}
-                            className="share-url-input"
+                            className={cx('share-url-input')}
                             type="text"
                             readOnly
                         />
                     </div>
-                    <footer className="share-url-footer">
+                    <footer className={cx('share-url-footer')}>
                         <Button onClick={handleHideModal} type="no-outline">
                             Cancel
                         </Button>
@@ -106,15 +111,15 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
             <div className="row pb-4">
                 {/* Watch Section */}
                 <div className="col-lg-9 pb-4">
-                    <div className="watch-section">
-                        <div className="watch-frame">
+                    <div className={cx('watch-section')}>
+                        <div className={cx('watch-frame')}>
                             {Object.keys(detail).length === 0 ? (
                                 <Skeleton width="100%" height="100%" />
                             ) : (
                                 <iframe
                                     allowFullScreen={true}
                                     title="watch embed"
-                                    className="watch-embed"
+                                    className={cx('watch-embed')}
                                     src={
                                         mediaType === 'movie'
                                             ? `https://2embed.org/embed/${mediaType}?tmdb=${id}`
@@ -125,21 +130,19 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                         </div>
 
                         {/* Title - Actions */}
-                        <div className="watch-info">
-                            <h2 className="watch-title">
-                                {detail?.original_title || detail?.original_name || (
-                                    <Skeleton width="40%" />
-                                )}
+                        <div className={cx('watch-info')}>
+                            <h2 className={cx('watch-title')}>
+                                {detail?.title || detail?.name || <Skeleton width="40%" />}
                             </h2>
 
-                            <div className="watch-actions">
-                                <button className="watch-actions-btn">
+                            <div className={cx('watch-actions')}>
+                                <button className={cx('watch-actions-btn')}>
                                     <AiOutlineHeart />
                                 </button>
                                 <button
                                     onClick={showShareModal}
                                     style={{ lineHeight: 0 }}
-                                    className="watch-actions-btn"
+                                    className={cx('watch-actions-btn')}
                                 >
                                     <IoShareOutline />
                                 </button>
@@ -148,25 +151,25 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
 
                         {/* Episode name title */}
                         {mediaType === 'tv' && (
-                            <h3 className="watch-title-episode">
+                            <h3 className={cx('watch-title-episode')}>
                                 Season {episode?.season_number} - Episode {episode?.episode_number}:{' '}
                                 {episode?.name}
                             </h3>
                         )}
 
-                        <div className="watch-detail-wrapper">
-                            <ul className="watch-detail">
-                                <li className="watch-detail-item">
+                        <div className={cx('watch-detail-wrapper')}>
+                            <ul className={cx('watch-detail')}>
+                                <li className={cx('watch-detail-item')}>
                                     <TiStarFullOutline />
                                     &#160;
                                     <span>{detail?.vote_average}</span>
                                 </li>
-                                <li className="watch-detail-item">
+                                <li className={cx('watch-detail-item')}>
                                     <TbTimeline />
                                     &#160;
                                     <span>{detail?.runtime || episode?.runtime} min</span>
                                 </li>
-                                <li className="watch-detail-item">
+                                <li className={cx('watch-detail-item')}>
                                     <TbCalendar />
                                     &#160;
                                     <span>
@@ -174,7 +177,7 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                     </span>
                                 </li>
                             </ul>
-                            <ul className="watch-genres">
+                            <ul className={cx('watch-genres')}>
                                 {!!detail?.genres && detail?.genres.length > 0 ? (
                                     detail?.genres.map((genre) => (
                                         <GenreInfor key={genre.id} name={genre.name} />
@@ -204,17 +207,17 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                   }
                                 : {}
                         }
-                        className="suggest-bar"
+                        className={cx('suggest-bar')}
                     >
                         {mediaType === 'movie' && (
-                            <ul className="suggest-list">
+                            <ul className={cx('suggest-list')}>
                                 <GalleryHeader
                                     heading={
                                         recommend.length > 0 ? 'Recommend' : 'Not recommend film'
                                     }
                                 />
                                 {recommend.map((item, index) => (
-                                    <li key={index} className="suggest-item">
+                                    <li key={index} className={cx('suggest-item')}>
                                         <GalleryItem
                                             imgHeight={130}
                                             imgWidth={110}
@@ -236,7 +239,6 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                     seasonDetail={detail?.seasons}
                                     currentSeason={currentSeason}
                                     currentEpisode={currentEpisode}
-                                    // episodeList={episodeList}
                                     setCurrentSeason={setCurrentSeason}
                                     setCurrentEpisode={setCurrentEpisode}
                                     setSearchParams={setSearchParams}

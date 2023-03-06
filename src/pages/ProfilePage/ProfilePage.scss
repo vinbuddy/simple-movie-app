@@ -1,0 +1,61 @@
+$banner-height: 300px;
+$avatar-width-height: 175px;
+
+.profile-wrapper {
+    margin-top: var(--header-height);
+}
+
+// .profile-user {
+//     display: flex;
+//     width: 100%;
+//     min-height: 140px;
+//     bottom: calc(-140px / 2);
+//     padding: 24px;
+//     border-radius: 15px;
+//     // padding-left: 100px;
+//     background-color: var(--nav-background);
+
+//     img {
+//
+//     }
+// }
+
+.profile-banner {
+    position: relative;
+    width: 100%;
+    height: $banner-height;
+    background-repeat: no-repeat;
+    background-image: url('https://cdn.atomix.vg/wp-content/uploads/2022/12/trunkis.jpg');
+    background-size: cover;
+    background-position: top center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.profile-avatar {
+    position: absolute;
+    left: 40px;
+    bottom: calc($avatar-width-height / -2);
+    width: $avatar-width-height;
+    height: $avatar-width-height;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid var(--app-background);
+}
+
+.profile-info {
+    margin-top: calc($avatar-width-height / 2 + 20px);
+    margin-left: 40px;
+}
+
+.profile-name {
+    color: var(--text-color);
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.profile-email,
+.profile-position {
+    color: var(--text-nav);
+    // font-style: italic;
+}
