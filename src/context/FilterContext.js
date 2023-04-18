@@ -6,9 +6,9 @@ const FilterContext = createContext();
 
 const PAGE_LIMIT = 40;
 const sortOptions = [
-    { value: 'vote_average.desc', label: 'Top Rated ⭐' },
-    { value: 'release_date.desc', label: 'Release Date 📅' },
-    { value: 'vote_count.desc', label: 'Likes 👍' },
+    { value: 'vote_average.desc', label: 'Top Rated ' },
+    { value: 'release_date.desc', label: 'Release Date ' },
+    { value: 'vote_count.desc', label: 'Likes ' },
 ];
 
 // Provide "Genre, Sortby" to another component

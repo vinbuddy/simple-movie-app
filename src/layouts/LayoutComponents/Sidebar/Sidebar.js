@@ -73,7 +73,10 @@ function Sidebar({ sidebarType = 'normal' }) {
                     to={config.routes.profile}
                     leftIcon={
                         currentUser ? (
-                            <img src={currentUser?.photoURL} alt="avatar" />
+                            <img
+                                src={currentUser?.photoURL || images.avatarPlaceholder}
+                                alt="avatar"
+                            />
                         ) : (
                             <AiOutlineUser />
                         )

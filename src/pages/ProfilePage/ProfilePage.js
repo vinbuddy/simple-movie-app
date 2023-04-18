@@ -1,33 +1,54 @@
 import { useContext } from 'react';
-import images from 'src/assets/images';
 import { UserContext } from 'src/context/UserContext';
 import './ProfilePage.scss';
 
-import { FaRegAddressCard } from 'react-icons/fa';
+import { BsPeopleFill } from 'react-icons/bs';
+import { PopperFrame } from 'src/components/Popper';
+import images from 'src/assets/images';
 
 function ProfilePage() {
     const currentUser = useContext(UserContext);
-    console.log('currentUser: ', currentUser);
 
     return (
         <div className="profile-wrapper">
-            <div className="profile-banner">
+            <div
+                style={{ backgroundImage: `url(${images.profileBackground})` }}
+                className="profile-banner"
+            >
                 <img
                     className="profile-avatar"
                     src="https://dragonball.guru/wp-content/uploads/2021/07/How-Old-Is-Future-Trunks.jpg"
                     alt="avatar profile"
                 />
             </div>
-            <div className="profile-info">
-                <h3 className="profile-name">{currentUser?.displayName}</h3>
-                {/* <p className="profile-email">
-                        <span>
-                            <FaRegAddressCard />
-                        </span>
-                        {currentUser?.email || ' Huynhthevinh.work@gmail.com'}
-                    </p>
-                    <p className="profile-position">Simple Movie App admin</p> */}
-            </div>
+
+            <h3 className="profile-name">{currentUser?.displayName}</h3>
+
+            <section className="profile-info">
+                <div className="row">
+                    <div className="col-4">
+                        <PopperFrame background="var(--profile-info-background)">
+                            <section className="profile-intro">
+                                <h3 className="profile-info-title">Introduce</h3>
+                                <p className="profile-info-text">
+                                    <BsPeopleFill /> &nbsp;
+                                    <span> Member of Simple Movie App</span>
+                                </p>
+                            </section>
+                        </PopperFrame>
+                    </div>
+                    <div className="col-8">
+                        <section className="profile-movie-watched">
+                            <PopperFrame background="var(--profile-info-background)">
+                                <section className="profile-intro">
+                                    <h3 className="profile-info-title">Movie Watched</h3>
+                                    <p>Member of Simple Movie App for 2 years</p>
+                                </section>
+                            </PopperFrame>
+                        </section>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

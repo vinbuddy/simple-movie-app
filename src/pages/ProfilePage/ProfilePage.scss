@@ -5,27 +5,11 @@ $avatar-width-height: 175px;
     margin-top: var(--header-height);
 }
 
-// .profile-user {
-//     display: flex;
-//     width: 100%;
-//     min-height: 140px;
-//     bottom: calc(-140px / 2);
-//     padding: 24px;
-//     border-radius: 15px;
-//     // padding-left: 100px;
-//     background-color: var(--nav-background);
-
-//     img {
-//
-//     }
-// }
-
 .profile-banner {
     position: relative;
     width: 100%;
     height: $banner-height;
     background-repeat: no-repeat;
-    background-image: url('https://cdn.atomix.vg/wp-content/uploads/2022/12/trunkis.jpg');
     background-size: cover;
     background-position: top center;
     border-bottom-left-radius: 15px;
@@ -43,15 +27,39 @@ $avatar-width-height: 175px;
     border: 6px solid var(--app-background);
 }
 
-.profile-info {
-    margin-top: calc($avatar-width-height / 2 + 20px);
-    margin-left: 40px;
-}
-
 .profile-name {
     color: var(--text-color);
     font-size: 3rem;
     font-weight: 600;
+    margin-top: calc($avatar-width-height / 2 + 20px);
+    margin-left: 40px;
+}
+
+.profile-info {
+    margin-left: 40px;
+    margin-top: 40px;
+}
+
+.profile-intro {
+    padding: 12px;
+}
+
+.profile-info-title {
+    font-size: 1.8rem;
+    display: inline-block;
+    color: #000;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 5px;
+    background-color: var(--profile-title-info-background);
+    margin-bottom: 10px;
+}
+
+.profile-info-text {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    margin-bottom: 0;
 }
 
 .profile-email,

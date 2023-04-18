@@ -53,6 +53,9 @@ body[data-theme='dark'] {
     --go-top-color: var(--primary);
     --thumb-gallery-background: #282c31;
     --tab-background: #282c31;
+
+    --profile-info-background: #282c31;
+    --profile-title-info-background: #fff;
 }
 
 body[data-theme='light'] {
@@ -76,6 +79,9 @@ body[data-theme='light'] {
 
     --thumb-gallery-background: #e9ecef;
     --tab-background: #e9ecef;
+
+    --profile-info-background: #fff;
+    --profile-title-info-background: #e9ecef;
 }
 
 body {

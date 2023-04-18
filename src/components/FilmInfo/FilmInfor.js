@@ -467,10 +467,10 @@ function FilmInfo({
                                                     <span className={cx('info-review-stars')}>
                                                         {!!reviewItem?.author_details?.rating &&
                                                             calculateStar(
-                                                                Math.round(
-                                                                    reviewItem?.author_details
-                                                                        ?.rating / 2,
-                                                                ),
+                                                                    Math.round(
+                                                                        reviewItem?.author_details
+                                                                            ?.rating / 2,
+                                                                    ),
                                                             ).map((item, index) => (
                                                                 <Star
                                                                     icon={item.icon}

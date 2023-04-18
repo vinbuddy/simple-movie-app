@@ -24,8 +24,14 @@ const routes = [
     { path: config.routes.movies, component: MoviePage, isFilterProvider: true },
     { path: config.routes.tvs, component: TiviPage, isFilterProvider: true },
     { path: config.routes.search, component: SearchPage },
-    { path: config.routes.saved, component: Saved },
-    { path: config.routes.profile, component: ProfilePage, layout: HeaderOnlyLayout },
+    { path: config.routes.saved, component: Saved, private: true },
+    {
+        path: config.routes.profile,
+        component: ProfilePage,
+        layout: HeaderOnlyLayout,
+        private: true,
+    },
+
     { path: config.routes.movieInfo, component: MovieInfoPage, layout: FilmLayout },
     { path: config.routes.tvInfo, component: TvInfoPage, layout: FilmLayout },
     { path: config.routes.watchMovie, component: WatchMoviePage, layout: FilmLayout },
