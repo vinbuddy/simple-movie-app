@@ -12,18 +12,19 @@
         text-align: left;
         justify-content: flex-start;
         padding: 7px 44px 7px 16px;
+        color: #222;
 
         &:hover {
             background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        &.separate {
+            color: #ed4245;
+            border-top: 1px solid #ddd;
         }
 
         + .menu-item {
             margin-left: 0;
         }
     }
-}
-
-.separate {
-    color: #ed4245;
-    border-top: 1px solid #ddd;
 }

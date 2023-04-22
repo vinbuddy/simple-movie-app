@@ -112,7 +112,40 @@ function FilmInfo({
             {loading && <LoadingBar height={4} />}
 
             {/* detail seasons modal */}
-            {modalName === seasonData?.season_number && showModal && (
+            <Modal
+                show={modalName === seasonData?.season_number && showModal}
+                title={seasonData?.name}
+            >
+                <div className={cx('modal-season')}>
+                    <img
+                        className={cx('modal-season-img')}
+                        src={`${baseImgURL}${seasonData?.poster_path}`}
+                        alt=""
+                    />
+                    <p className={cx('modal-season-overview')}>
+                        {seasonData?.overview || 'No overview'}
+                    </p>
+                </div>
+                <footer className={cx('modal-season-footer')}>
+                    <span className={cx('modal-season-info')}>
+                        {seasonData?.episode_count} episodes
+                    </span>
+                    <Button
+                        to={{
+                            pathname: `/watch/${mediaType}/${id}`,
+                            search:
+                                mediaType === 'tv' &&
+                                `?seasons=${
+                                    seasonData?.season_number || detail?.number_of_seasons
+                                }&episodes=${1}`,
+                        }}
+                        type="primary"
+                    >
+                        Watch Now
+                    </Button>
+                </footer>
+            </Modal>
+            {/* {modalName === seasonData?.season_number && showModal && (
                 <Modal title={seasonData?.name}>
                     <div className={cx('modal-season')}>
                         <img
@@ -143,7 +176,7 @@ function FilmInfo({
                         </Button>
                     </footer>
                 </Modal>
-            )}
+            )} */}
 
             {/* Background */}
             {!!detail?.backdrop_path ? (
@@ -191,6 +224,7 @@ function FilmInfo({
                                 >
                                     Trailer
                                 </Button>
+
                                 <Button
                                     to={{
                                         pathname: `/watch/${mediaType}/${id}`,
@@ -467,10 +501,10 @@ function FilmInfo({
                                                     <span className={cx('info-review-stars')}>
                                                         {!!reviewItem?.author_details?.rating &&
                                                             calculateStar(
-                                                                    Math.round(
-                                                                        reviewItem?.author_details
-                                                                            ?.rating / 2,
-                                                                    ),
+                                                                Math.round(
+                                                                    reviewItem?.author_details
+                                                                        ?.rating / 2,
+                                                                ),
                                                             ).map((item, index) => (
                                                                 <Star
                                                                     icon={item.icon}

@@ -26,7 +26,6 @@ import { UserInfo } from 'src/components/UserInfo';
 
 import { AiOutlineMenu, AiOutlineCloseCircle } from 'react-icons/ai';
 import MobileSidebar from '../Sidebar/MobileSidebar';
-import NavigateItem from 'src/components/NavigateItem';
 import config from 'src/config';
 
 const cx = classNames.bind(styles);

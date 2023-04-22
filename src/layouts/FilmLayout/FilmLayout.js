@@ -26,8 +26,6 @@ function DefaultLayout({ children }) {
 
     return (
         <div>
-            {/* <ToastContainer hideProgressBar pauseOnHover={false} /> */}
-
             <Header containerType="container-fluid" />
             <div className={cx('wrapper', 'container-fluid')}>
                 <div className="row ">

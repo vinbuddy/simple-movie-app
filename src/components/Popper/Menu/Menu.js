@@ -12,6 +12,7 @@ import { BsBookmark } from 'react-icons/bs';
 import { FiLogOut } from 'react-icons/fi';
 import { useContext } from 'react';
 import { AuthContext } from 'src/context/AuthContext';
+import config from 'src/config';
 
 const cx = classNames.bind(styles);
 
@@ -22,10 +23,12 @@ function Menu({ children }) {
         {
             title: 'Profile',
             icon: <AiOutlineUser />,
+            to: config.routes.profile,
         },
         {
             title: 'Saved',
             icon: <BsBookmark />,
+            to: config.routes.saved,
         },
         {
             title: 'Log out',
@@ -36,7 +39,7 @@ function Menu({ children }) {
     ];
 
     const renderItem = () => {
-        return menuItems.map((item, index) => <MenuItem key={index} itemData={item} />);
+        return menuItems.map((item, index) => <MenuItem to={item.to} key={index} data={item} />);
     };
 
     return (

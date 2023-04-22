@@ -27,12 +27,13 @@ function SeasonTrack({
 
     const episodeRef = useRef([]);
 
-    const scrollEpisodeToView = (index) =>
+    const scrollEpisodeToView = (index) => {
         episodeRef.current[index].scrollIntoView({
             behavior: 'smooth',
-            block: 'nearest',
+            block: 'end',
             inline: 'start',
         });
+    };
 
     useEffect(() => {
         const fetchEpisodeList = async () => {
@@ -58,11 +59,10 @@ function SeasonTrack({
     };
 
     const handleActiveEpisode = (seasonNum, episodeNum, index) => {
-        scrollEpisodeToView(index);
         setCurrentSeason(seasonNum);
         setCurrentEpisode(episodeNum);
 
-        window.scrollTo(0, 0);
+        scrollEpisodeToView(index);
     };
 
     return (
@@ -102,7 +102,6 @@ function SeasonTrack({
                                 {episodeList?.season_number === season?.season_number &&
                                     episodeList.episodes.map((episode, index) => (
                                         <li
-                                            // ref={episodeRef}
                                             ref={(el) => (episodeRef.current[index] = el)}
                                             key={index}
                                             className={cx('track-episode-item', {
@@ -130,11 +129,12 @@ function SeasonTrack({
                                                         src={`${baseImgURL}${episode?.still_path}`}
                                                         alt=""
                                                     />
+                                                    <span className={cx('track-episode-number')}>
+                                                        {episode?.episode_number}
+                                                    </span>
                                                 </div>
                                                 <div className={cx('track-episode-info')}>
                                                     <h3 className={cx('track-episode-title')}>
-                                                        <span>{episode?.episode_number}</span>
-                                                        {'. '}
                                                         {episode?.name}
                                                     </h3>
                                                     <span className={cx('track-episode-detail')}>

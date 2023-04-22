@@ -84,29 +84,27 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
         <div className={cx('watch')}>
             {loading && <LoadingBar top={0} />}
 
-            {modalName === 'share' && showModal && (
-                <Modal title="Share">
-                    <div className={cx('share-url-bar')}>
-                        <span className={cx('share-url-icon')}>
-                            <BsLink45Deg />
-                        </span>
-                        <input
-                            value={window.location.href}
-                            className={cx('share-url-input')}
-                            type="text"
-                            readOnly
-                        />
-                    </div>
-                    <footer className={cx('share-url-footer')}>
-                        <Button onClick={handleHideModal} type="no-outline">
-                            Cancel
-                        </Button>
-                        <Button onClick={handleCopyURL} type="primary">
-                            Copy link
-                        </Button>
-                    </footer>
-                </Modal>
-            )}
+            <Modal show={modalName === 'share' && showModal} title="Share">
+                <div className={cx('share-url-bar')}>
+                    <span className={cx('share-url-icon')}>
+                        <BsLink45Deg />
+                    </span>
+                    <input
+                        value={window.location.href}
+                        className={cx('share-url-input')}
+                        type="text"
+                        readOnly
+                    />
+                </div>
+                <footer className={cx('share-url-footer')}>
+                    <Button onClick={handleHideModal} type="no-outline">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleCopyURL} type="primary">
+                        Copy link
+                    </Button>
+                </footer>
+            </Modal>
 
             <div className="row pb-4">
                 {/* Watch Section */}
@@ -233,7 +231,7 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                         {/* Track Seasons - Episodes */}
                         {mediaType === 'tv' && (
                             <>
-                                <GalleryHeader heading="Season" />
+                                <GalleryHeader heading="Seasons - Episodes" />
                                 <SeasonTrack
                                     id={id}
                                     seasonDetail={detail?.seasons}

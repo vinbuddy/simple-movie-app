@@ -7,10 +7,11 @@ import GlobalStyles from './components/GlobalStyles';
 import { ThemeProvider } from './context/ThemeContext';
 import { UserProvider } from './context/UserContext';
 import { AuthProvider } from './context/AuthContext';
-
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import { SaveProvider } from './context/SaveContext';
 import { ModalProvider } from './context/ModalContext';
+
+import { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,15 +20,17 @@ root.render(
         <ThemeProvider>
             <UserProvider>
                 <AuthProvider>
-                    <SkeletonTheme
-                        duration={1}
-                        highlightColor="var(--nav-background)"
-                        baseColor="var(--app-background)"
-                    >
-                        <ModalProvider>
-                            <App />
-                        </ModalProvider>
-                    </SkeletonTheme>
+                    <SaveProvider>
+                        <SkeletonTheme
+                            duration={1}
+                            highlightColor="var(--nav-background)"
+                            baseColor="var(--app-background)"
+                        >
+                            <ModalProvider>
+                                <App />
+                            </ModalProvider>
+                        </SkeletonTheme>
+                    </SaveProvider>
                 </AuthProvider>
             </UserProvider>
         </ThemeProvider>

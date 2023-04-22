@@ -64,7 +64,7 @@ $textshadow: 1px 1px 2px var(--black);
 .info-button {
     width: 100%;
     display: flex;
-    padding: 0 6px;
+    justify-content: space-between;
 }
 
 .info-content {
@@ -275,6 +275,10 @@ $textshadow: 1px 1px 2px var(--black);
 
 .info-review-cmt {
     color: var(--text-color);
+
+    p {
+        word-wrap: break-word;
+    }
 }
 
 .info-no-result {
@@ -461,5 +465,28 @@ $textshadow: 1px 1px 2px var(--black);
     .info-season-list {
         overflow-x: scroll;
         flex-wrap: nowrap !important;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px) {
+    .info-poster-wrapper {
+        width: 180px;
+    }
+
+    .info-poster {
+        height: 280px;
+    }
+
+    .info-button {
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0 8px;
+
+        button,
+        a {
+            width: 100%;
+            margin: 5px 0 !important;
+        }
     }
 }

@@ -8,12 +8,22 @@ import { useContext } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Modal({ title, children }) {
+function Modal({ title, show, children }) {
     const { handleHideModal } = useContext(ModalContext);
 
     return (
-        <div onClick={handleHideModal} className={cx('modal-overlay')}>
-            <div onClick={(e) => e.stopPropagation()} className={cx('modal-wrapper')}>
+        <div
+            onClick={handleHideModal}
+            className={cx('modal-overlay', {
+                show: show,
+            })}
+        >
+            <div
+                onClick={(e) => e.stopPropagation()}
+                className={cx('modal-wrapper', {
+                    show: show,
+                })}
+            >
                 <header className={cx('modal-header')}>
                     <h2 className={cx('modal-title')}>{title}</h2>
                     <button onClick={handleHideModal} className={cx('modal-close-btn')}>

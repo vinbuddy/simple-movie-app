@@ -43,6 +43,7 @@ $track-border-radius: 6px;
 }
 
 .track-img {
+    position: relative;
     width: 55px;
     height: 50px;
     margin-right: 10px;
@@ -60,12 +61,13 @@ $track-border-radius: 6px;
 .track-info {
     width: 100%;
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .track-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     width: 100%;
     display: -webkit-box;
     color: var(--text-color);
@@ -85,7 +87,6 @@ $track-border-radius: 6px;
 .track-episode {
     padding: 10px;
     animation: fadeIn linear 0.3s;
-    // transition: all ease 0.4s;
 }
 
 .track-episode-item {
@@ -103,6 +104,10 @@ $track-border-radius: 6px;
 
     &.active .track-episode-title {
         color: var(--primary);
+    }
+
+    &.active .track-episode-number {
+        background-color: #f3731296;
     }
 
     &:last-child {
@@ -128,6 +133,7 @@ $track-border-radius: 6px;
 }
 
 .track-episode-img {
+    position: relative;
     min-width: 100px;
     max-width: 100px;
     height: 70px;
@@ -140,6 +146,18 @@ $track-border-radius: 6px;
         height: 100%;
         border-radius: 5px;
     }
+}
+
+.track-episode-number {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #fff;
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    padding: 1px 6px;
 }
 
 .track-episode-info {
