@@ -4,4 +4,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    img {
+        filter: grayscale(1);
+        width: 450px;
+    }
+}
+
+@media (max-width: 575px) {
+    .private-wrapper {
+        img {
+            width: 100%;
+        }
+    }
 }

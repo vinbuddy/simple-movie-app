@@ -15,13 +15,15 @@ import Button from '../Button';
 import SeasonTrack from '../SeasonTrack';
 
 import { IoShareOutline } from 'react-icons/io5';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { TiStarFullOutline } from 'react-icons/ti';
 import { TbTimeline, TbCalendar } from 'react-icons/tb';
 import { BsLink45Deg } from 'react-icons/bs';
 
 import { toast } from 'react-toastify';
 import { ModalContext } from 'src/context/ModalContext';
+import { SaveContext } from 'src/context/SaveContext';
+
 import { getEpisode } from 'src/services/seasonService';
 import { formartDate } from 'src/utils/handleDate';
 import LoadingBar from '../LoadingBar';
@@ -80,6 +82,8 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
         handleShowModal('share');
     };
 
+    const { handleToggleSave, save } = useContext(SaveContext);
+
     return (
         <div className={cx('watch')}>
             {loading && <LoadingBar top={0} />}
@@ -134,8 +138,15 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                             </h2>
 
                             <div className={cx('watch-actions')}>
-                                <button className={cx('watch-actions-btn')}>
-                                    <AiOutlineHeart />
+                                <button
+                                    onClick={() => handleToggleSave(id)}
+                                    className={cx('watch-actions-btn')}
+                                >
+                                    {save ? (
+                                        <AiFillHeart className={cx('watch-save-active')} />
+                                    ) : (
+                                        <AiOutlineHeart />
+                                    )}
                                 </button>
                                 <button
                                     onClick={showShareModal}

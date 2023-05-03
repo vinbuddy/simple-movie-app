@@ -74,6 +74,10 @@
     }
 }
 
+.watch-save-active {
+    color: #ce4257;
+}
+
 .watch-detail-wrapper {
     margin-top: 10px;
 }
@@ -128,7 +132,7 @@
 }
 
 // Mobile - Tablet
-@media (min-width: 300px) and (max-width: 991px) {
+@media (min-width: 250px) and (max-width: 991px) {
     .watch {
         padding-left: 18px;
         padding-right: 18px;

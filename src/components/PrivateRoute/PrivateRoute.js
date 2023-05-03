@@ -18,12 +18,12 @@ function PrivateRoute({ children }) {
             <div className={cx('private-wrapper')}>
                 <img src={images.glasses} alt="" />
                 <Button
-                    size="large"
+                    size="medium"
                     type="outline-basic"
                     to={config.routes.login}
                     className="private-login"
                 >
-                    Please Sign In To Continue
+                    Sign in to continue
                 </Button>
             </div>
         </DefaultLayout>

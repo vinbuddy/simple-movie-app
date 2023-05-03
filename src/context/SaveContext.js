@@ -5,7 +5,8 @@ const SaveContext = createContext();
 function SaveProvider({ children }) {
     const [save, setSave] = useState(false);
 
-    const handleToggleSave = () => {
+    const handleToggleSave = (id) => {
+        console.log(id);
         setSave(!save);
     };
 
