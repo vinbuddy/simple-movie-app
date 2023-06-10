@@ -26,7 +26,7 @@
 }
 
 .watch-info {
-    margin-top: 16px;
+    margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -37,7 +37,7 @@
     color: var(--text-color);
     font-size: 2.6rem;
     font-weight: 600;
-    margin-bottom: 0;
+    margin-bottom: 5px;
 }
 
 .watch-title-episode {
@@ -46,36 +46,6 @@
     color: var(--text-nav);
     font-style: italic;
     font-size: 2rem;
-}
-
-.watch-actions {
-    display: flex;
-    align-items: center;
-    background-color: var(--nav-background);
-    border-radius: 30px;
-    padding: 0 10px;
-}
-
-.watch-actions-btn {
-    position: relative;
-    color: var(--text-color);
-    font-size: 2.7rem;
-    padding: 0 8px;
-
-    &:first-child::after {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 1px;
-        height: 60%;
-        background-color: var(--text-nav);
-    }
-}
-
-.watch-save-active {
-    color: #ce4257;
 }
 
 .watch-detail-wrapper {
@@ -100,35 +70,6 @@
 
 .watch-genres {
     margin: 14px 0 18px 0;
-}
-
-.share-url-bar {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--nav-background);
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 14px;
-}
-
-.share-url-icon {
-    font-size: 2rem;
-    display: inline-block;
-    color: var(--text-nav);
-    margin-right: 10px;
-}
-
-.share-url-input {
-    flex: 1;
-    color: var(--text-color);
-    background-color: var(--nav-background);
-    overflow: hidden;
-}
-
-.share-url-footer {
-    display: flex;
-    justify-content: flex-end;
 }
 
 // Mobile - Tablet

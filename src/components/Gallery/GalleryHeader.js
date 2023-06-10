@@ -5,22 +5,12 @@ import styles from './Gallery.module.scss';
 
 const cx = classNames.bind(styles);
 
-function GalleryHeader({ heading, rightIcon, link }) {
+function GalleryHeader({ heading, rightIcon, headerStyles }) {
     return (
-        <div className={cx('gallery-header')}>
-            {link ? (
-                <Link to="/category" className={cx('gallery-heading')}>
-                    <h1>
-                        {heading} <span>{rightIcon}</span>
-                    </h1>
-                </Link>
-            ) : (
-                <div className={cx('gallery-heading')}>
-                    <h1>
-                        {heading} <span>{rightIcon}</span>
-                    </h1>
-                </div>
-            )}
+        <div style={headerStyles} className={cx('gallery-header')}>
+            <h1 className={cx('gallery-heading')}>
+                {heading} <span>{rightIcon}</span>
+            </h1>
         </div>
     );
 }

@@ -228,7 +228,7 @@ function Search() {
                         spellCheck={false}
                         placeholder="Search movie, tv..."
                         onChange={(e) => {
-                            setLoading(true);
+                            e.target.value.trimStart().length > 0 && setLoading(true);
                             setSearchValue(e.target.value);
                         }}
                         onFocus={() => {

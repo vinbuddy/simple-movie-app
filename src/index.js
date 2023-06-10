@@ -18,8 +18,8 @@ root.render(
     // <React.StrictMode>
     <GlobalStyles>
         <ThemeProvider>
-            <UserProvider>
-                <AuthProvider>
+            <AuthProvider>
+                <UserProvider>
                     <SaveProvider>
                         <SkeletonTheme
                             duration={1}
@@ -31,8 +31,8 @@ root.render(
                             </ModalProvider>
                         </SkeletonTheme>
                     </SaveProvider>
-                </AuthProvider>
-            </UserProvider>
+                </UserProvider>
+            </AuthProvider>
         </ThemeProvider>
     </GlobalStyles>,
     //  </React.StrictMode>

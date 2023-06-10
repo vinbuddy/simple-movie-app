@@ -5,12 +5,15 @@ import MoviePage from 'src/pages/MoviePage';
 import TiviPage from 'src/pages/TiviPage';
 import SearchPage from 'src/pages/SearchPage';
 import NotFound from 'src/pages/NotFound';
-import Saved from 'src/pages/Saved';
+import SavedPage from 'src/pages/SavedPage';
 import ProfilePage from 'src/pages/ProfilePage';
 import LoginPage from 'src/pages/LoginPage';
 import RegisterPage from 'src/pages/RegisterPage';
 import MovieInfoPage from 'src/pages/InfoPage/MovieInfoPage';
 import TvInfoPage from 'src/pages/InfoPage/TvInfoPage';
+
+import CollectionPage from 'src/pages/SavedDetailPage/CollectionPage';
+import AllFilmsPage from 'src/pages/SavedDetailPage/AllFilmsPage';
 
 // layout
 import FilmLayout from 'src/layouts/FilmLayout';
@@ -24,7 +27,9 @@ const routes = [
     { path: config.routes.movies, component: MoviePage, isFilterProvider: true },
     { path: config.routes.tvs, component: TiviPage, isFilterProvider: true },
     { path: config.routes.search, component: SearchPage },
-    { path: config.routes.saved, component: Saved, private: true },
+    { path: config.routes.saved, component: SavedPage, private: true },
+    { path: config.routes.collection, component: CollectionPage, private: true },
+    { path: config.routes.allFilms, component: AllFilmsPage, private: true },
     {
         path: config.routes.profile,
         component: ProfilePage,

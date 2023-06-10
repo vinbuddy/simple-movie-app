@@ -5,19 +5,20 @@ import './ProfilePage.scss';
 import { BsPeopleFill } from 'react-icons/bs';
 import { PopperFrame } from 'src/components/Popper';
 import images from 'src/assets/images';
+import { Image } from 'src/components/Image';
 
 function ProfilePage() {
     const currentUser = useContext(UserContext);
-
     return (
         <div className="profile-wrapper">
             <div
                 style={{ backgroundImage: `url(${images.profileBackground})` }}
                 className="profile-banner"
             >
-                <img
+                <Image
+                    lazy={false}
                     className="profile-avatar"
-                    src="https://dragonball.guru/wp-content/uploads/2021/07/How-Old-Is-Future-Trunks.jpg"
+                    src={currentUser.photoURL}
                     alt="avatar profile"
                 />
             </div>

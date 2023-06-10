@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
@@ -10,19 +10,10 @@ import GalleryHeader from '../Gallery/GalleryHeader';
 import GalleryItem from '../Gallery/GalleryItem';
 import GenreInfor from '../FilmInfo/GenreInfor';
 import OverviewInfo from '../FilmInfo/OverviewInfor';
-import Modal from '../Modal';
-import Button from '../Button';
 import SeasonTrack from '../SeasonTrack';
 
-import { IoShareOutline } from 'react-icons/io5';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { TiStarFullOutline } from 'react-icons/ti';
 import { TbTimeline, TbCalendar } from 'react-icons/tb';
-import { BsLink45Deg } from 'react-icons/bs';
-
-import { toast } from 'react-toastify';
-import { ModalContext } from 'src/context/ModalContext';
-import { SaveContext } from 'src/context/SaveContext';
 
 import { getEpisode } from 'src/services/seasonService';
 import { formartDate } from 'src/utils/handleDate';
@@ -31,8 +22,6 @@ import LoadingBar from '../LoadingBar';
 const cx = classNames.bind(styles);
 
 function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
-    const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
-
     const [searchParams, setSearchParams] = useSearchParams({});
     const [currentSeason, setCurrentSeason] = useState(() => {
         const current = searchParams.get('seasons');
@@ -63,52 +52,9 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
         fetchEpisode();
     }, [currentEpisode, currentSeason]);
 
-    const handleCopyURL = async () => {
-        try {
-            await navigator.clipboard.writeText(window.location.href);
-            toast.success('Copied to clipbroad', {
-                position: toast.POSITION.BOTTOM_CENTER,
-            });
-        } catch (err) {
-            toast.error('Error', {
-                position: toast.POSITION.BOTTOM_CENTER,
-            });
-        }
-
-        handleHideModal();
-    };
-
-    const showShareModal = () => {
-        handleShowModal('share');
-    };
-
-    const { handleToggleSave, save } = useContext(SaveContext);
-
     return (
         <div className={cx('watch')}>
             {loading && <LoadingBar top={0} />}
-
-            <Modal show={modalName === 'share' && showModal} title="Share">
-                <div className={cx('share-url-bar')}>
-                    <span className={cx('share-url-icon')}>
-                        <BsLink45Deg />
-                    </span>
-                    <input
-                        value={window.location.href}
-                        className={cx('share-url-input')}
-                        type="text"
-                        readOnly
-                    />
-                </div>
-                <footer className={cx('share-url-footer')}>
-                    <Button onClick={handleHideModal} type="no-outline">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleCopyURL} type="primary">
-                        Copy link
-                    </Button>
-                </footer>
-            </Modal>
 
             <div className="row pb-4">
                 {/* Watch Section */}
@@ -124,8 +70,8 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                     className={cx('watch-embed')}
                                     src={
                                         mediaType === 'movie'
-                                            ? `https://2embed.org/embed/${mediaType}?tmdb=${id}`
-                                            : `https://2embed.org/embed/series?tmdb=${id}&s=${currentSeason}&e=${currentEpisode}`
+                                            ? `https://www.2embed.to/embed/tmdb/${mediaType}?id=${id}`
+                                            : `https://www.2embed.to/embed/tmdb/${mediaType}?id=${id}&s=${currentSeason}&e=${currentEpisode}`
                                     }
                                 ></iframe>
                             )}
@@ -136,26 +82,6 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                             <h2 className={cx('watch-title')}>
                                 {detail?.title || detail?.name || <Skeleton width="40%" />}
                             </h2>
-
-                            <div className={cx('watch-actions')}>
-                                <button
-                                    onClick={() => handleToggleSave(id)}
-                                    className={cx('watch-actions-btn')}
-                                >
-                                    {save ? (
-                                        <AiFillHeart className={cx('watch-save-active')} />
-                                    ) : (
-                                        <AiOutlineHeart />
-                                    )}
-                                </button>
-                                <button
-                                    onClick={showShareModal}
-                                    style={{ lineHeight: 0 }}
-                                    className={cx('watch-actions-btn')}
-                                >
-                                    <IoShareOutline />
-                                </button>
-                            </div>
                         </div>
 
                         {/* Episode name title */}

@@ -8,6 +8,8 @@ const routes = {
     watchMovie: '/watch/movie/:id',
     watchTv: '/watch/tv/:id',
     saved: '/saved',
+    collection: '/saved/:collection/:id',
+    allFilms: '/saved/all-films',
     profile: '/profile',
     login: '/login',
     register: '/register',
