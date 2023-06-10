@@ -19,6 +19,7 @@ function ProfilePage() {
                     lazy={false}
                     className="profile-avatar"
                     src={currentUser.photoURL}
+                    fallback={images.avatarPlaceholder}
                     alt="avatar profile"
                 />
             </div>

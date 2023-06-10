@@ -24,6 +24,7 @@ function SavedPage() {
         getAllFilm,
     } = useContext(SaveContext);
     const { showModal, handleShowModal, handleHideModal } = useContext(ModalContext);
+    const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
 
     const handleCreateCollection = () => {
         createCollection();
@@ -37,10 +38,6 @@ function SavedPage() {
     useEffect(() => {
         getCollections();
     }, []);
-
-    useEffect(() => {
-        console.log(collections);
-    }, [collections]);
 
     return (
         <div className="collection-wrapper">
@@ -115,7 +112,7 @@ function SavedPage() {
                         </Link>
                     </div>
                     {collections.map((collection, index) => {
-                        let collectionImg = collection?.data[0]?.img_path;
+                        let collectionImg = collection?.data[0]?.poster_path;
 
                         return (
                             <div
@@ -128,7 +125,7 @@ function SavedPage() {
                                             {collectionImg && (
                                                 <img
                                                     className="collection-img"
-                                                    src={collectionImg}
+                                                    src={`${baseImgURL}${collectionImg}`}
                                                     alt=""
                                                 />
                                             )}

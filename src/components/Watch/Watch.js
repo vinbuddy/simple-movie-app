@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
@@ -17,7 +17,12 @@ import { TbTimeline, TbCalendar } from 'react-icons/tb';
 
 import { getEpisode } from 'src/services/seasonService';
 import { formartDate } from 'src/utils/handleDate';
+import { UserContext } from 'src/context/UserContext';
+import { SaveContext } from 'src/context/SaveContext';
+import { ModalContext } from 'src/context/ModalContext';
+
 import LoadingBar from '../LoadingBar';
+import { SaveShareFilm } from '../SaveShareFilm';
 
 const cx = classNames.bind(styles);
 
@@ -82,6 +87,8 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                             <h2 className={cx('watch-title')}>
                                 {detail?.title || detail?.name || <Skeleton width="40%" />}
                             </h2>
+
+                            <SaveShareFilm detail={detail} />
                         </div>
 
                         {/* Episode name title */}

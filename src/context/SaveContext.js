@@ -18,7 +18,6 @@ const SaveContext = createContext();
 function SaveProvider({ children }) {
     const currentUser = useContext(UserContext);
     const [collections, setCollections] = useState([]);
-    const [allFilms, setAllFilms] = useState([]);
     const [collectionInput, setCollectionInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [saved, setSaved] = useState(false);
@@ -70,7 +69,9 @@ function SaveProvider({ children }) {
             await updateDoc(collectionRef, {
                 data: arrayUnion(film),
             });
-        } catch (error) {}
+        } catch (error) {
+            console.log('error: ', error);
+        }
     };
 
     // Add + Create all films collection
@@ -92,27 +93,9 @@ function SaveProvider({ children }) {
         }
     };
 
-    const getAllFilm = async () => {
-        try {
-            const ref = collection(db, 'films_saved', currentUser.uid, 'all_films');
-            const q = query(ref, orderBy('createAt'));
-
-            onSnapshot(q, (snapshot) => {
-                const data = snapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() }));
-                setAllFilms(data);
-            });
-
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-            setLoading(false);
-        }
-    };
-
     const saveData = {
         saved,
         collections,
-        allFilms,
         collectionInput,
         loading,
         setSaved,
@@ -121,7 +104,7 @@ function SaveProvider({ children }) {
         createCollection,
         getCollections,
         addToAllFilm,
-        getAllFilm,
+        addToCollection,
     };
 
     return <SaveContext.Provider value={saveData}>{children}</SaveContext.Provider>;

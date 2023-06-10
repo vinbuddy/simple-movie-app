@@ -6,22 +6,10 @@ import Skeleton from 'react-loading-skeleton';
 import Tippy from '@tippyjs/react/headless';
 
 import { TbTimeline } from 'react-icons/tb';
-import {
-    BsCalendar4Week,
-    BsCircle,
-    BsPlayCircle,
-    BsYoutube,
-    BsBookmark,
-    BsBookmarkFill,
-    BsLink45Deg,
-} from 'react-icons/bs';
+import { BsCalendar4Week, BsCircle, BsPlayCircle, BsYoutube } from 'react-icons/bs';
 import { RiMedalLine } from 'react-icons/ri';
 import { BsPeople } from 'react-icons/bs';
-import { AiOutlinePlus } from 'react-icons/ai';
-import { MdOutlineBookmarkBorder, MdOutlineBookmark } from 'react-icons/md';
-import { AiOutlineStar, AiFillStar, AiOutlineShareAlt } from 'react-icons/ai';
-import { IoShareOutline } from 'react-icons/io5';
-import { HiOutlineShare } from 'react-icons/hi';
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 
 import { formartDate } from 'src/utils/handleDate';
 import images from 'src/assets/images';
@@ -35,15 +23,10 @@ import LoadingBar from '../LoadingBar';
 import GenreInfor from './GenreInfor';
 import OverviewInfo from './OverviewInfor';
 import Modal from '../Modal';
-import { PopperFrame } from '../Popper';
 
 import { ModalContext } from 'src/context/ModalContext';
 import convertZeroToTruthy from 'src/utils/convertZeroToTruthy';
-import { toast } from 'react-toastify';
-import { SaveContext } from 'src/context/SaveContext';
-import { UserContext } from 'src/context/UserContext';
-import { collection, getDoc, getDocs, onSnapshot } from 'firebase/firestore';
-import { db } from 'src/firebase/firebase';
+import { SaveShareFilm } from '../SaveShareFilm';
 
 const cx = classNames.bind(styles);
 
@@ -57,10 +40,18 @@ function FilmInfo({
     reviews = [],
     loading = false,
 }) {
-    const trailerRef = useRef();
     const [seasonData, setSeasonData] = useState({});
-    const currentUser = useContext(UserContext);
     const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
+    const trailerRef = useRef();
+    const saveShareRef = useRef();
+
+    const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
+    const date = formartDate(detail?.release_date || detail?.last_episode_to_air?.air_date);
+
+    const trailer = videos.find(
+        (videoItem) =>
+            videoItem?.name === 'Official Trailer' || videoItem?.name.includes('Trailer'),
+    );
 
     useEffect(() => {
         if (Boolean(detail?.title || detail?.name))
@@ -70,14 +61,6 @@ function FilmInfo({
     const scrollToTrailer = () => {
         trailerRef.current.scrollIntoView({ block: 'center' });
     };
-
-    const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
-    const date = formartDate(detail?.release_date || detail?.last_episode_to_air?.air_date);
-
-    const trailer = videos.find(
-        (videoItem) =>
-            videoItem?.name === 'Official Trailer' || videoItem?.name.includes('Trailer'),
-    );
 
     const fixAvatarPath = (avatarPath) => {
         let path = avatarPath;
@@ -125,17 +108,12 @@ function FilmInfo({
         setSeasonData(data);
     };
 
-    const [showSavePopper, setShowSavePopper] = useState(false);
-    const { saved, allFilms, collections, setSaved, getAllFilm, addToAllFilm, getCollections } =
-        useContext(SaveContext);
-    const saveActionRef = useRef();
-
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY >= 20) {
-                saveActionRef.current.style.display = 'none';
+                saveShareRef.current.style.display = 'none';
             } else {
-                saveActionRef.current.style.display = 'block';
+                saveShareRef.current.style.display = 'block';
             }
         };
 
@@ -147,77 +125,9 @@ function FilmInfo({
         };
     }, []);
 
-    const handleCopyURL = async () => {
-        try {
-            await navigator.clipboard.writeText(window.location.href);
-            toast.success('Copied to clipbroad', {
-                position: toast.POSITION.BOTTOM_CENTER,
-            });
-        } catch (err) {
-            toast.error('Error', {
-                position: toast.POSITION.BOTTOM_CENTER,
-            });
-        }
-
-        handleHideModal();
-    };
-
-    useEffect(() => {
-        // check is saved
-        const checkSaved = () => {
-            const ref = collection(db, 'films_saved', currentUser.uid, 'all_films');
-
-            onSnapshot(ref, (snapshot) => {
-                const films = snapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() }));
-
-                const isSaved = films.some((film) => film.id === detail.id);
-                setSaved(isSaved);
-            });
-        };
-        checkSaved();
-    }, [currentUser, detail?.id]);
-
-    const handleShowSavePopper = () => {
-        if (collections.length <= 0) getCollections();
-        setShowSavePopper(!showSavePopper);
-    };
-
-    const toggleSaveToAllFilm = () => {
-        if (saved) {
-            // Remove from database
-            // setSaved(false);
-        } else {
-            addToAllFilm(detail);
-            setSaved(true);
-        }
-    };
-
     return (
         <div className={cx('info-wrapper')}>
             {loading && <LoadingBar height={4} />}
-
-            {/* Share modal */}
-            <Modal show={modalName === 'share' && showModal} title="Share">
-                <div className={cx('share-url-bar')}>
-                    <span className={cx('share-url-icon')}>
-                        <BsLink45Deg />
-                    </span>
-                    <input
-                        value={window.location.href}
-                        className={cx('share-url-input')}
-                        type="text"
-                        readOnly
-                    />
-                </div>
-                <footer className={cx('share-url-footer')}>
-                    <Button onClick={handleHideModal} type="no-outline">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleCopyURL} type="primary">
-                        Copy link
-                    </Button>
-                </footer>
-            </Modal>
 
             {/* detail seasons modal */}
             <Modal
@@ -254,71 +164,9 @@ function FilmInfo({
                 </footer>
             </Modal>
 
-            <Tippy
-                appendTo="parent"
-                visible={showSavePopper}
-                onClickOutside={() => setShowSavePopper(false)}
-                trigger="click"
-                hideOnClick={false}
-                placement="bottom-end"
-                interactive
-                render={(attrs) => (
-                    <div tabIndex="-1" {...attrs} className={cx('save-popper')}>
-                        <PopperFrame background="var(--nav-background)">
-                            <header className="ps-4 pe-4 pt-4 pb-2 d-flex align-items-center justify-content-between">
-                                <h3 className="mb-0">Collections</h3>
-                                <button className={cx('save-popper-icon')}>
-                                    <AiOutlinePlus />
-                                </button>
-                            </header>
-                            <div>
-                                <ul className={cx('save-popper-list')}>
-                                    {collections.map((collection) => {
-                                        let collectionImg = collection?.data[0]?.img_path;
-                                        return (
-                                            <li
-                                                key={collection?.id}
-                                                className={cx('save-popper-item', 'ps-4', 'pe-4')}
-                                            >
-                                                <img src={collectionImg} alt="" />
-                                                <p>{collection?.name}</p>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>
-                            <footer className="p-4 d-flex align-items-center justify-content-end">
-                                <Button
-                                    size="small"
-                                    onClick={() => setShowSavePopper(false)}
-                                    type="no-outline"
-                                >
-                                    Cancel
-                                </Button>
-                                <Button onClick={toggleSaveToAllFilm} size="small" type="primary">
-                                    {saved ? 'Unsave' : 'Save'}
-                                </Button>
-                            </footer>
-                        </PopperFrame>
-                    </div>
-                )}
-            >
-                <div ref={saveActionRef} className={cx('save-actions')}>
-                    <button
-                        style={{ top: -1 }}
-                        onClick={handleShowSavePopper}
-                        className={cx('save-actions-btn')}
-                    >
-                        {saved ? <BsBookmarkFill className={cx('save-active')} /> : <BsBookmark />}
-                    </button>
-                    <button
-                        onClick={() => handleShowModal('share')}
-                        className={cx('save-actions-btn')}
-                    >
-                        <HiOutlineShare />
-                    </button>
-                </div>
-            </Tippy>
+            <div ref={saveShareRef} className={cx('save-share-wrapper')}>
+                <SaveShareFilm detail={detail} className="save-actions-light" />
+            </div>
 
             {/* Background */}
             {!!detail?.backdrop_path ? (

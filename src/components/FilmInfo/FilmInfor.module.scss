@@ -27,110 +27,11 @@ $textshadow: 1px 1px 2px var(--black);
     }
 }
 
-.save-popper {
-    width: 300px;
-
-    .save-popper-icon,
-    h3 {
-        color: var(--text-color);
-    }
-}
-
-.save-popper-list {
-    max-height: 200px;
-    overflow-y: overlay;
-}
-
-.save-popper-item {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    color: var(--text-color);
-
-    &:hover {
-        background-color: var(--app-background);
-    }
-
-    img {
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-        border-radius: 4px;
-    }
-
-    p {
-        margin-bottom: 0;
-        margin-left: 10px;
-    }
-}
-
-.save-actions {
-    z-index: 3;
+.save-share-wrapper {
+    z-index: 2;
     position: fixed;
     top: 84px;
     right: 20px;
-    display: flex;
-    align-items: center;
-    // border: 1px solid #fff;
-    background-color: transparent;
-
-    border-radius: 30px;
-    // box-shadow: 0 0 6px rgb(0 0 0 / 20%);
-}
-
-.save-actions-btn {
-    position: relative;
-
-    color: #fff;
-    font-size: 2.8rem;
-    padding: 2px 5px;
-    cursor: pointer;
-
-    // &:first-child::after {
-    //     content: '';
-    //     position: absolute;
-    //     right: 0;
-    //     top: 50%;
-    //     transform: translateY(-50%);
-    //     width: 1px;
-    //     height: 60%;
-    //     background-color: #fff;
-    // }
-}
-
-.save-btn-active {
-    color: var(--text-color);
-}
-
-.share-url-bar {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--nav-background);
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 14px;
-}
-
-.share-url-icon {
-    font-size: 2rem;
-    display: inline-block;
-    color: var(--text-nav);
-    margin-right: 10px;
-}
-
-.share-url-input {
-    flex: 1;
-    color: var(--text-color);
-    background-color: var(--nav-background);
-    overflow: hidden;
-}
-
-.share-url-footer {
-    display: flex;
-    justify-content: flex-end;
 }
 
 .info-container {
