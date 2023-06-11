@@ -27,18 +27,14 @@ $textshadow: 1px 1px 2px var(--black);
     }
 }
 
-.save-share-wrapper {
-    z-index: 2;
-    position: fixed;
-    top: 84px;
-    right: 20px;
-}
-
 .info-container {
     z-index: 2;
-    width: 100%;
     position: relative;
-    top: -160px;
+    width: 100%;
+    // position: relative;
+    // top: -160px;
+    margin-top: -155px;
+    margin-bottom: 50px;
     padding-left: 35px;
     padding-right: 18px;
     min-height: 300px;

@@ -1,30 +1,43 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
 import styles from './SaveShareFilm.module.scss';
+import Tippy from '@tippyjs/react/headless';
+import { toast } from 'react-toastify';
 
 import { UserContext } from 'src/context/UserContext';
 import { SaveContext } from 'src/context/SaveContext';
+import { ModalContext } from 'src/context/ModalContext';
+
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from 'src/firebase/firebase';
+
 import { BsBookmark, BsBookmarkFill, BsLink45Deg, BsShare } from 'react-icons/bs';
-import { Button } from '../Button';
-import { PopperFrame } from '../Popper';
-import { ModalContext } from 'src/context/ModalContext';
-import { toast } from 'react-toastify';
-import Tippy from '@tippyjs/react/headless';
-import { HiOutlineShare } from 'react-icons/hi';
 import { AiOutlinePlus } from 'react-icons/ai';
+
+import { PopperFrame } from '../Popper';
 import { Modal } from '../Modal';
-import { FiShare } from 'react-icons/fi';
+import { Button } from '../Button';
+import { forwardRef } from 'react';
 
 const cx = classNames.bind(styles);
 
-function SaveShareFilm({ detail = {}, className }) {
+function SaveShareFilm({ show = true, detail = {}, className, shareBtn = true, ...props }, ref) {
     const currentUser = useContext(UserContext);
-    const { saved, collections, setSaved, addToCollection, addToAllFilm, getCollections } =
-        useContext(SaveContext);
+    const {
+        saved,
+        collectionInput,
+        collections,
+        setSaved,
+        setCollectionInput,
+        addToCollection,
+        createCollection,
+        addToAllFilm,
+        getCollections,
+        removeFromCollection,
+        removeFromAllFilm,
+    } = useContext(SaveContext);
     const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
     const [showSavePopper, setShowSavePopper] = useState(false);
 
@@ -47,7 +60,7 @@ function SaveShareFilm({ detail = {}, className }) {
                 setSaved(isSaved);
             });
         };
-        console.log(saved);
+
         if (currentUser) checkSaved();
     }, [currentUser, detail?.id]);
 
@@ -73,20 +86,28 @@ function SaveShareFilm({ detail = {}, className }) {
 
     const toggleSaveToAllFilm = () => {
         if (saved) {
-            // Remove from database
-            // setSaved(false);
+            const { exists } = checkFilmExistsInCollection();
+            if (exists) {
+                // Remove from collection
+                handleShowModal('warning');
+                setShowSavePopper(false);
+            } else {
+                // Remove from all films
+                handleUnsave();
+                setSaved(false);
+                setShowSavePopper(false);
+                toast.success(`This film is removed`, {
+                    position: toast.POSITION.BOTTOM_CENTER,
+                });
+            }
         } else {
             addToAllFilm(detail);
             setSaved(true);
             setShowSavePopper(false);
-
-            toast.success(`Saved this film`, {
-                position: toast.POSITION.BOTTOM_CENTER,
-            });
         }
     };
 
-    const handleAddFilmToCollection = (collectionId, collectionName) => {
+    const handleSaveToCollection = (collectionId) => {
         addToCollection(collectionId, detail);
 
         if (!saved) {
@@ -95,14 +116,67 @@ function SaveShareFilm({ detail = {}, className }) {
 
         setSaved(true);
         setShowSavePopper(false);
+    };
 
-        toast.success(`Saved to ${collectionName} collection`, {
+    const handleCreateAndSaveFilm = async () => {
+        try {
+            const collectionId = await createCollection();
+            addToCollection(collectionId, detail);
+
+            toast.success('This film is saved', {
+                position: toast.POSITION.BOTTOM_CENTER,
+            });
+        } catch (error) {
+            toast.error('Something went wrong', {
+                position: toast.POSITION.BOTTOM_CENTER,
+            });
+        }
+
+        handleHideModal();
+    };
+
+    const checkFilmExistsInCollection = () => {
+        let exists = false;
+        let collectionsExists = [];
+
+        collections.forEach((collection) => {
+            const films = collection.data;
+
+            films.forEach((film) => {
+                if (film.id === detail.id) {
+                    exists = true;
+                    collectionsExists.push(collection);
+                }
+            });
+        });
+
+        return {
+            exists,
+            collectionsExists,
+        };
+    };
+
+    const handleUnsaveFromCollections = () => {
+        const { collectionsExists } = checkFilmExistsInCollection();
+
+        collectionsExists.forEach((collection) => {
+            removeFromCollection(collection.id, detail.id);
+        });
+
+        handleUnsave();
+        handleHideModal();
+
+        toast.success(`This film is removed`, {
             position: toast.POSITION.BOTTOM_CENTER,
         });
     };
 
+    const handleUnsave = () => {
+        removeFromAllFilm(detail.id);
+    };
+
     return (
-        <div>
+        <>
             <Modal show={modalName === 'share' && showModal} title="Share">
                 <div className={cx('share-url-bar')}>
                     <span className={cx('share-url-icon')}>
@@ -124,79 +198,139 @@ function SaveShareFilm({ detail = {}, className }) {
                     </Button>
                 </footer>
             </Modal>
-            <Tippy
-                appendTo="parent"
-                visible={showSavePopper}
-                onClickOutside={() => setShowSavePopper(false)}
-                trigger="click"
-                hideOnClick={false}
-                placement="bottom-end"
-                interactive
-                render={(attrs) => (
-                    <div tabIndex="-1" {...attrs} className={cx('save-popper')}>
-                        <PopperFrame background="var(--nav-background)">
-                            <header className="ps-4 pe-4 pt-4 pb-2 d-flex align-items-center justify-content-between">
-                                <h3 className="mb-0">Collections</h3>
-                                <button className={cx('save-popper-icon')}>
-                                    <AiOutlinePlus />
-                                </button>
-                            </header>
-                            <div>
-                                <ul className={cx('save-popper-list')}>
-                                    {collections.map((collection) => {
-                                        let collectionImg = collection?.data[0]?.poster_path;
-                                        return (
-                                            <li
-                                                onClick={() =>
-                                                    handleAddFilmToCollection(
-                                                        collection?.id,
-                                                        collection?.name,
-                                                    )
-                                                }
-                                                key={collection?.id}
-                                                className={cx('save-popper-item', 'ps-4', 'pe-4')}
-                                            >
-                                                <img src={`${baseImgURL}${collectionImg}`} alt="" />
-                                                <p>{collection?.name}</p>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>
-                            <footer className="p-4 d-flex align-items-center justify-content-end">
-                                <Button
-                                    size="small"
-                                    onClick={() => setShowSavePopper(false)}
-                                    type="no-outline"
-                                >
-                                    Cancel
-                                </Button>
-                                <Button onClick={toggleSaveToAllFilm} size="small" type="primary">
-                                    {saved ? 'Unsave' : 'Save'}
-                                </Button>
-                            </footer>
-                        </PopperFrame>
-                    </div>
-                )}
-            >
-                <div className={cx('save-actions', className)}>
-                    <button
-                        style={{ top: -1 }}
-                        onClick={handleShowSavePopper}
-                        className={cx('save-actions-btn')}
-                    >
-                        {saved ? <BsBookmarkFill className={cx('save-active')} /> : <BsBookmark />}
-                    </button>
-                    <button
-                        onClick={() => handleShowModal('share')}
-                        className={cx('save-actions-btn')}
-                    >
-                        <BsShare />
-                    </button>
+
+            <Modal show={modalName === 'new-collection' && showModal} title="Create collection">
+                <div>
+                    <input
+                        onChange={(e) => setCollectionInput(e.target.value)}
+                        className="collection-modal-input"
+                        type="text"
+                        value={collectionInput}
+                        placeholder="Collection name"
+                    />
                 </div>
-            </Tippy>
-        </div>
+                <footer className="d-flex align-items-center justify-content-end">
+                    <Button onClick={handleHideModal} type="no-outline">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleCreateAndSaveFilm} type="primary">
+                        Create and save
+                    </Button>
+                </footer>
+            </Modal>
+
+            <Modal show={modalName === 'warning' && showModal} title="Warning">
+                <p className="text-center mb-4 mt-4">
+                    This film will be removed from collections ?
+                </p>
+                <footer className="d-flex align-items-center justify-content-end">
+                    <Button onClick={handleHideModal} type="no-outline">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleUnsaveFromCollections} type="primary">
+                        Remove
+                    </Button>
+                </footer>
+            </Modal>
+
+            {show && (
+                <Tippy
+                    visible={showSavePopper}
+                    onClickOutside={() => setShowSavePopper(false)}
+                    trigger="click"
+                    hideOnClick={false}
+                    placement="bottom-end"
+                    interactive
+                    render={(attrs) => (
+                        <div tabIndex="-1" {...attrs} className={cx('save-popper')}>
+                            <PopperFrame background="var(--nav-background)">
+                                <header className="ps-4 pe-4 pt-4 pb-2 d-flex align-items-center justify-content-between">
+                                    <h3 className="mb-0">Collections</h3>
+                                    <button
+                                        onClick={() => {
+                                            handleShowModal('new-collection');
+                                            setShowSavePopper(false);
+                                        }}
+                                        className={cx('save-popper-icon')}
+                                    >
+                                        <AiOutlinePlus />
+                                    </button>
+                                </header>
+                                <div>
+                                    <ul className={cx('save-popper-list')}>
+                                        {collections.map((collection) => {
+                                            let collectionImg = collection?.data[0]?.poster_path;
+                                            return (
+                                                <li
+                                                    onClick={() =>
+                                                        handleSaveToCollection(collection?.id)
+                                                    }
+                                                    key={collection?.id}
+                                                    className={cx(
+                                                        'save-popper-item',
+                                                        'ps-4',
+                                                        'pe-4',
+                                                    )}
+                                                >
+                                                    <div className={cx('save-popper-img')}>
+                                                        {collectionImg && (
+                                                            <img
+                                                                src={`${baseImgURL}${collectionImg}`}
+                                                                alt=""
+                                                            />
+                                                        )}
+                                                    </div>
+                                                    <p>{collection?.name}</p>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                </div>
+                                <footer className="p-4 d-flex align-items-center justify-content-end">
+                                    <Button
+                                        size="small"
+                                        onClick={() => setShowSavePopper(false)}
+                                        type="no-outline"
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        onClick={toggleSaveToAllFilm}
+                                        size="small"
+                                        type="primary"
+                                    >
+                                        {saved ? 'Unsave' : 'Save'}
+                                    </Button>
+                                </footer>
+                            </PopperFrame>
+                        </div>
+                    )}
+                >
+                    <div ref={ref} {...props} className={cx('save-actions', className)}>
+                        <button
+                            style={{ top: -1 }}
+                            onClick={handleShowSavePopper}
+                            className={cx('save-actions-btn')}
+                        >
+                            {saved ? (
+                                <BsBookmarkFill className={cx('save-active')} />
+                            ) : (
+                                <BsBookmark />
+                            )}
+                        </button>
+                        {shareBtn && (
+                            <button
+                                onClick={() => handleShowModal('share')}
+                                className={cx('save-actions-btn')}
+                            >
+                                <BsShare />
+                            </button>
+                        )}
+                    </div>
+                </Tippy>
+            )}
+        </>
     );
 }
 
-export default SaveShareFilm;
+export default forwardRef(SaveShareFilm);

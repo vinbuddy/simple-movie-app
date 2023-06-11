@@ -41,7 +41,8 @@ function FilmInfo({
     loading = false,
 }) {
     const [seasonData, setSeasonData] = useState({});
-    const { showModal, handleShowModal, handleHideModal, modalName } = useContext(ModalContext);
+    const [showSaveShare, setShowSaveShare] = useState(true);
+    const { showModal, handleShowModal, modalName } = useContext(ModalContext);
     const trailerRef = useRef();
     const saveShareRef = useRef();
 
@@ -110,10 +111,10 @@ function FilmInfo({
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY >= 20) {
-                saveShareRef.current.style.display = 'none';
+            if (window.scrollY >= 350) {
+                setShowSaveShare(false);
             } else {
-                saveShareRef.current.style.display = 'block';
+                setShowSaveShare(true);
             }
         };
 
@@ -164,9 +165,12 @@ function FilmInfo({
                 </footer>
             </Modal>
 
-            <div ref={saveShareRef} className={cx('save-share-wrapper')}>
-                <SaveShareFilm detail={detail} className="save-actions-light" />
-            </div>
+            <SaveShareFilm
+                show={showSaveShare}
+                ref={saveShareRef}
+                detail={detail}
+                className="save-actions-film-info"
+            />
 
             {/* Background */}
             {!!detail?.backdrop_path ? (

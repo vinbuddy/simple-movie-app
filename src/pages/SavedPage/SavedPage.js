@@ -23,6 +23,7 @@ function SavedPage() {
         getCollections,
         getAllFilm,
     } = useContext(SaveContext);
+
     const { showModal, handleShowModal, handleHideModal } = useContext(ModalContext);
     const baseImgURL = process.env.REACT_APP_BASE_IMG_URL;
 
@@ -37,7 +38,10 @@ function SavedPage() {
     // Get all collection
     useEffect(() => {
         getCollections();
+        getAllFilm();
     }, []);
+
+    console.log(allFilms);
 
     return (
         <div className="collection-wrapper">
@@ -79,34 +83,22 @@ function SavedPage() {
                         <Link to={config.routes.allFilms}>
                             <div className="collection-item">
                                 <div className="collection-preview all-films">
-                                    <img
-                                        className="collection-img"
-                                        src="https://image.tmdb.org/t/p/original//gWrZNGfGz68mBrVPn47cBMXPej3.jpg"
-                                        alt=""
-                                    />
-
-                                    <img
-                                        className="collection-img"
-                                        src="https://image.tmdb.org/t/p/original//qVdrYN8qu7xUtsdEFeGiIVIaYd.jpg"
-                                        alt=""
-                                    />
-
-                                    <img
-                                        className="collection-img"
-                                        src="https://image.tmdb.org/t/p/original//rzRb63TldOKdKydCvWJM8B6EkPM.jpg"
-                                        alt=""
-                                    />
-                                    <img
-                                        className="collection-img"
-                                        src="https://image.tmdb.org/t/p/original//vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
-                                        alt=""
-                                    />
+                                    {allFilms.slice(0, 4).map((film) => (
+                                        <img
+                                            key={film.id}
+                                            className="collection-img"
+                                            src={`${baseImgURL}${film.poster_path}`}
+                                            alt=""
+                                        />
+                                    ))}
 
                                     <div className="collection-preview-overlay"></div>
                                 </div>
                                 <div className="collection-info">
                                     <h3 className="collection-name">All films</h3>
-                                    <span className="collection-quantity">10 films</span>
+                                    <span className="collection-quantity">
+                                        {allFilms.length} films
+                                    </span>
                                 </div>
                             </div>
                         </Link>
