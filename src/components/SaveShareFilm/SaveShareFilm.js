@@ -23,7 +23,10 @@ import { forwardRef } from 'react';
 
 const cx = classNames.bind(styles);
 
-function SaveShareFilm({ show = true, detail = {}, className, shareBtn = true, ...props }, ref) {
+function SaveShareFilm(
+    { mediaType, show = true, detail = {}, className, shareBtn = true, ...props },
+    ref,
+) {
     const currentUser = useContext(UserContext);
     const {
         saved,
@@ -101,14 +104,14 @@ function SaveShareFilm({ show = true, detail = {}, className, shareBtn = true, .
                 });
             }
         } else {
-            addToAllFilm(detail);
+            addToAllFilm(detail, mediaType);
             setSaved(true);
             setShowSavePopper(false);
         }
     };
 
     const handleSaveToCollection = (collectionId) => {
-        addToCollection(collectionId, detail);
+        addToCollection(collectionId, detail, mediaType);
 
         if (!saved) {
             addToAllFilm(detail);
@@ -121,7 +124,7 @@ function SaveShareFilm({ show = true, detail = {}, className, shareBtn = true, .
     const handleCreateAndSaveFilm = async () => {
         try {
             const collectionId = await createCollection();
-            addToCollection(collectionId, detail);
+            addToCollection(collectionId, detail, mediaType);
 
             toast.success('This film is saved', {
                 position: toast.POSITION.BOTTOM_CENTER,

@@ -47,6 +47,27 @@ function SaveProvider({ children }) {
         }
     };
 
+    const updateCollectionName = async (collectionId, newName) => {
+        setLoading(true);
+        const collectionRef = doc(db, 'films_saved', currentUser.uid, 'collection', collectionId);
+
+        try {
+            const result = await updateDoc(collectionRef, {
+                name: newName,
+            });
+
+            setLoading(false);
+            toast.success('Updated', {
+                position: toast.POSITION.BOTTOM_CENTER,
+            });
+            return result;
+        } catch (error) {
+            setLoading(false);
+        }
+    };
+
+    const deleteCollection = async (collectionId) => {};
+
     const getCollections = async () => {
         setLoading(true);
 
@@ -85,11 +106,14 @@ function SaveProvider({ children }) {
         }
     };
 
-    const addToCollection = async (collectionId, film) => {
+    const addToCollection = async (collectionId, film, mediaType) => {
         const collectionRef = doc(db, 'films_saved', currentUser.uid, 'collection', collectionId);
         const collectionName = collections.find(
             (collection) => (collection.id = collectionId),
         ).name;
+
+        film.mediaType = mediaType;
+
         try {
             await updateDoc(collectionRef, {
                 data: arrayUnion(film),
@@ -106,11 +130,12 @@ function SaveProvider({ children }) {
         }
     };
 
-    const addToAllFilm = async (film) => {
+    const addToAllFilm = async (film, mediaType) => {
         const collectionRef = collection(db, 'films_saved', currentUser.uid, 'all_films');
 
         const data = {
             createAt: serverTimestamp(),
+            mediaType,
             ...film,
         };
 
@@ -122,6 +147,7 @@ function SaveProvider({ children }) {
             });
             setLoading(false);
         } catch (error) {
+            console.log('error: ', error);
             toast.error('Cannot save !', {
                 position: toast.POSITION.BOTTOM_CENTER,
             });
@@ -175,6 +201,7 @@ function SaveProvider({ children }) {
         setCollectionInput,
         createCollection,
         getCollections,
+        updateCollectionName,
         addToAllFilm,
         addToCollection,
         removeFromCollection,

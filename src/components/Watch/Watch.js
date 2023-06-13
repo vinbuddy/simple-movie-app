@@ -88,7 +88,7 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                 {detail?.title || detail?.name || <Skeleton width="40%" />}
                             </h2>
 
-                            <SaveShareFilm detail={detail} />
+                            <SaveShareFilm mediaType={mediaType} detail={detail} />
                         </div>
 
                         {/* Episode name title */}

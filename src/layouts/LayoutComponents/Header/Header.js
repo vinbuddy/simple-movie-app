@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import TippyToolTips from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -20,6 +20,9 @@ import Search from 'src/layouts/LayoutComponents/Search';
 
 import { Menu } from 'src/components/Popper';
 import { FiSearch } from 'react-icons/fi';
+import { AiOutlineUser } from 'react-icons/ai';
+import { BsBookmark } from 'react-icons/bs';
+import { FiLogOut } from 'react-icons/fi';
 
 import { UserContext } from 'src/context/UserContext';
 import { UserInfo } from 'src/components/UserInfo';
@@ -27,6 +30,7 @@ import { UserInfo } from 'src/components/UserInfo';
 import { AiOutlineMenu, AiOutlineCloseCircle } from 'react-icons/ai';
 import MobileSidebar from '../Sidebar/MobileSidebar';
 import config from 'src/config';
+import { AuthContext } from 'src/context/AuthContext';
 
 const cx = classNames.bind(styles);
 
@@ -36,6 +40,26 @@ function Header({ containerType = 'container', isNav = false }) {
     const [searchActive, setSearchActive] = useState(false);
 
     const [showSidebar, setShowSidebar] = useState(false);
+    const { handleSignOut } = useContext(AuthContext);
+
+    const menuItems = [
+        {
+            title: 'Profile',
+            icon: <AiOutlineUser />,
+            to: config.routes.profile,
+        },
+        {
+            title: 'Saved',
+            icon: <BsBookmark />,
+            to: config.routes.saved,
+        },
+        {
+            title: 'Log out',
+            icon: <FiLogOut />,
+            separate: true,
+            onClick: handleSignOut,
+        },
+    ];
 
     const handleShowSidebar = () => {
         setShowSidebar(!showSidebar);
@@ -102,7 +126,7 @@ function Header({ containerType = 'container', isNav = false }) {
 
                                 <div className={cx('separate')}></div>
 
-                                <Menu>
+                                <Menu hideOnClick={false} menuItems={menuItems}>
                                     <UserInfo />
                                 </Menu>
                             </>

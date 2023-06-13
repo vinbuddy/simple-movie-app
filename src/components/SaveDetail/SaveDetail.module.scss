@@ -1,0 +1,14 @@
+.wrapper {
+    position: relative;
+    a {
+        color: var(--text-nav);
+        &:hover {
+            color: var(--text-color);
+        }
+    }
+}
+
+.menu-btn {
+    font-size: 20px;
+    color: var(--text-color);
+}

@@ -6,47 +6,26 @@ import styles from './Menu.module.scss';
 
 import MenuItem from './MenuItem';
 
-// Icons
-import { AiOutlineUser } from 'react-icons/ai';
-import { BsBookmark } from 'react-icons/bs';
-import { FiLogOut } from 'react-icons/fi';
-import { useContext } from 'react';
-import { AuthContext } from 'src/context/AuthContext';
-import config from 'src/config';
-
 const cx = classNames.bind(styles);
 
-function Menu({ children }) {
-    const { handleSignOut } = useContext(AuthContext);
-
-    const menuItems = [
-        {
-            title: 'Profile',
-            icon: <AiOutlineUser />,
-            to: config.routes.profile,
-        },
-        {
-            title: 'Saved',
-            icon: <BsBookmark />,
-            to: config.routes.saved,
-        },
-        {
-            title: 'Log out',
-            icon: <FiLogOut />,
-            separate: true,
-            onClick: handleSignOut,
-        },
-    ];
-
+function Menu({ hideClickInner, children, menuItems = [], ...props }) {
     const renderItem = () => {
-        return menuItems.map((item, index) => <MenuItem to={item.to} key={index} data={item} />);
+        return menuItems.map((item, index) => (
+            <MenuItem
+                hideClickInner={hideClickInner}
+                to={item.to}
+                key={index}
+                onClick={item.onClick}
+                data={item}
+            />
+        ));
     };
 
     return (
         <Tippy
-            hideOnClick={false}
-            delay={[0, 300]}
+            delay={[0, 100]}
             interactive
+            {...props}
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
                     <PopperFrame>

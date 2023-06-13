@@ -90,7 +90,7 @@ function Film({ mediaType }) {
                                         loadMoreData(mediaType);
                                     }}
                                     type="outline-basic"
-                                    size="large"
+                                    size="medium"
                                     rightIcon={loading && <CgSpinnerTwoAlt className="spin" />}
                                 >
                                     {loading ? 'Loading' : 'Load More'}

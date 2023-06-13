@@ -66,7 +66,7 @@ function SavedPage() {
             </Modal>
 
             <div className="save-header">
-                <GalleryHeader heading="Films saved" headerStyles={{ marginBottom: 0 }} />
+                <GalleryHeader heading="Saved" headerStyles={{ marginBottom: 0 }} />
 
                 <button
                     onClick={() => handleShowModal('collection')}

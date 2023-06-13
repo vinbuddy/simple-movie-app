@@ -166,6 +166,7 @@ function FilmInfo({
             </Modal>
 
             <SaveShareFilm
+                mediaType={mediaType}
                 show={showSaveShare}
                 ref={saveShareRef}
                 detail={detail}

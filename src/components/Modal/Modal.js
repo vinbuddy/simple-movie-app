@@ -8,12 +8,12 @@ import { useContext } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Modal({ title, show, children }) {
+function Modal({ title, show, children, onHideModal }) {
     const { handleHideModal } = useContext(ModalContext);
 
     return (
         <div
-            onClick={handleHideModal}
+            onClick={onHideModal || handleHideModal}
             className={cx('modal-overlay', {
                 show: show,
             })}
@@ -26,7 +26,10 @@ function Modal({ title, show, children }) {
             >
                 <header className={cx('modal-header')}>
                     <h2 className={cx('modal-title')}>{title}</h2>
-                    <button onClick={handleHideModal} className={cx('modal-close-btn')}>
+                    <button
+                        onClick={onHideModal || handleHideModal}
+                        className={cx('modal-close-btn')}
+                    >
                         <AiOutlineClose />
                     </button>
                 </header>
