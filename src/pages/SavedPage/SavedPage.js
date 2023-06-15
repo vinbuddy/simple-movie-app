@@ -39,9 +39,8 @@ function SavedPage() {
     useEffect(() => {
         getCollections();
         getAllFilm();
+        document.title = `Saved | Simple Movie App`;
     }, []);
-
-    console.log(allFilms);
 
     return (
         <div className="collection-wrapper">

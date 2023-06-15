@@ -71,6 +71,7 @@ function SaveShareFilm(
         try {
             await navigator.clipboard.writeText(window.location.href);
             toast.success('Copied to clipbroad', {
+                autoClose: 1000,
                 position: toast.POSITION.BOTTOM_CENTER,
             });
         } catch (err) {
@@ -100,6 +101,7 @@ function SaveShareFilm(
                 setSaved(false);
                 setShowSavePopper(false);
                 toast.success(`This film is removed`, {
+                    autoClose: 1000,
                     position: toast.POSITION.BOTTOM_CENTER,
                 });
             }
@@ -127,10 +129,12 @@ function SaveShareFilm(
             addToCollection(collectionId, detail, mediaType);
 
             toast.success('This film is saved', {
+                autoClose: 1000,
                 position: toast.POSITION.BOTTOM_CENTER,
             });
         } catch (error) {
             toast.error('Something went wrong', {
+                autoClose: 1000,
                 position: toast.POSITION.BOTTOM_CENTER,
             });
         }
@@ -170,12 +174,13 @@ function SaveShareFilm(
         handleHideModal();
 
         toast.success(`This film is removed`, {
+            autoClose: 1000,
             position: toast.POSITION.BOTTOM_CENTER,
         });
     };
 
-    const handleUnsave = () => {
-        removeFromAllFilm(detail.id);
+    const handleUnsave = async () => {
+        await removeFromAllFilm(detail.id);
     };
 
     return (

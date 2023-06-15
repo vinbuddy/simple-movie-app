@@ -8,7 +8,7 @@ import MenuItem from './MenuItem';
 
 const cx = classNames.bind(styles);
 
-function Menu({ hideClickInner, children, menuItems = [], ...props }) {
+function Menu({ hideClickInner, children, menuItems = [], menuPayload = {}, ...props }) {
     const renderItem = () => {
         return menuItems.map((item, index) => (
             <MenuItem
@@ -17,6 +17,7 @@ function Menu({ hideClickInner, children, menuItems = [], ...props }) {
                 key={index}
                 onClick={item.onClick}
                 data={item}
+                payload={menuPayload}
             />
         ));
     };

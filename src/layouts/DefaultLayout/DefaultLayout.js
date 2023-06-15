@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './DefaultLayout.module.scss';
 
-import TippyToolTips from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 
@@ -9,7 +8,6 @@ import Header from '../LayoutComponents/Header';
 import Sidebar from '../LayoutComponents/Sidebar';
 import GoTopButton from 'src/components/ScrollToTop/GoTopButton';
 
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles);
@@ -26,8 +24,6 @@ function DefaultLayout({ children }) {
 
     return (
         <div>
-            {/* <ToastContainer hideProgressBar pauseOnHover={false} /> */}
-
             <Header />
             <div className={cx('wrapper')}>
                 <div className="container position-relative">

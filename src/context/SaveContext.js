@@ -11,7 +11,7 @@ import {
     arrayUnion,
     doc,
     deleteDoc,
-    arrayRemove,
+    getDocs,
 } from 'firebase/firestore';
 import { UserContext } from 'src/context/UserContext';
 import { toast } from 'react-toastify';
@@ -25,6 +25,30 @@ function SaveProvider({ children }) {
     const [collectionInput, setCollectionInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [saved, setSaved] = useState(false);
+
+    const getCollections = async () => {
+        setLoading(true);
+
+        try {
+            const ref = collection(db, 'films_saved', currentUser.uid, 'collection');
+            const q = query(ref, orderBy('createAt', 'desc'));
+
+            onSnapshot(q, (snapshot) => {
+                const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+                setCollections(data);
+                setLoading(false);
+            });
+        } catch (error) {
+            console.log(error);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (currentUser) {
+            getCollections();
+        }
+    }, [currentUser]);
 
     const createCollection = async () => {
         setLoading(true);
@@ -66,24 +90,12 @@ function SaveProvider({ children }) {
         }
     };
 
-    const deleteCollection = async (collectionId) => {};
-
-    const getCollections = async () => {
-        setLoading(true);
-
+    const deleteCollection = async (collectionId) => {
+        const collectionRef = doc(db, 'films_saved', currentUser.uid, 'collection', collectionId);
         try {
-            const ref = collection(db, 'films_saved', currentUser.uid, 'collection');
-            const q = query(ref, orderBy('createAt', 'desc'));
-
-            onSnapshot(q, (snapshot) => {
-                const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
-                setCollections(data);
-                setLoading(false);
-            });
+            await deleteDoc(collectionRef);
         } catch (error) {
-            console.log(error);
-            setLoading(false);
+            console.log('error: ', error);
         }
     };
 
@@ -113,6 +125,7 @@ function SaveProvider({ children }) {
         ).name;
 
         film.mediaType = mediaType;
+        film.createAt = serverTimestamp();
 
         try {
             await updateDoc(collectionRef, {
@@ -120,11 +133,13 @@ function SaveProvider({ children }) {
             });
 
             toast.success(`Saved to ${collectionName} collection`, {
+                autoClose: 1000,
                 position: toast.POSITION.BOTTOM_CENTER,
             });
         } catch (error) {
             console.log('error: ', error);
             toast.error(`Cannot save to ${collectionName}`, {
+                autoClose: 1000,
                 position: toast.POSITION.BOTTOM_CENTER,
             });
         }
@@ -143,12 +158,14 @@ function SaveProvider({ children }) {
             const result = await addDoc(collectionRef, data);
             console.log('result: ', result);
             toast.success(`This film is saved`, {
+                autoClose: 1000,
                 position: toast.POSITION.BOTTOM_CENTER,
             });
             setLoading(false);
         } catch (error) {
             console.log('error: ', error);
             toast.error('Cannot save !', {
+                autoClose: 1000,
                 position: toast.POSITION.BOTTOM_CENTER,
             });
             setLoading(false);
@@ -156,8 +173,6 @@ function SaveProvider({ children }) {
     };
 
     const removeFromCollection = async (collectionId, filmId) => {
-        getCollections();
-
         const collectionRef = doc(db, 'films_saved', currentUser.uid, 'collection', collectionId);
         const collection = collections.find((collection) => collection.id === collectionId);
 
@@ -168,27 +183,45 @@ function SaveProvider({ children }) {
         } catch (error) {}
     };
 
+    const removeItemInCollection = async (collectionId, data = []) => {
+        const collectionRef = doc(db, 'films_saved', currentUser.uid, 'collection', collectionId);
+        try {
+            await updateDoc(collectionRef, {
+                data: data,
+            });
+        } catch (error) {}
+    };
+
+    const removeAllInCollection = async (collectionId) => {
+        const collectionRef = doc(db, 'films_saved', currentUser.uid, 'collection', collectionId);
+        try {
+            await updateDoc(collectionRef, {
+                data: [],
+            });
+        } catch (error) {}
+    };
+
     const removeFromAllFilm = async (filmId) => {
         setLoading(true);
 
         try {
             const allFilmRef = collection(db, 'films_saved', currentUser.uid, 'all_films');
 
-            onSnapshot(allFilmRef, async (snapshot) => {
-                const films = snapshot.docs.map((doc) => ({ film_id: doc.id, ...doc.data() }));
-                const filmIsRemovedId = films.find((film) => film.id === filmId).film_id;
+            const querySnapshot = await getDocs(allFilmRef);
+            const films = querySnapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() }));
 
-                await deleteDoc(
-                    doc(db, 'films_saved', currentUser.uid, 'all_films', filmIsRemovedId),
-                );
+            const filmIsRemovedId = films.find((film) => film.id === filmId)._id;
 
-                setLoading(false);
-            });
+            await deleteDoc(doc(db, 'films_saved', currentUser.uid, 'all_films', filmIsRemovedId));
+
+            setLoading(false);
         } catch (error) {
             console.log(error);
             setLoading(false);
         }
     };
+
+    const removeItemAllFilm = async () => {};
 
     const saveData = {
         saved,
@@ -197,6 +230,7 @@ function SaveProvider({ children }) {
         loading,
         allFilms,
         setSaved,
+        setLoading,
         setCollections,
         setCollectionInput,
         createCollection,
@@ -207,6 +241,9 @@ function SaveProvider({ children }) {
         removeFromCollection,
         removeFromAllFilm,
         getAllFilm,
+        removeAllInCollection,
+        removeItemInCollection,
+        deleteCollection,
     };
 
     return <SaveContext.Provider value={saveData}>{children}</SaveContext.Provider>;
