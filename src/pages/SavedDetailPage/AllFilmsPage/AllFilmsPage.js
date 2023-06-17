@@ -1,15 +1,13 @@
-import { collection, doc, getDoc, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { useContext, useEffect, useState } from 'react';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from 'src/firebase/firebase';
 
-import { useContext, useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { SaveContext } from 'src/context/SaveContext';
 import { UserContext } from 'src/context/UserContext';
 
-import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { BsCircle } from 'react-icons/bs';
-import { ModalContext } from 'src/context/ModalContext';
+
 import SaveDetail from 'src/components/SaveDetail';
-import { SaveContext } from 'src/context/SaveContext';
 
 function AllFilmsPage() {
     const [films, setFilms] = useState([]);
@@ -25,7 +23,6 @@ function AllFilmsPage() {
 
                 onSnapshot(q, (snapshot) => {
                     const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-                    console.log('data: ', data);
 
                     setFilms(data);
                     setLoading(false);

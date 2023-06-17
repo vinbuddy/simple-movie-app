@@ -67,13 +67,14 @@ function SavedPage() {
             <div className="save-header">
                 <GalleryHeader heading="Saved" headerStyles={{ marginBottom: 0 }} />
 
-                <button
+                <Button
+                    size="small"
+                    type="secondary"
                     onClick={() => handleShowModal('collection')}
-                    className="save-collection-btn"
+                    leftIcon={<AiOutlinePlus />}
                 >
-                    <AiOutlinePlus />
                     <span>Create collection</span>
-                </button>
+                </Button>
             </div>
 
             <div className="collections">

@@ -32,7 +32,7 @@ function LoginPage() {
     const { state } = useLocation();
     const navigate = useNavigate();
 
-    const userData = useContext(UserContext);
+    const currentUser = useContext(UserContext);
     const {
         authError,
         authLoading,
@@ -42,12 +42,12 @@ function LoginPage() {
     } = useContext(AuthContext);
 
     useEffect(() => {
-        if (userData) {
+        if (currentUser) {
             state?.prevPath ? navigate(state?.prevPath) : navigate('/');
         }
 
         document.title = 'Simple Movie App | Login';
-    }, [userData]);
+    }, [currentUser]);
 
     const switchErrorCode = () => {
         switch (authError) {

@@ -1,4 +1,4 @@
-import { doc, getDoc, orderBy, query } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'src/firebase/firebase';
 
 import { useContext, useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import { SaveDetail } from 'src/components/SaveDetail';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { BsCircle } from 'react-icons/bs';
 import { ModalContext } from 'src/context/ModalContext';
+import { SaveContext } from 'src/context/SaveContext';
 
 function CollectionPage() {
     const { collection: collectionName, id } = useParams();
@@ -16,6 +17,7 @@ function CollectionPage() {
 
     const currentUser = useContext(UserContext);
     const { handleShowModal } = useContext(ModalContext);
+    const { setLoading } = useContext(SaveContext);
 
     const menuItems = [
         {
@@ -45,6 +47,7 @@ function CollectionPage() {
     ];
 
     useEffect(() => {
+        setLoading(true);
         const getCollection = async () => {
             const ref = doc(db, 'films_saved', currentUser.uid, 'collection', id);
             const docSnap = await getDoc(ref);
@@ -53,8 +56,10 @@ function CollectionPage() {
                 const collection = docSnap.data();
 
                 setFilms(collection.data);
+                setLoading(false);
             } else {
                 console.log('No such document');
+                setLoading(false);
             }
         };
         getCollection();

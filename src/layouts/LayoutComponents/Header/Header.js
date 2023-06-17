@@ -87,9 +87,6 @@ function Header({ containerType = 'container', isNav = false }) {
                         {isNav && (
                             <ul className={cx('nav-list')}>
                                 <li className={cx('nav-item')}>
-                                    <Link to={config.routes.home}>Home</Link>
-                                </li>
-                                <li className={cx('nav-item')}>
                                     <Link to={config.routes.movies}>Movie</Link>
                                 </li>
                                 <li className={cx('nav-item')}>
@@ -97,6 +94,12 @@ function Header({ containerType = 'container', isNav = false }) {
                                 </li>
                                 <li className={cx('nav-item')}>
                                     <Link to={config.routes.search}>Search</Link>
+                                </li>
+                                <li className={cx('nav-item')}>
+                                    <Link to={config.routes.saved}>Saved</Link>
+                                </li>
+                                <li className={cx('nav-item')}>
+                                    <Link to={config.routes.profile}>Profile</Link>
                                 </li>
                             </ul>
                         )}

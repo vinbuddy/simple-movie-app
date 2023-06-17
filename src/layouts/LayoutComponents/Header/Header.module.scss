@@ -148,6 +148,12 @@
     }
 }
 
+@media (min-width: 992px) and (max-width: 1199px) {
+    .nav-list {
+        display: none;
+    }
+}
+
 // Mobile - Tablet
 @media (min-width: 250px) and (max-width: 991px) {
     .logo-wrapper {

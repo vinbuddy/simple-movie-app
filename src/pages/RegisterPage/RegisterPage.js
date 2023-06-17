@@ -27,14 +27,14 @@ function RegisterPage() {
     const userNameRef = useRef();
     const navigate = useNavigate();
 
-    const userData = useContext(UserContext);
+    const currentUser = useContext(UserContext);
     const { authError, authLoading, handleCreateAccount } = useContext(AuthContext);
 
     useEffect(() => {
-        if (userData) navigate('/', { replace: true }); // go back prev page
+        if (currentUser) navigate('/', { replace: true }); // go back prev page
 
         document.title = 'Simple Movie App | Register';
-    }, [userData]);
+    }, [currentUser]);
 
     const switchErrorCode = () => {
         switch (authError) {

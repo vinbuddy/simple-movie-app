@@ -125,7 +125,6 @@ function SaveProvider({ children }) {
         ).name;
 
         film.mediaType = mediaType;
-        film.createAt = serverTimestamp();
 
         try {
             await updateDoc(collectionRef, {

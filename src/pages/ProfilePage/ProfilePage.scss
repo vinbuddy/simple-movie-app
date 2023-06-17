@@ -3,6 +3,7 @@ $avatar-width-height: 175px;
 
 .profile-wrapper {
     margin-top: var(--header-height);
+    margin-bottom: 50px;
 }
 
 .profile-banner {
@@ -27,31 +28,46 @@ $avatar-width-height: 175px;
     border: 6px solid var(--app-background);
 }
 
+.profile-name-bar {
+    margin-top: calc($avatar-width-height / 2 + 20px);
+}
+
 .profile-name {
     color: var(--text-color);
     font-size: 3rem;
     font-weight: 600;
-    margin-top: calc($avatar-width-height / 2 + 20px);
     margin-left: 40px;
+    margin-bottom: 0;
 }
 
 .profile-info {
     margin-top: 40px;
+
+    section {
+        background-color: var(--profile-info-background);
+        box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+        border-radius: 10px;
+    }
 }
 
 .profile-intro {
-    padding: 12px;
+    padding: 16px;
+    & > div > a {
+        color: var(--primary);
+        &:hover {
+            color: var(--primary);
+        }
+    }
 }
 
 .profile-info-title {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     display: inline-block;
     color: #000;
     font-weight: 600;
     padding: 4px 8px;
     border-radius: 5px;
     background-color: var(--profile-title-info-background);
-    margin-bottom: 10px;
 }
 
 .profile-info-text {
@@ -61,8 +77,44 @@ $avatar-width-height: 175px;
     margin-bottom: 0;
 }
 
+.profile-info-icon {
+    // color: var(--text-nav);
+    margin-right: 4px;
+}
+
 .profile-email,
 .profile-position {
     color: var(--text-nav);
     // font-style: italic;
+}
+
+.edit-profile-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.edit-profile-upload {
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.edit-profile-info {
+    label {
+        color: var(--text-nav);
+        width: 120px;
+    }
+    input {
+        color: var(--input-color);
+        background-color: var(--input-background);
+        border: 2px solid transparent;
+        border-radius: 4px;
+        padding: 7px 10px;
+        margin-right: 5px;
+        flex: 1;
+
+        &:focus {
+            border-color: #ced4da;
+        }
+    }
 }

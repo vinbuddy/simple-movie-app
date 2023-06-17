@@ -224,6 +224,8 @@ function Search() {
                     <input
                         className={cx('search-input')}
                         ref={inputRef}
+                        name="search"
+                        autoComplete="nope"
                         value={searchValue.trimStart()}
                         spellCheck={false}
                         placeholder="Search movie, tv..."

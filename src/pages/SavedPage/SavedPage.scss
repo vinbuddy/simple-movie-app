@@ -4,19 +4,6 @@
     justify-content: space-between;
 }
 
-.save-collection-btn {
-    display: flex;
-    align-items: center;
-    background-color: var(--nav-background);
-    color: var(--text-color);
-    padding: 7px 10px;
-    border-radius: 8px;
-
-    span {
-        margin-left: 5px;
-    }
-}
-
 .collection-wrapper {
     position: relative;
 }
