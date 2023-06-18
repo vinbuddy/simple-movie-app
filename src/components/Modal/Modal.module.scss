@@ -20,6 +20,7 @@
 }
 
 .modal-wrapper {
+    position: relative;
     width: 570px;
     background-color: var(--app-background);
     padding: 20px;
@@ -35,6 +36,11 @@
     transform: scale(1);
     opacity: 1;
     visibility: visible;
+}
+
+// size
+.modal-wrapper.small {
+    width: 440px;
 }
 
 .modal-header {

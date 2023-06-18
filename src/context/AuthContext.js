@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 
 import {
     getAuth,
@@ -15,6 +15,7 @@ import {
 import { app } from 'src/firebase/firebase';
 
 import { toast } from 'react-toastify';
+import { UserContext } from './UserContext';
 
 const auth = getAuth();
 
@@ -23,6 +24,7 @@ const AuthContext = createContext();
 function AuthProvider({ children }) {
     const [authLoading, setAuthLoading] = useState(false);
     const [authError, setAuthError] = useState('');
+    const currentUser = useContext(UserContext);
 
     const googleProvider = new GoogleAuthProvider();
     const facebookProvider = new FacebookAuthProvider();
@@ -99,6 +101,44 @@ function AuthProvider({ children }) {
             });
     };
 
+    const handleUpdateProfile = async (
+        name = currentUser.displayName,
+        photo = currentUser?.photoURL,
+    ) => {
+        try {
+            await updateProfile(auth.currentUser, {
+                displayName: name,
+                photoURL: photo,
+            });
+
+            toast.success('Profile updated', {
+                position: toast.POSITION.BOTTOM_CENTER,
+            });
+        } catch (error) {
+            toast.error('Cannot update your profile', {
+                position: toast.POSITION.BOTTOM_CENTER,
+            });
+        }
+
+        // updateProfile(auth.currentUser, {
+        //     displayName: name,
+        //     photoURL: photo,
+        // })
+        //     .then(() => {
+        //         // Profile updated!
+        //         toast.success('Profile updated', {
+        //             position: toast.POSITION.BOTTOM_CENTER,
+        //         });
+        //         return true;
+        //     })
+        //     .catch((error) => {
+        //         toast.error('Cannot update your profile', {
+        //             position: toast.POSITION.BOTTOM_CENTER,
+        //         });
+        //         return false;
+        //     });
+    };
+
     const AuthData = {
         authLoading,
         authError,
@@ -108,6 +148,7 @@ function AuthProvider({ children }) {
         handleSignInFacebook,
         handleSignOut,
         handleResetPassword,
+        handleUpdateProfile,
     };
 
     return <AuthContext.Provider value={AuthData}>{children}</AuthContext.Provider>;

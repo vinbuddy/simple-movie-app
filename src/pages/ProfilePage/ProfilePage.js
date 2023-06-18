@@ -9,21 +9,27 @@ import images from 'src/assets/images';
 import { Image } from 'src/components/Image';
 import { SaveContext } from 'src/context/SaveContext';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { db } from 'src/firebase/firebase';
+import { db, storage } from 'src/firebase/firebase';
 import GalleryItem from 'src/components/Gallery/GalleryItem';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'src/components/Button';
 import { Modal } from 'src/components/Modal';
 import { ModalContext } from 'src/context/ModalContext';
+import { AuthContext } from 'src/context/AuthContext';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { CgSpinnerTwoAlt } from 'react-icons/cg';
 
 function ProfilePage() {
-    const { setLoading } = useContext(SaveContext);
     const currentUser = useContext(UserContext);
+    const { handleUpdateProfile } = useContext(AuthContext);
+    const { setLoading } = useContext(SaveContext);
     const { showModal, modalName, handleShowModal, handleHideModal } = useContext(ModalContext);
 
     const [films, setFilms] = useState([]);
     const [previewAvatar, setPreviewAvatar] = useState(null);
-    const [editName, setEditName] = useState(currentUser?.displayName);
+    const [name, setName] = useState(currentUser?.displayName);
+    const [editLoading, setEditLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getFilms = async () => {
@@ -58,20 +64,48 @@ function ProfilePage() {
 
     const handlePreviewAvatar = (e) => {
         const file = e.target.files[0];
-
-        // Create local url img
         file.url = URL.createObjectURL(file);
 
         setPreviewAvatar(file);
     };
 
-    const handleEditProfile = () => {};
+    const handleHideEditProfileModal = () => {
+        // Reset
+        setName(currentUser.displayName);
+        setPreviewAvatar(null);
 
-    const handleHideEditProfileModal = () => {};
+        handleHideModal();
+    };
+
+    const submitEditProfile = async () => {
+        setEditLoading(true);
+
+        if (previewAvatar) {
+            const avatarRef = ref(
+                storage,
+                `images/${currentUser.uid}/avatar/${Date.now()}${previewAvatar.name}`,
+            );
+            await uploadBytes(avatarRef, previewAvatar);
+            const avatarURL = await getDownloadURL(avatarRef);
+
+            await handleUpdateProfile(name, avatarURL);
+        } else {
+            await handleUpdateProfile(name);
+        }
+
+        handleHideModal();
+        setEditLoading(false);
+        navigate(0);
+    };
 
     return (
         <div className="profile-wrapper">
-            <Modal show={showModal && modalName === 'edit-profile'} title="Edit profile">
+            <Modal
+                size="small"
+                onHideModal={handleHideEditProfileModal}
+                show={showModal && modalName === 'edit-profile'}
+                title="Edit profile"
+            >
                 <div className="d-flex align-items-center justify-content-center flex-column">
                     <Image
                         lazy={false}
@@ -99,24 +133,25 @@ function ProfilePage() {
                     <div className="d-flex align-items-center mb-4">
                         <label>Name</label>
                         <input
-                            value={editName}
-                            onChange={(e) => setEditName(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             name="name"
-                            defaultValue={currentUser.displayName}
                             type="text"
                         />
-                    </div>
-                    <div className="d-flex align-items-center mb-4">
-                        <label>New password</label>
-                        <input autoComplete="new-password" type="password" />
                     </div>
                 </div>
 
                 <footer className="mt-4 d-flex align-items-center justify-content-end">
-                    <Button onClick={handleHideModal} type="no-outline">
+                    <Button onClick={handleHideEditProfileModal} type="no-outline">
                         Cancel
                     </Button>
-                    <Button type="primary">Change</Button>
+                    <Button
+                        disabled={name === currentUser.displayName && !!previewAvatar === false}
+                        onClick={submitEditProfile}
+                        type="primary"
+                    >
+                        {editLoading ? <CgSpinnerTwoAlt className="spin" /> : 'Change'}
+                    </Button>
                 </footer>
             </Modal>
 
@@ -133,7 +168,7 @@ function ProfilePage() {
                 />
             </div>
 
-            <div className="profile-name-bar d-flex align-items-center justify-content-between">
+            <div className="profile-name-bar">
                 <h3 className="profile-name">{currentUser?.displayName}</h3>
                 <Button
                     onClick={() => handleShowModal('edit-profile')}
@@ -147,7 +182,7 @@ function ProfilePage() {
 
             <section className="profile-info">
                 <div className="row align-items-start">
-                    <div className="col-lg-4 col-md-12 col-sm-12 col-12 col-md-4 mb-4">
+                    <div className="col-lg-4 col-md-12 col-sm-12 col-12 col-md-4 mb-2">
                         <div className="row">
                             <div className="col-lg-12 mb-4">
                                 <section className="profile-intro">
@@ -169,7 +204,7 @@ function ProfilePage() {
                             </div>
                             <div className="col-lg-12 mb-4">
                                 <section className="profile-intro">
-                                    <h3 className="profile-info-title mb-4">User information</h3>
+                                    <h3 className="profile-info-title mb-4">Account</h3>
 
                                     <p className="profile-info-text mb-2">
                                         <AiOutlineMail className="profile-info-icon" /> &nbsp;

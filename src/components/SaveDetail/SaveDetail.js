@@ -34,7 +34,6 @@ function SaveDetail({
     ...props
 }) {
     const [showMenu, setShowMenu] = useState(false);
-    const [isUpdated, setIsUpdated] = useState(false);
     const [checked, setChecked] = useState([]);
     const [collectionSaved, setCollectionSaved] = useState([]);
     const [showCheck, setShowCheck] = useState(false);
@@ -79,20 +78,16 @@ function SaveDetail({
     }, [showMenu]);
 
     const handleHideUpdateModal = () => {
-        setIsUpdated(false);
-
         // Cancel
-        if (!isUpdated && updateColInput !== collectionName) {
-            setUpdateColInput(collectionName);
-        }
+        setUpdateColInput(collectionName);
 
         handleHideModal();
     };
 
     const handleUpdateCollection = () => {
         const result = updateCollectionName(collectionId, updateColInput.trim());
+
         if (result) {
-            setIsUpdated(true);
             navigate(`/saved/${updateColInput}/${collectionId}`, { replace: true });
             handleHideUpdateModal();
         }

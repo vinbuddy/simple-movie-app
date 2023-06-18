@@ -8,7 +8,7 @@ import { useContext } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Modal({ title, show, children, onHideModal }) {
+function Modal({ size = 'medium', title, show, children, onHideModal }) {
     const { handleHideModal } = useContext(ModalContext);
 
     return (
@@ -22,6 +22,7 @@ function Modal({ title, show, children, onHideModal }) {
                 onClick={(e) => e.stopPropagation()}
                 className={cx('modal-wrapper', {
                     show: show,
+                    [size]: size,
                 })}
             >
                 <header className={cx('modal-header')}>
