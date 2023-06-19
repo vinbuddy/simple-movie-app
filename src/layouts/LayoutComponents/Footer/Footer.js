@@ -9,22 +9,22 @@ function Footer() {
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className="pt-4 pb-4 d-flex align-items-center justify-content-between">
-                    <p>© 2023 Copyright: Simple Movie App</p>
+                    <p>© Simple Movie App</p>
                     <ul className={cx('social-list')}>
                         <li className="me-4">
-                            <Link to="">
+                            <a target="_blank" href="https://www.facebook.com/iamvinhhuynh">
                                 <FaFacebookF />
-                            </Link>
+                            </a>
                         </li>
                         <li className="me-4">
-                            <Link to="">
+                            <a target="_blank" href="https://www.instagram.com/vermon.js/">
                                 <FaInstagram />
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link to="">
+                            <a target="_blank" href="https://github.com/vinbuddy">
                                 <FaGithub />
-                            </Link>
+                            </a>
                         </li>
                     </ul>
                 </div>
