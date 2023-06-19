@@ -79,7 +79,7 @@ function SavedPage() {
 
             <div className="collections">
                 <div className="row">
-                    <div className="col-lg-4 col-md-4 col-sm-6 col-6 mb-4">
+                    <div className="col-lg-4 col-md-4 col-sm-6 col-12 mb-4">
                         <Link to={config.routes.allFilms}>
                             <div className="collection-item">
                                 <div className="collection-preview all-films">

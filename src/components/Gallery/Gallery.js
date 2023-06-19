@@ -38,10 +38,10 @@ function Gallery({ data, mediaType, stateHeading, heading, rightIcon }) {
     }, []);
 
     return (
-        <div className={cx('col-12 col-lg-12 col-md-12 col-sm-12', 'gallery-wrapper')}>
+        <div className={cx('gallery-wrapper')}>
             {stateHeading && <GalleryHeader heading={heading} rightIcon={rightIcon} />}
 
-            <div className={cx('col-12 col-lg-12 col-md-12 col-sm-12')}>
+            <div className="col-12 col-lg-12 col-md-12 col-sm-12">
                 <ViewportList items={rowGallery}>
                     {(item, index) => {
                         return (
@@ -49,7 +49,7 @@ function Gallery({ data, mediaType, stateHeading, heading, rightIcon }) {
                                 {item.row.map((colItem, colIndex) => (
                                     <div
                                         key={colIndex}
-                                        className="col-md-1-5 col-md-4 col-sm-6 col-6 pb-4 d-block"
+                                        className="col-xl-1-5 col-md-1-5 col-md-6 col-sm-6 col-6 pb-4 d-block"
                                     >
                                         <GalleryItem mediaType={mediaType} data={colItem} />
                                     </div>

@@ -75,8 +75,8 @@ function Watch({ mediaType = 'movie', id, recommend, detail = {} }) {
                                     className={cx('watch-embed')}
                                     src={
                                         mediaType === 'movie'
-                                            ? `https://www.2embed.to/embed/tmdb/${mediaType}?id=${id}`
-                                            : `https://www.2embed.to/embed/tmdb/${mediaType}?id=${id}&s=${currentSeason}&e=${currentEpisode}`
+                                            ? `https://www.2embed.cc/embed/${id}`
+                                            : `https://www.2embed.cc/embed/tmdb/${mediaType}?id=${id}&s=${currentSeason}&e=${currentEpisode}`
                                     }
                                 ></iframe>
                             )}

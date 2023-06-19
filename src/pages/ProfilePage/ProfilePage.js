@@ -182,7 +182,7 @@ function ProfilePage() {
 
             <section className="profile-info">
                 <div className="row align-items-start">
-                    <div className="col-lg-4 col-md-12 col-sm-12 col-12 col-md-4 mb-2">
+                    <div className="col-lg-4 col-md-12 col-sm-12 col-12 col-md-4">
                         <div className="row">
                             <div className="col-lg-12 mb-4">
                                 <section className="profile-intro">
@@ -220,7 +220,7 @@ function ProfilePage() {
                     </div>
                     <div className="col-lg-8 col-md-12 col-sm-12 col-12">
                         <section className="profile-movie-watched">
-                            <section className="profile-intro">
+                            <div className="profile-intro">
                                 <div className="d-flex align-items-center justify-content-between mb-4">
                                     <h3 className="profile-info-title">Films Saved</h3>
                                     <Link to="/saved">Saved page</Link>
@@ -238,7 +238,7 @@ function ProfilePage() {
 
                                     {films.length <= 0 && <p>No saved</p>}
                                 </div>
-                            </section>
+                            </div>
                         </section>
                     </div>
                 </div>
