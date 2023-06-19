@@ -14,7 +14,7 @@ import { PrivateRoute } from './components/PrivateRoute';
 
 function App() {
     return (
-        <Router basename="/simple-movie-app">
+        <Router>
             <div className="app">
                 {/* Scroll to top */}
                 <ToastContainer limit={1} hideProgressBar pauseOnHover={false} />
