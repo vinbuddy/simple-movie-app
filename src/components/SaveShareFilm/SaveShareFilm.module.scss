@@ -112,3 +112,11 @@
     display: flex;
     justify-content: flex-end;
 }
+
+@media (max-width: 992px) {
+    .save-actions {
+        &.save-actions-film-info {
+            flex-direction: column;
+        }
+    }
+}

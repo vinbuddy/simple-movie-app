@@ -33,5 +33,5 @@
 
 ## Live demo
 
--   Demo 👉 [https://vinbuddy.github.io/simple-movie-app/](https://vinbuddy.github.io/simple-movie-app/)
+-   Demo 👉 [https://simple-movie-application.netlify.app/](https://simple-movie-application.netlify.app/)
 -   Thanks for visting. Don't forget to give me a star ⭐

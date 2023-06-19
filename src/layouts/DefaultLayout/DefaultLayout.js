@@ -9,6 +9,7 @@ import Sidebar from '../LayoutComponents/Sidebar';
 import GoTopButton from 'src/components/ScrollToTop/GoTopButton';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { Footer } from '../LayoutComponents/Footer';
 
 const cx = classNames.bind(styles);
 
@@ -45,7 +46,9 @@ function DefaultLayout({ children }) {
                     </div>
                 </div>
             </div>
-            <footer></footer>
+            <footer>
+                <Footer />
+            </footer>
         </div>
     );
 }

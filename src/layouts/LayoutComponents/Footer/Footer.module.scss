@@ -1,0 +1,23 @@
+.wrapper {
+    background-color: var(--nav-background);
+
+    a,
+    p {
+        color: var(--text-color);
+        margin-bottom: 0;
+    }
+}
+
+.social-list {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+
+    a {
+        font-size: 2.2rem;
+
+        &:hover {
+            color: var(--primary);
+        }
+    }
+}

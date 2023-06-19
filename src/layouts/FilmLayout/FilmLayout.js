@@ -11,6 +11,7 @@ import GoTopButton from 'src/components/ScrollToTop/GoTopButton';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Footer } from '../LayoutComponents/Footer';
 
 const cx = classNames.bind(styles);
 
@@ -43,10 +44,10 @@ function DefaultLayout({ children }) {
                 <div className={cx('go-top-btn')}>
                     <GoTopButton onClick={handleGoTop} />
                 </div>
-                {/* <div className={cx('inner')}>
-                </div> */}
             </div>
-            {/* <footer style={{ height: 300, background: '#000' }}></footer> */}
+            <footer>
+                <Footer />
+            </footer>
         </div>
     );
 }

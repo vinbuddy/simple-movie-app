@@ -315,17 +315,19 @@ function SaveShareFilm(
                     )}
                 >
                     <div ref={ref} {...props} className={cx('save-actions', className)}>
-                        <button
-                            style={{ top: -1 }}
-                            onClick={handleShowSavePopper}
-                            className={cx('save-actions-btn')}
-                        >
-                            {saved ? (
-                                <BsBookmarkFill className={cx('save-active')} />
-                            ) : (
-                                <BsBookmark />
-                            )}
-                        </button>
+                        {currentUser && (
+                            <button
+                                style={{ top: -1 }}
+                                onClick={handleShowSavePopper}
+                                className={cx('save-actions-btn')}
+                            >
+                                {saved ? (
+                                    <BsBookmarkFill className={cx('save-active')} />
+                                ) : (
+                                    <BsBookmark />
+                                )}
+                            </button>
+                        )}
                         {shareBtn && (
                             <button
                                 onClick={() => handleShowModal('share')}

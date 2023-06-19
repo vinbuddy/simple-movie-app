@@ -111,7 +111,7 @@ function FilmInfo({
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY >= 350) {
+            if (window.scrollY >= 100) {
                 setShowSaveShare(false);
             } else {
                 setShowSaveShare(true);
