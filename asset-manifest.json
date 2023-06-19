@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/simple-movie-app/static/css/main.cc60241c.css",
+    "main.js": "/simple-movie-app/static/js/main.33a904ff.js",
+    "static/js/787.5fb25d9e.chunk.js": "/simple-movie-app/static/js/787.5fb25d9e.chunk.js",
+    "static/media/fallback-background.png": "/simple-movie-app/static/media/fallback-background.73d695cfeb31663cd9b7.png",
+    "static/media/profile-background.png": "/simple-movie-app/static/media/profile-background.513505dc461b717a865d.png",
+    "static/media/man-remote.png": "/simple-movie-app/static/media/man-remote.f03b17f535b50c4ab510.png",
+    "static/media/glasses.png": "/simple-movie-app/static/media/glasses.940c72937e57df5cdbd6.png",
+    "static/media/notFoundBackground.mp4": "/simple-movie-app/static/media/notFoundBackground.435eb4ccfca9a4d4ae66.mp4",
+    "static/media/telescope.png": "/simple-movie-app/static/media/telescope.636556d8dd4f491f8d10.png",
+    "static/media/fallback.png": "/simple-movie-app/static/media/fallback.4d1dba3d8f0a3d9f693e.png",
+    "static/media/noResult.png": "/simple-movie-app/static/media/noResult.47d2194488cf0ff46843.png",
+    "static/media/logo.png": "/simple-movie-app/static/media/logo.5a6a6c5df5f4663f4b42.png",
+    "static/media/google.png": "/simple-movie-app/static/media/google.e12914ad8afda3f6f2e8.png",
+    "static/media/facebook.png": "/simple-movie-app/static/media/facebook.01a470d813915c298403.png",
+    "static/media/poster-placeholder.png": "/simple-movie-app/static/media/poster-placeholder.5ed52dd9ba109c67f160.png",
+    "index.html": "/simple-movie-app/index.html",
+    "main.cc60241c.css.map": "/simple-movie-app/static/css/main.cc60241c.css.map",
+    "main.33a904ff.js.map": "/simple-movie-app/static/js/main.33a904ff.js.map",
+    "787.5fb25d9e.chunk.js.map": "/simple-movie-app/static/js/787.5fb25d9e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cc60241c.css",
+    "static/js/main.33a904ff.js"
+  ]
+}
