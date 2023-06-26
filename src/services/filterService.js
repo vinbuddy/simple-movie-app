@@ -7,7 +7,7 @@ export const loadFilterData = async (
     pageNum = 1,
 ) => {
     try {
-        const res = await httpRequest.get(`discover/${mediaType}/`, {
+        const res = await httpRequest.get(`discover/${mediaType}`, {
             params: {
                 api_key: process.env.REACT_APP_API_KEY,
                 with_genres: genreIds,
@@ -30,7 +30,7 @@ export const loadMoreFilter = async (
     pageNum = 1,
 ) => {
     try {
-        const res = await httpRequest.get(`discover/${mediaType}/`, {
+        const res = await httpRequest.get(`discover/${mediaType}`, {
             params: {
                 api_key: process.env.REACT_APP_API_KEY,
                 with_genres: genreIds,
