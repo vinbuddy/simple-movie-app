@@ -17,7 +17,7 @@ function SwipeCardItem({ data, pageNumber, totalPage }) {
                     className={cx('card-item-info')}
                 >
                     <div className={cx('card-item-thumb')}>
-                        <Image src={data?.multimedia[0].url} alt="News image" />
+                        <Image src={data?.multimedia[0]?.url} alt="News image" />
                     </div>
 
                     <p className={cx('card-item-heading')}>
