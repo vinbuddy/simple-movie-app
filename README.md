@@ -1,6 +1,6 @@
 # Simple Movie App
+![373_1x_shots_so](https://github.com/user-attachments/assets/6b1cc33f-5388-45c2-8619-6f8d7f7f1b82)
 
-![App](/src/assets/images/SMA.png)
 
 ## Tech stack
 -   ReactJS
